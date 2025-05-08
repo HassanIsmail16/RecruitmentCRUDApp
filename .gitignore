@@ -1,0 +1,65 @@
+# Build results
+bin/
+obj/
+*.exe
+*.dll
+*.pdb
+
+# VS build folders and temporary files
+*.user
+*.suo
+*.cache
+*.log
+*.tlog
+*.VC.db
+*.VC.opendb
+
+# ASP.NET/ADO.NET temp and debug artifacts
+*.dbmdl
+*.bak
+*.mdf
+*.ldf
+
+# NuGet
+*.nupkg
+# The packages folder can be ignored unless you commit your packages
+**/packages/*
+!**/packages/build/
+!**/packages/repositories.config
+
+# Visual Studio settings
+.vs/
+.vscode/
+*.DotSettings.user
+
+# Rider settings
+.idea/
+
+# Resharper files
+_ReSharper*/
+*.DotSettings
+
+# Windows image thumbnails
+Thumbs.db
+
+# User-specific files
+*.userprefs
+
+# Logs
+*.log
+
+# Other common artifacts
+*.TestResults
+TestResults/
+*.tmp
+*.temp
+
+# Publish folder
+publish/
+
+# JetBrains Rider and IDE helpers
+.idea/
+*.sln.iml
+
+# MacOS metadata (if repo is edited on Mac)
+.DS_Store
