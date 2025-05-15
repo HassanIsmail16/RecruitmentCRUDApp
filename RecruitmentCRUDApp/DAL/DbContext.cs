@@ -25,6 +25,7 @@ namespace DAL
             //}
         }
 
+        // For SELECT operations
         public async Task<DataTable> ExecuteQueryAsync(
             string commandText,
             SqlParameter[] parameters = null,
@@ -40,6 +41,7 @@ namespace DAL
             return dataTable;
         }
 
+        // Executes a SQL command and returns a single scalar value, useful for COUNT(*) queries or retrieving single values.
         public async Task<object?> ExecuteScalarAsync(string sql, SqlParameter[] parameters = null, SqlTransaction transaction = null)
         {
             await using SqlConnection connection = await GetOpenConnectionAsync(transaction);
@@ -47,6 +49,7 @@ namespace DAL
             return await command.ExecuteScalarAsync();
         }
 
+        // For INSERT, UPDATE, DELETE operations.
         public async Task<int> ExecuteNonQueryAsync(
             string commandText,
             SqlParameter[] parameters = null,
@@ -57,12 +60,14 @@ namespace DAL
             await using SqlCommand command = CreateCommand(commandText, parameters, connection, transaction, commandType);
             return await command.ExecuteNonQueryAsync();
         }
+
         public async Task<SqlTransaction> BeginTransactionAsync()
         {
             await using SqlConnection connection = new SqlConnection(connectionString);
             await connection.OpenAsync();
             return connection.BeginTransaction();
         }
+
         private async Task<SqlConnection> GetOpenConnectionAsync(SqlTransaction transaction)
         {
             if (transaction != null) 
