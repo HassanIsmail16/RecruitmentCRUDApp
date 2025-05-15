@@ -1,4 +1,5 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using Azure.Identity;
+using Microsoft.Data.SqlClient;
 using Microsoft.Identity.Client;
 using System;
 using System.Collections.Generic;
@@ -24,28 +25,16 @@ namespace DAL
             //}
         }
 
-        // ========== TRANSACTION MANAGEMENT ========== //
-        public async Task<SqlTransaction> BeginTransactionAsync()
-        {
-            await using SqlConnection connection = new SqlConnection(connectionString);
-            await connection.OpenAsync();
-            return connection.BeginTransaction();
-        }
-
-        // ========== CORE ASYNC METHODS ========== //
-        public async Task<int> ExecuteNonQueryAsync(string sql, SqlParameter[] parameters = null, SqlTransaction transaction = null)
+        public async Task<DataTable> ExecuteQueryAsync(
+            string commandText,
+            SqlParameter[] parameters = null,
+            SqlTransaction transaction = null,
+            CommandType commandType = CommandType.Text) // Set to CommandType.StoredProcedure if the commandText is a Stored Procedure
         {
             await using SqlConnection connection = await GetOpenConnectionAsync(transaction);
-            await using SqlCommand command = CreateCommand(sql, parameters, connection, transaction);
-            return await command.ExecuteNonQueryAsync();
-        }
-
-        public async Task<DataTable> ExecuteQueryAsync(string sql, SqlParameter[] parameters = null, SqlTransaction transaction = null)
-        {
-            await using SqlConnection connection = await GetOpenConnectionAsync(transaction);
-            await using SqlCommand command = CreateCommand(sql, parameters, connection, transaction);
-
+            await using SqlCommand command = CreateCommand(commandText, parameters, connection, transaction, commandType);
             using SqlDataAdapter adapter = new SqlDataAdapter(command);
+
             DataTable dataTable = new DataTable();
             await Task.Run(() => adapter.Fill(dataTable));
             return dataTable;
@@ -58,26 +47,22 @@ namespace DAL
             return await command.ExecuteScalarAsync();
         }
 
-        // ========== STORED PROCEDURES ========== //
-        public async Task<DataTable> ExecuteStoredProcedureQueryAsync(string procedureName, SqlParameter[] parameters = null, SqlTransaction transaction = null)
+        public async Task<int> ExecuteNonQueryAsync(
+            string commandText,
+            SqlParameter[] parameters = null,
+            SqlTransaction transaction = null,
+            CommandType commandType = CommandType.Text) // Set to CommandType.StoredProcedure if the commandText is a Stored Procedure
         {
             await using SqlConnection connection = await GetOpenConnectionAsync(transaction);
-            await using SqlCommand command = CreateCommand(procedureName, parameters, connection, transaction, CommandType.StoredProcedure);
-            using SqlDataAdapter adapter = new SqlDataAdapter(command);
-
-            DataTable dataTable = new DataTable();
-            await Task.Run(() => adapter.Fill(dataTable));
-            return dataTable;
-        }
-
-        public async Task<int> ExecuteStoredProcedureAsync(string procedureName, SqlParameter[] parameters = null, SqlTransaction transaction = null)
-        {
-            await using var connection = await GetOpenConnectionAsync(transaction);
-            await using var command = CreateCommand(procedureName, parameters, connection, transaction, CommandType.StoredProcedure);
+            await using SqlCommand command = CreateCommand(commandText, parameters, connection, transaction, commandType);
             return await command.ExecuteNonQueryAsync();
         }
-
-        // ========== HELPER METHODS ========== //
+        public async Task<SqlTransaction> BeginTransactionAsync()
+        {
+            await using SqlConnection connection = new SqlConnection(connectionString);
+            await connection.OpenAsync();
+            return connection.BeginTransaction();
+        }
         private async Task<SqlConnection> GetOpenConnectionAsync(SqlTransaction transaction)
         {
             if (transaction != null) 
