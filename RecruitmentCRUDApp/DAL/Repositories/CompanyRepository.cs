@@ -14,19 +14,19 @@ namespace DAL.Repositories
         {
         }
 
-        public Task<IQueryable<Company>> GetCompaniesByManagerIdAsync(int managerId)
+        public async Task<IQueryable<Company>> GetCompaniesByManagerIdAsync(int managerId)
         {
-            throw new NotImplementedException();
+            return await Task.Run(() => context.Companies.Where(c => c.ManagerId == managerId).AsQueryable());
         }
 
-        public Task<IQueryable<Employer>> GetEmployersForCompanyAsync(int companyId)
+        public async Task<IQueryable<Employer>> GetEmployersForCompanyAsync(int companyId)
         {
-            throw new NotImplementedException();
+            return await Task.Run(() => context.Employers.Where(e => e.CompanyId == companyId).AsQueryable());
         }
 
-        public Task<IQueryable<Vacancy>> GetVacanciesForCompanyAsync(int companyId)
+        public async Task<IQueryable<Vacancy>> GetVacanciesForCompanyAsync(int companyId)
         {
-            throw new NotImplementedException();
+            return await Task.Run(() => context.Vacancies.Where(v => v.CompanyId == companyId).AsQueryable());
         }
     }
 }

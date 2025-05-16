@@ -1,7 +1,9 @@
 ﻿using DAL.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,19 +16,19 @@ namespace DAL.Repositories
         {
         }
 
-        public Task<Employer> GetByUserIdAsync(int userId)
+        public async Task<Employer> GetByUserIdAsync(int userId)
         {
-            throw new NotImplementedException();
+            return await context.Employers.FirstOrDefaultAsync(e => e.UserId == userId);
         }
 
-        public Task<IQueryable<JobApplication>> GetJobApplicationsForEmployerAsync(int employerId)
+        public async Task<IQueryable<JobApplication>> GetJobApplicationsForEmployerAsync(int employerId)
         {
-            throw new NotImplementedException();
+            return await Task.Run(() => context.JobApplications.Where(ja => ja.EmployerId == employerId).AsQueryable());
         }
 
-        public Task<IQueryable<Vacancy>> GetVacanciesPostedByEmployerAsync(int employerId)
+        public async Task<IQueryable<Vacancy>> GetVacanciesPostedByEmployerAsync(int employerId)
         {
-            throw new NotImplementedException();
+            return await Task.Run(() => context.Vacancies.Where(v => v.EmployerId == employerId).AsQueryable());
         }
     }
 }
