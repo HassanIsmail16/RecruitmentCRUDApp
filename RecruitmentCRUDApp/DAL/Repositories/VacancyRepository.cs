@@ -10,6 +10,10 @@ namespace DAL.Repositories
 {
     public class VacancyRepository : Repository<Vacancy>, IVacancyRepository
     {
+        public VacancyRepository(RecruitmentContext context) : base(context)
+        {
+        }
+
         public Task<IQueryable<JobApplication>> GetApplicationsForVacancyAsync(int vacancyId)
         {
             throw new NotImplementedException();

@@ -21,11 +21,12 @@ namespace RecruitmentApplication.Views
         private INavigation navigation;
         public MainForm()
         {
+            RecruitmentContext databaseContext = new RecruitmentContext();
             InitializeComponent();
             navigation = new Navigation(centralPanel);
 
             navigation.RegisterView<JobsControl, JobsController>(
-                () => new JobsController(new VacancyRepository()));
+                () => new JobsController(new VacancyRepository(databaseContext)));
 
             navigation.NavigateTo<JobsControl>();
         }

@@ -10,6 +10,10 @@ namespace DAL.Repositories
 {
     public class CompanyRepository : Repository<Company>, ICompanyRepository
     {
+        public CompanyRepository(RecruitmentContext context) : base(context)
+        {
+        }
+
         public Task<IQueryable<Company>> GetCompaniesByManagerIdAsync(int managerId)
         {
             throw new NotImplementedException();

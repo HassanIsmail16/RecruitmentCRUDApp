@@ -1,4 +1,5 @@
 ﻿using DAL.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,34 +10,48 @@ namespace DAL.Repositories
 {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
-        public Task<TEntity> AddAsync(TEntity entity)
+        protected readonly RecruitmentContext context;
+
+        public Repository(RecruitmentContext context)
         {
-            throw new NotImplementedException();
+            this.context = context;
         }
 
-        public Task DeleteByIdAsync(int id)
+        public async Task<IQueryable<TEntity>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await Task.Run(() => context.Set<TEntity>().AsQueryable());
         }
 
-        public Task<bool> ExistsAsync(int id)
+        public async Task<TEntity> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await context.Set<TEntity>().FindAsync(id);
         }
 
-        public Task<IQueryable<TEntity>> GetAllAsync()
+        public async Task AddAsync(TEntity entity)
         {
-            throw new NotImplementedException();
+            await context.Set<TEntity>().AddAsync(entity);
+            await context.SaveChangesAsync();
         }
 
-        public Task<TEntity> GetByIdAsync(int id)
+        public async Task UpdateAsync(TEntity entity)
         {
-            throw new NotImplementedException();
+            context.Entry(entity).State = EntityState.Modified;
+            await context.SaveChangesAsync();
+
+        }
+        public async Task DeleteByIdAsync(int id)
+        {
+            var entity = await GetByIdAsync(id);
+            if (entity != null)
+            {
+                context.Set<TEntity>().Remove(entity);
+                await context.SaveChangesAsync();
+            }
         }
 
-        public Task UpdateAsync(TEntity entity)
+        public async Task<bool> ExistsAsync(int id)
         {
-            throw new NotImplementedException();
+            return await GetByIdAsync(id) != null;
         }
     }
 }

@@ -10,6 +10,10 @@ namespace DAL.Repositories
 {
     public class JobApplicationRepository : Repository<JobApplication>, IJobApplicationRepository
     {
+        public JobApplicationRepository(RecruitmentContext context) : base(context)
+        {
+        }
+
         public Task<IQueryable<JobApplication>> GetApplicationsByDateRangeAsync(DateTime startDate, DateTime endDate)
         {
             throw new NotImplementedException();

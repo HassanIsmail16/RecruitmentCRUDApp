@@ -10,6 +10,10 @@ namespace DAL.Repositories
 {
     public class JobSeekerRepository : Repository<JobSeeker>, IJobSeekerRepository
     {
+        public JobSeekerRepository(RecruitmentContext context) : base(context)
+        {
+        }
+
         public Task<JobSeeker> AddAsync(JobSeeker entity)
         {
             throw new NotImplementedException();

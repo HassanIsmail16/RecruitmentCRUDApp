@@ -11,6 +11,10 @@ namespace DAL.Repositories
 {
     public class UserRepository : Repository<User>, IUserRepository
     {
+        public UserRepository(RecruitmentContext context) : base(context)
+        {
+        }
+
         public Task<User> GetByEmailAsync(string email)
         {
             throw new NotImplementedException();

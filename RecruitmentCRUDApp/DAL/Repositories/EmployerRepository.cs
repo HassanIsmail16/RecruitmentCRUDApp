@@ -10,6 +10,10 @@ namespace DAL.Repositories
 {
     public class EmployerRepository : Repository<Employer>, IEmployerRepository
     {
+        public EmployerRepository(RecruitmentContext context) : base(context)
+        {
+        }
+
         public Task<Employer> GetByUserIdAsync(int userId)
         {
             throw new NotImplementedException();

@@ -10,6 +10,10 @@ namespace DAL.Repositories
 {
     public class SavedJobRepository : Repository<SavedJob>, ISavedJobRepository
     {
+        public SavedJobRepository(RecruitmentContext context) : base(context)
+        {
+        }
+
         public Task<IQueryable<SavedJob>> GetByJobSeekerIdAsync(int jobSeekerId)
         {
             throw new NotImplementedException();
