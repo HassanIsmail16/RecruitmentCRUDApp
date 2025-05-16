@@ -32,6 +32,10 @@ namespace RecruitmentApplication.Controllers
             {
                 new Vacancy(),
                 new Vacancy(),
+                new Vacancy(),
+                new Vacancy(),
+                new Vacancy(),
+                new Vacancy(),
                 new Vacancy()
             }; // TODO: fetch real data from repository
             view.RenderVacancies(vacancies);
