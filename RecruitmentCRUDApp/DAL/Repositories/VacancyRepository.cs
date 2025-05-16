@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DAL.Repositories
 {
-    public class VacancyRepository
+    public class VacancyRepository : IVacancyRepository
     {
     }
 }

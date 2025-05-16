@@ -24,8 +24,8 @@ namespace RecruitmentApplication.Views
             InitializeComponent();
             navigation = new Navigation(centralPanel);
 
-            //navigation.RegisterView<JobsControl, JobsController>(
-            //    () => new JobsController(new VacancyRepository()));
+            navigation.RegisterView<JobsControl, JobsController>(
+                () => new JobsController(new VacancyRepository()));
 
             navigation.NavigateTo<JobsControl>();
         }
