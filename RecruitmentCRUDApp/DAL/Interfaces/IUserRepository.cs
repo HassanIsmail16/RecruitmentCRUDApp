@@ -14,5 +14,7 @@ namespace DAL.Interfaces
         Task<IQueryable<User>> GetBySignupDateRangeAsync(DateTime startDate, DateTime endDate);
         Task<bool> IsEmailUniqueAsync(string email);
         Task UpdatePasswordAsync(int userId, string password);
+
+        Task<bool> IsPasswordCorrect(string email, string password);
     }
 }

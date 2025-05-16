@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace RecruitmentApplication.Views
 {
-    public partial class PostJobControl : UserControl
+    public partial class JobDetailsForm : Form
     {
-        public PostJobControl()
+        public JobDetailsForm()
         {
             InitializeComponent();
         }

@@ -13,6 +13,20 @@ namespace RecruitmentApplication.Views
 {
     public partial class frmLogin : Form
     {
+        public class LoginEventArgs : EventArgs
+        {
+            public string Email { get; }
+            public string Password { get; }
+
+            public LoginEventArgs(string email, string password)
+            {
+                Email = email;
+                Password = password;
+            }
+        }
+
+        public event EventHandler<LoginEventArgs> OnLogin;
+
         private static frmSignup signupForm;
 
         public frmLogin()
@@ -33,6 +47,13 @@ namespace RecruitmentApplication.Views
 
             // hide this form
             this.Hide();
+        }
+
+        private void btnLogin_Click(object sender, EventArgs e)
+        {
+            string email = txtEmail.Text;
+            string password = txtPassword.Text;
+            OnLogin?.Invoke(this, new LoginEventArgs(email, password));
         }
     }
 }

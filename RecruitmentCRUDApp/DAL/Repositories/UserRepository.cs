@@ -51,5 +51,10 @@ namespace DAL.Repositories
                 await UpdateAsync(user);
             }
         }
+
+        public async Task<bool> IsPasswordCorrect(string email, string password)
+        {
+            return await context.Users.FromSqlInterpolated($"SELECT * FROM [User] WHERE email = {email} AND password = {password}").AnyAsync();
+        }
     }
 }
