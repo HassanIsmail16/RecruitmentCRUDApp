@@ -19,21 +19,36 @@ namespace RecruitmentApplication.Views
     public partial class MainForm : Form
     {
         private INavigation navigation;
+        private RecruitmentContext context;
         public MainForm()
         {
-            RecruitmentContext databaseContext = new RecruitmentContext();
             InitializeComponent();
             navigation = new Navigation(centralPanel);
 
-            navigation.RegisterView<JobsControl, JobsController>(
-                () => new JobsController(new VacancyRepository(databaseContext)));
+            context = new RecruitmentContext();
+
+            RegisterViews();
 
             navigation.NavigateTo<JobsControl>();
+        }
+
+        public void RegisterViews()
+        {
+            navigation.RegisterView<JobsControl, JobsController>(
+                () => new JobsController(new VacancyRepository(context)));
+
+            navigation.RegisterView<SavedJobsControl, SavedJobsController>(
+                () => new SavedJobsController(new SavedJobRepository(context)));
         }
 
         private void navJobsBtn_Click(object sender, EventArgs e)
         {
             navigation.NavigateTo<JobsControl>();
+        }
+
+        private void navSavedJobsBtn_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

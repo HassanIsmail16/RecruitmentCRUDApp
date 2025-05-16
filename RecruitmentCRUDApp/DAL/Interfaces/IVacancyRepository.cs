@@ -7,18 +7,18 @@ using System.Threading.Tasks;
 
 namespace DAL.Interfaces
 {
-    public interface IVacancyRepository
+    public interface IVacancyRepository : IRepository<Vacancy>
     {
-        Task<IQueryable<Vacancy>> GetByCompanyIdAsync(int companyId);
-        Task<IQueryable<Vacancy>> GetByEmployerIdAsync(int employerId);
-        Task<IQueryable<Vacancy>> GetByStatusAsync(string status);
-        Task<IQueryable<Vacancy>> GetByExperienceLevelAsync(string experienceLevel);
-        Task<IQueryable<Vacancy>> GetByWorkModeAsync(string workMode);
-        Task<IQueryable<Vacancy>> GetByJobTypeAsync(string jobType);
-        Task<IQueryable<Vacancy>> GetByDeadlineRangeAsync(DateTime startDate, DateTime endDate);
-        Task<IQueryable<Vacancy>> GetBySkillsRequiredAsync(string skills);
-        Task<IQueryable<JobApplication>> GetApplicationsForVacancyAsync(int vacancyId);
-        Task<IQueryable<SavedJob>> GetSavedJobsForVacancyAsync(int vacancyId);
+        Task<List<Vacancy>> GetByCompanyIdAsync(int companyId);
+        Task<List<Vacancy>> GetByEmployerIdAsync(int employerId);
+        Task<List<Vacancy>> GetByStatusAsync(string status);
+        Task<List<Vacancy>> GetByExperienceLevelAsync(string experienceLevel);
+        Task<List<Vacancy>> GetByWorkModeAsync(string workMode);
+        Task<List<Vacancy>> GetByJobTypeAsync(string jobType);
+        Task<List<Vacancy>> GetByDeadlineRangeAsync(DateTime startDate, DateTime endDate);
+        Task<List<Vacancy>> GetBySkillsRequiredAsync(string skills);
+        Task<List<JobApplication>> GetApplicationsForVacancyAsync(int vacancyId);
+        Task<List<SavedJob>> GetSavedJobsForVacancyAsync(int vacancyId);
         Task UpdateStatusAsync(int vacancyId, string status);
     }
 }

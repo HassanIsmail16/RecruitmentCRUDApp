@@ -11,11 +11,11 @@ namespace DAL.Repositories
 {
     public class SavedJobRepository : Repository<SavedJob>, ISavedJobRepository
     {
-        public SavedJobRepository(RecruitmentContext context) : base(context)
+        public SavedJobRepository(RecruitmentContext context) : base(context, "saved_job_id")
         {
         }
 
-        public async Task<IQueryable<SavedJob>> GetByJobSeekerIdAsync(int jobSeekerId)
+        public async Task<List<SavedJob>> GetByJobSeekerIdAsync(int jobSeekerId)
         {
             return await Task.Run(() => 
             context.SavedJobs
@@ -23,7 +23,7 @@ namespace DAL.Repositories
             .AsQueryable());
         }
 
-        public async Task<IQueryable<SavedJob>> GetByVacancyIdAsync(int vacancyId)
+        public async Task<List<SavedJob>> GetByVacancyIdAsync(int vacancyId)
         {
             return await Task.Run(() => 
             context.SavedJobs
@@ -31,7 +31,7 @@ namespace DAL.Repositories
             .AsQueryable());
         }
 
-        public async Task<IQueryable<SavedJob>> GetBySaveDateRangeAsync(DateTime startDate, DateTime endDate)
+        public async Task<List<SavedJob>> GetBySaveDateRangeAsync(DateTime startDate, DateTime endDate)
         {
             return await Task.Run(() => 
             context.SavedJobs

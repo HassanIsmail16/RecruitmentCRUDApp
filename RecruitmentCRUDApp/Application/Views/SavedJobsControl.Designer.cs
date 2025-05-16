@@ -30,6 +30,8 @@
         {
             this.lblHeader = new Label();
             this.dataGridSavedJobs = new DataGridView();
+            this.btnSave = new Button();
+            this.btnRefresh = new Button();
             ((System.ComponentModel.ISupportInitialize) this.dataGridSavedJobs).BeginInit();
             this.SuspendLayout();
             // 
@@ -48,19 +50,39 @@
             // 
             this.dataGridSavedJobs.Anchor =  AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             this.dataGridSavedJobs.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridSavedJobs.Location = new Point(24, 72);
+            this.dataGridSavedJobs.Location = new Point(23, 76);
             this.dataGridSavedJobs.Name = "dataGridSavedJobs";
             this.dataGridSavedJobs.Size = new Size(524, 325);
             this.dataGridSavedJobs.TabIndex = 25;
+            // 
+            // btnSave
+            // 
+            this.btnSave.Location = new Point(472, 409);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new Size(75, 23);
+            this.btnSave.TabIndex = 26;
+            this.btnSave.Text = "Save";
+            this.btnSave.UseVisualStyleBackColor = true;
+            // 
+            // btnRefresh
+            // 
+            this.btnRefresh.Location = new Point(23, 408);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new Size(75, 23);
+            this.btnRefresh.TabIndex = 26;
+            this.btnRefresh.Text = "Refresh";
+            this.btnRefresh.UseVisualStyleBackColor = true;
             // 
             // SavedJobsControl
             // 
             this.AutoScaleDimensions = new SizeF(7F, 15F);
             this.AutoScaleMode = AutoScaleMode.Font;
+            this.Controls.Add(this.btnRefresh);
+            this.Controls.Add(this.btnSave);
             this.Controls.Add(this.dataGridSavedJobs);
             this.Controls.Add(this.lblHeader);
             this.Name = "SavedJobsControl";
-            this.Size = new Size(574, 429);
+            this.Size = new Size(574, 451);
             ((System.ComponentModel.ISupportInitialize) this.dataGridSavedJobs).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -69,5 +91,7 @@
         #endregion
         private Label lblHeader;
         private DataGridView dataGridSavedJobs;
+        private Button btnSave;
+        private Button btnRefresh;
     }
 }

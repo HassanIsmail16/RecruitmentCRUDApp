@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.vacanciesPanel = new FlowLayoutPanel();
             this.refreshBtn = new Button();
             this.groupJobType = new GroupBox();
             this.cbxJobTypeContract = new CheckBox();
@@ -49,19 +48,12 @@
             this.lblIndustry = new Label();
             this.tboxSearchInput = new TextBox();
             this.btnSearch = new Button();
+            this.dataGridPostings = new DataGridView();
             this.groupJobType.SuspendLayout();
             this.gboxWorkMode.SuspendLayout();
             this.gboxExperienceLevel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize) this.dataGridPostings).BeginInit();
             this.SuspendLayout();
-            // 
-            // vacanciesPanel
-            // 
-            this.vacanciesPanel.Anchor =  AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            this.vacanciesPanel.AutoScroll = true;
-            this.vacanciesPanel.Location = new Point(22, 74);
-            this.vacanciesPanel.Name = "vacanciesPanel";
-            this.vacanciesPanel.Size = new Size(609, 206);
-            this.vacanciesPanel.TabIndex = 0;
             // 
             // refreshBtn
             // 
@@ -269,10 +261,19 @@
             this.btnSearch.Text = "Search";
             this.btnSearch.UseVisualStyleBackColor = true;
             // 
+            // dataGridPostings
+            // 
+            this.dataGridPostings.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridPostings.Location = new Point(22, 45);
+            this.dataGridPostings.Name = "dataGridPostings";
+            this.dataGridPostings.Size = new Size(607, 235);
+            this.dataGridPostings.TabIndex = 7;
+            // 
             // JobsControl
             // 
             this.AutoScaleDimensions = new SizeF(7F, 15F);
             this.AutoScaleMode = AutoScaleMode.Font;
+            this.Controls.Add(this.dataGridPostings);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.tboxSearchInput);
             this.Controls.Add(this.lblIndustry);
@@ -282,7 +283,6 @@
             this.Controls.Add(this.groupJobType);
             this.Controls.Add(this.btnApplyFilters);
             this.Controls.Add(this.refreshBtn);
-            this.Controls.Add(this.vacanciesPanel);
             this.Name = "JobsControl";
             this.Size = new Size(649, 501);
             this.groupJobType.ResumeLayout(false);
@@ -291,13 +291,12 @@
             this.gboxWorkMode.PerformLayout();
             this.gboxExperienceLevel.ResumeLayout(false);
             this.gboxExperienceLevel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize) this.dataGridPostings).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
         }
 
         #endregion
-
-        private FlowLayoutPanel vacanciesPanel;
         private Button refreshBtn;
         private GroupBox groupJobType;
         private CheckBox cbxJobTypePartTime;
@@ -318,5 +317,6 @@
         private Label lblIndustry;
         private TextBox tboxSearchInput;
         private Button btnSearch;
+        private DataGridView dataGridPostings;
     }
 }

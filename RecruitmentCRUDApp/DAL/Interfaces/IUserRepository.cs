@@ -10,8 +10,8 @@ namespace DAL.Interfaces
     public interface IUserRepository : IRepository<User>
     {
         Task<User> GetByEmailAsync(string email);
-        Task<IQueryable<User>> GetByUserTypeAsync(string userType);
-        Task<IQueryable<User>> GetBySignupDateRangeAsync(DateTime startDate, DateTime endDate);
+        Task<List<User>> GetByUserTypeAsync(string userType);
+        Task<List<User>> GetBySignupDateRangeAsync(DateTime startDate, DateTime endDate);
         Task<bool> IsEmailUniqueAsync(string email);
         Task UpdatePasswordAsync(int userId, string password);
 

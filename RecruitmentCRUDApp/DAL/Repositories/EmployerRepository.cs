@@ -12,7 +12,7 @@ namespace DAL.Repositories
 {
     public class EmployerRepository : Repository<Employer>, IEmployerRepository
     {
-        public EmployerRepository(RecruitmentContext context) : base(context)
+        public EmployerRepository(RecruitmentContext context) : base(context, "user_id")
         {
         }
 
@@ -21,14 +21,14 @@ namespace DAL.Repositories
             return await context.Employers.FirstOrDefaultAsync(e => e.UserId == userId);
         }
 
-        public async Task<IQueryable<JobApplication>> GetJobApplicationsForEmployerAsync(int employerId)
+        public async Task<List<JobApplication>> GetJobApplicationsForEmployerAsync(int employerId)
         {
             return await Task.Run(() =>
             context.JobApplications.Where(ja => ja.EmployerId == employerId)
             .AsQueryable());
         }
 
-        public async Task<IQueryable<Vacancy>> GetVacanciesPostedByEmployerAsync(int employerId)
+        public async Task<List<Vacancy>> GetVacanciesPostedByEmployerAsync(int employerId)
         {
             return await Task.Run(() =>
             context.Vacancies.Where(v => v.EmployerId == employerId)

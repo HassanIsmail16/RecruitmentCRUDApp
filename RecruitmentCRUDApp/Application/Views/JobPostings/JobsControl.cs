@@ -17,16 +17,31 @@ namespace RecruitmentApplication.Views
         public JobsControl()
         {
             InitializeComponent();
+            InitializeGrid();
+        }
+
+        private void InitializeGrid()
+        {
+            var applyButtonColumn = new DataGridViewButtonColumn();
+            applyButtonColumn.Name = "Apply";
+            applyButtonColumn.HeaderText = "Apply";
+            applyButtonColumn.Text = "Apply";
+            applyButtonColumn.UseColumnTextForButtonValue = true;
+            dataGridPostings.Columns.Add(applyButtonColumn);
+
+            var detailsButtonColumn = new DataGridViewButtonColumn();
+            detailsButtonColumn.Name = "Details";
+            detailsButtonColumn.HeaderText = "Details";
+            detailsButtonColumn.Text = "Details";
+            detailsButtonColumn.UseColumnTextForButtonValue = true;
+            dataGridPostings.Columns.Add(detailsButtonColumn);
+
+            // TODO: make columns read only
         }
 
         public void RenderVacancies(List<Vacancy> vacancies)
         {
-            vacanciesPanel.Controls.Clear();
-            foreach (var vacancy in vacancies)
-            {
-                var card = new JobCardControl(vacancy);
-                vacanciesPanel.Controls.Add(card);
-            }
+            dataGridPostings.DataSource = vacancies;
         }
 
         private void refreshBtn_Click(object sender, EventArgs e)

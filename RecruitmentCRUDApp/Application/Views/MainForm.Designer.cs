@@ -32,6 +32,7 @@
             this.navPanel = new Panel();
             this.toolStrip1 = new ToolStrip();
             this.navJobsBtn = new ToolStripButton();
+            this.navSavedJobsBtn = new ToolStripButton();
             this.navProfileBtn = new ToolStripButton();
             this.navLogoutBtn = new ToolStripButton();
             this.centralPanel = new Panel();
@@ -53,7 +54,7 @@
             // 
             this.toolStrip1.Dock = DockStyle.Left;
             this.toolStrip1.GripStyle = ToolStripGripStyle.Hidden;
-            this.toolStrip1.Items.AddRange(new ToolStripItem[] { this.navJobsBtn, this.navProfileBtn, this.navLogoutBtn });
+            this.toolStrip1.Items.AddRange(new ToolStripItem[] { this.navJobsBtn, this.navSavedJobsBtn, this.navProfileBtn, this.navLogoutBtn });
             this.toolStrip1.Location = new Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.RenderMode = ToolStripRenderMode.Professional;
@@ -72,6 +73,18 @@
             this.navJobsBtn.Size = new Size(170, 45);
             this.navJobsBtn.Text = "Jobs";
             this.navJobsBtn.Click += this.navJobsBtn_Click;
+            // 
+            // navSavedJobsBtn
+            // 
+            this.navSavedJobsBtn.AutoSize = false;
+            this.navSavedJobsBtn.Image = (Image) resources.GetObject("navSavedJobsBtn.Image");
+            this.navSavedJobsBtn.ImageTransparentColor = Color.Magenta;
+            this.navSavedJobsBtn.Name = "navSavedJobsBtn";
+            this.navSavedJobsBtn.Overflow = ToolStripItemOverflow.Never;
+            this.navSavedJobsBtn.Padding = new Padding(10);
+            this.navSavedJobsBtn.Size = new Size(170, 45);
+            this.navSavedJobsBtn.Text = "Saved Jobs";
+            this.navSavedJobsBtn.Click += this.navSavedJobsBtn_Click;
             // 
             // navProfileBtn
             // 
@@ -127,5 +140,6 @@
         private ToolStripButton navLogoutBtn;
         private ToolStripButton navProfileBtn;
         private Panel centralPanel;
+        private ToolStripButton navSavedJobsBtn;
     }
 }

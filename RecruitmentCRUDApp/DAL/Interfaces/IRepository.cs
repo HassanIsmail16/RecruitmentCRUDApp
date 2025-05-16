@@ -8,7 +8,7 @@ namespace DAL.Interfaces
 {
     public interface IRepository<TEntity> where TEntity : class 
     {
-        Task<IQueryable<TEntity>> GetAllAsync();
+        Task<List<TEntity>> GetAllAsync();
         Task<TEntity> GetByIdAsync(int id);
         Task AddAsync(TEntity entity);
         Task UpdateAsync(TEntity entity);

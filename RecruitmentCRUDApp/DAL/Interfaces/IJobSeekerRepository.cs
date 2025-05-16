@@ -10,11 +10,11 @@ namespace DAL.Interfaces
     public interface IJobSeekerRepository : IRepository<JobSeeker>
     {
         Task<JobSeeker> GetByUserIdAsync(int userId);
-        Task<IQueryable<JobSeeker>> GetBySkillsAsync(string skills);
-        Task<IQueryable<JobSeeker>> GetByPreferredLocationAsync(string location);
-        Task<IQueryable<JobSeeker>> GetByInterestsAsync(string interests);
-        Task<IQueryable<JobApplication>> GetApplicationsForJobSeekerAsync(int jobSeekerId);
-        Task<IQueryable<SavedJob>> GetSavedJobsForJobSeekerAsync(int jobSeekerId);
+        Task<List<JobSeeker>> GetBySkillsAsync(string skills);
+        Task<List<JobSeeker>> GetByPreferredLocationAsync(string location);
+        Task<List<JobSeeker>> GetByInterestsAsync(string interests);
+        Task<List<JobApplication>> GetApplicationsForJobSeekerAsync(int jobSeekerId);
+        Task<List<SavedJob>> GetSavedJobsForJobSeekerAsync(int jobSeekerId);
         Task UpdateResumeAsync(int jobSeekerId, byte[] resume);
     }
 }

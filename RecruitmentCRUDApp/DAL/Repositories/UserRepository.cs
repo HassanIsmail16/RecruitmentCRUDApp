@@ -12,7 +12,7 @@ namespace DAL.Repositories
 {
     public class UserRepository : Repository<User>, IUserRepository
     {
-        public UserRepository(RecruitmentContext context) : base(context)
+        public UserRepository(RecruitmentContext context) : base(context, "user_id")
         {
         }
 
@@ -21,7 +21,7 @@ namespace DAL.Repositories
             return await context.Users.FirstOrDefaultAsync(u => u.Email.ToLower() == email.ToLower());
         }
 
-        public async Task<IQueryable<User>> GetByUserTypeAsync(string userType)
+        public async Task<List<User>> GetByUserTypeAsync(string userType)
         {
             return await Task.Run(() => 
             context.Users
@@ -29,7 +29,7 @@ namespace DAL.Repositories
             .AsQueryable());
         }
 
-        public async Task<IQueryable<User>> GetBySignupDateRangeAsync(DateTime startDate, DateTime endDate)
+        public async Task<List<User>> GetBySignupDateRangeAsync(DateTime startDate, DateTime endDate)
         {
             return await Task.Run(() => 
             context.Users

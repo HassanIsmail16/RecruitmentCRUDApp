@@ -11,15 +11,17 @@ namespace DAL.Repositories
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
         protected readonly RecruitmentContext context;
+        protected readonly string idColumnName;
 
-        public Repository(RecruitmentContext context)
+        public Repository(RecruitmentContext context, string idColumnName)
         {
-            this.context = context;
+            this.context = context ?? throw new ArgumentNullException(nameof(context));
+            this.idColumnName = idColumnName;
         }
 
-        public async Task<IQueryable<TEntity>> GetAllAsync()
+        public async Task<List<TEntity>> GetAllAsync()
         {
-            return await Task.Run(() => context.Set<TEntity>().AsQueryable());
+            return await context.Set<TEntity>().ToListAsync();
         }
 
         public async Task<TEntity> GetByIdAsync(int id)

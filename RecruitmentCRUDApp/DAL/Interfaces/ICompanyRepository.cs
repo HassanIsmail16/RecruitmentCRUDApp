@@ -9,8 +9,8 @@ namespace DAL.Interfaces
 {
     public interface ICompanyRepository : IRepository<Company>
     {
-        Task<IQueryable<Company>> GetCompaniesByManagerIdAsync(int managerId);
-        Task<IQueryable<Employer>> GetEmployersForCompanyAsync(int companyId);
-        Task<IQueryable<Vacancy>> GetVacanciesForCompanyAsync(int companyId);
+        Task<List<Company>> GetCompaniesByManagerIdAsync(int managerId);
+        Task<List<Employer>> GetEmployersForCompanyAsync(int companyId);
+        Task<List<Vacancy>> GetVacanciesForCompanyAsync(int companyId);
     }
 }

@@ -9,9 +9,9 @@ namespace DAL.Interfaces
 {
     public interface ISavedJobRepository : IRepository<SavedJob>
     {
-        Task<IQueryable<SavedJob>> GetByJobSeekerIdAsync(int jobSeekerId);
-        Task<IQueryable<SavedJob>> GetByVacancyIdAsync(int vacancyId);
-        Task<IQueryable<SavedJob>> GetBySaveDateRangeAsync(DateTime startDate, DateTime endDate);
+        Task<List<SavedJob>> GetByJobSeekerIdAsync(int jobSeekerId);
+        Task<List<SavedJob>> GetByVacancyIdAsync(int vacancyId);
+        Task<List<SavedJob>> GetBySaveDateRangeAsync(DateTime startDate, DateTime endDate);
         Task<bool> IsSavedByJobSeekerAsync(int jobSeekerId, int vacancyId);
     }
 }

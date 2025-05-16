@@ -10,11 +10,11 @@ namespace DAL.Repositories
 {
     public class JobApplicationRepository : Repository<JobApplication>, IJobApplicationRepository
     {
-        public JobApplicationRepository(RecruitmentContext context) : base(context)
+        public JobApplicationRepository(RecruitmentContext context) : base(context, "app_id")
         {
         }
 
-        public async Task<IQueryable<JobApplication>> GetByJobSeekerIdAsync(int jobSeekerId)
+        public async Task<List<JobApplication>> GetByJobSeekerIdAsync(int jobSeekerId)
         {
             return await Task.Run(() => 
             context.JobApplications
@@ -22,7 +22,7 @@ namespace DAL.Repositories
             .AsQueryable());
         }
 
-        public async Task<IQueryable<JobApplication>> GetByEmployerIdAsync(int employerId)
+        public async Task<List<JobApplication>> GetByEmployerIdAsync(int employerId)
         {
             return await Task.Run(() =>
             context.JobApplications
@@ -30,7 +30,7 @@ namespace DAL.Repositories
             .AsQueryable());
         }
 
-        public async Task<IQueryable<JobApplication>> GetByVacancyIdAsync(int vacancyId)
+        public async Task<List<JobApplication>> GetByVacancyIdAsync(int vacancyId)
         {
             return await Task.Run(() =>
             context.JobApplications
@@ -38,7 +38,7 @@ namespace DAL.Repositories
             .AsQueryable());
         }
 
-        public async Task<IQueryable<JobApplication>> GetByStatusAsync(string status)
+        public async Task<List<JobApplication>> GetByStatusAsync(string status)
         {
             return await Task.Run(() => 
             context.JobApplications
@@ -46,7 +46,7 @@ namespace DAL.Repositories
             .AsQueryable());
         }
 
-        public async Task<IQueryable<JobApplication>> GetApplicationsByDateRangeAsync(DateTime startDate, DateTime endDate)
+        public async Task<List<JobApplication>> GetApplicationsByDateRangeAsync(DateTime startDate, DateTime endDate)
         {
             return await Task.Run(() => 
             context.JobApplications

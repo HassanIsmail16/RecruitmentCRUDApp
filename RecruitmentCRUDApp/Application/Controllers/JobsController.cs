@@ -27,19 +27,10 @@ namespace RecruitmentApplication.Controllers
             LoadVacancies();
         }
 
-        public void LoadVacancies()
+        public async void LoadVacancies()
         {
-            var vacancies = new List<Vacancy>
-            {
-                new Vacancy(),
-                new Vacancy(),
-                new Vacancy(),
-                new Vacancy(),
-                new Vacancy(),
-                new Vacancy(),
-                new Vacancy()
-            }; // TODO: fetch real data from repository
-            view.RenderVacancies(vacancies);
+            var vacancies = await vacancyRepository.GetAllAsync();
+            view.RenderVacancies(vacancies.ToList());
         }
     }
 }

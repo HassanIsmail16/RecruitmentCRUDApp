@@ -11,7 +11,7 @@ namespace DAL.Repositories
 {
     public class JobSeekerRepository : Repository<JobSeeker>, IJobSeekerRepository
     {
-        public JobSeekerRepository(RecruitmentContext context) : base(context)
+        public JobSeekerRepository(RecruitmentContext context) : base(context, "used_id")
         {
         }
 
@@ -21,7 +21,7 @@ namespace DAL.Repositories
         }
 
         // TODO: consider removing this if it's useless
-        public async Task<IQueryable<JobSeeker>> GetBySkillsAsync(string skills)
+        public async Task<List<JobSeeker>> GetBySkillsAsync(string skills)
         {
             return await Task.Run(() =>
             context.JobSeekers
@@ -29,7 +29,7 @@ namespace DAL.Repositories
             .AsQueryable());
         }
 
-        public async Task<IQueryable<JobSeeker>> GetByPreferredLocationAsync(string location)
+        public async Task<List<JobSeeker>> GetByPreferredLocationAsync(string location)
         {
             return await Task.Run(() =>
             context.JobSeekers
@@ -37,7 +37,7 @@ namespace DAL.Repositories
             .AsQueryable());
         }
 
-        public async Task<IQueryable<JobSeeker>> GetByInterestsAsync(string interests)
+        public async Task<List<JobSeeker>> GetByInterestsAsync(string interests)
         {
             return await Task.Run(() =>
             context.JobSeekers
@@ -45,7 +45,7 @@ namespace DAL.Repositories
             .AsQueryable());
         }
 
-        public async Task<IQueryable<JobApplication>> GetApplicationsForJobSeekerAsync(int jobSeekerId)
+        public async Task<List<JobApplication>> GetApplicationsForJobSeekerAsync(int jobSeekerId)
         {
             return await Task.Run(() =>
             context.JobApplications
@@ -53,7 +53,7 @@ namespace DAL.Repositories
             .AsQueryable());
         }
 
-        public async Task<IQueryable<SavedJob>> GetSavedJobsForJobSeekerAsync(int jobSeekerId)
+        public async Task<List<SavedJob>> GetSavedJobsForJobSeekerAsync(int jobSeekerId)
         {
             return await Task.Run(() =>
             context.SavedJobs
