@@ -17,7 +17,7 @@ namespace DAL.Repositories
 
         public async Task<List<JobApplication>> GetByJobSeekerIdAsync(int jobSeekerId)
         {
-            return await context.JobApplications.FromSqlInterpolated($"SELECT * FROM [ JobApplication ] WHERE jobseeker_id = {jobSeekerId}").ToListAsync():
+            return await context.JobApplications.FromSqlInterpolated($"SELECT * FROM [ JobApplication ] WHERE jobseeker_id = {jobSeekerId}").ToListAsync();
         }
 
         public async Task<List<JobApplication>> GetByEmployerIdAsync(int employerId)
