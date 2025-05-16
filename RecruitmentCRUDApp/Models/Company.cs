@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Models
 {
-    internal class Company
+    public class Company
     {
         // primary key
         public int companyID { get; set; }

@@ -12,7 +12,7 @@ namespace Models
         CLOSED,
         DRAFT
     }
-    internal class Vacancy
+    public class Vacancy
     {
         // primary key
         public int vacancyID { get; set; }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Models
 {
-    internal class JobSeeker
+    public class JobSeeker
     {
         // foreign key
         public int userID { get; set; }

@@ -11,7 +11,7 @@ namespace Models
         JOB_SEEKER,
         EMPLOYER
     }
-    internal class User
+    public class User
     {
         // primary key
         public int userID { get; set; }
