@@ -23,23 +23,17 @@ namespace DAL.Repositories
 
         public async Task<List<User>> GetByUserTypeAsync(string userType)
         {
-            return await Task.Run(() => 
-            context.Users
-            .Where(u => u.UserType.ToLower() == userType.ToLower())
-            .AsQueryable());
+            return await context.Users.FromSqlInterpolated($"SELECT * FROM [ User ] WHERE user_type = {userType}").ToListAsync();
         }
 
         public async Task<List<User>> GetBySignupDateRangeAsync(DateTime startDate, DateTime endDate)
         {
-            return await Task.Run(() => 
-            context.Users
-            .Where(u => u.SignupDate >= startDate && u.SignupDate <= endDate)
-            .AsQueryable());
+            return await context.Users.FromSqlInterpolated($"SELECT * FROM [ User ] WHERE signup_date BETWEEN {startDate} AND {endDate}").ToListAsync();
         }
 
         public async Task<bool> IsEmailUniqueAsync(string email)
         {
-            return !await context.Users.AnyAsync(u => u.Email.ToLower() == email.ToLower());
+            return await context.Users.FromSqlInterpolated($"SELECT * FROM [ User ] WHERE email = {email}").FirstOrDefaultAsync() == null;
         }
 
         public async Task UpdatePasswordAsync(int userId, string password)
@@ -54,7 +48,7 @@ namespace DAL.Repositories
 
         public async Task<bool> IsPasswordCorrect(string email, string password)
         {
-            return await context.Users.FromSqlInterpolated($"SELECT * FROM [User] WHERE email = {email} AND password = {password}").AnyAsync();
+            return await context.Users.FromSqlInterpolated($"SELECT * FROM [ User ] WHERE email = {email} AND password = {password}").AnyAsync();
         }
     }
 }

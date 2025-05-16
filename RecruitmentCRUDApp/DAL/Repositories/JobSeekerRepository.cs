@@ -17,48 +17,33 @@ namespace DAL.Repositories
 
         public async Task<JobSeeker> GetByUserIdAsync(int userId)
         {
-            return await context.JobSeekers.FirstOrDefaultAsync(js => js.UserId == userId);
+            return await context.JobSeekers.FromSqlInterpolated($"SELECT * FROM [ JobSeeker ] WHERE user_id = {userId}").FirstOrDefaultAsync();
         }
 
         // TODO: consider removing this if it's useless
         public async Task<List<JobSeeker>> GetBySkillsAsync(string skills)
         {
-            return await Task.Run(() =>
-            context.JobSeekers
-            .Where(js => js.Skills.ToLower().Contains(skills.ToLower()))
-            .AsQueryable());
+            return await context.JobSeekers.FromSqlInterpolated($"SELECT * FROM [ JobSeeker ] WHERE skills LIKE {skills}").ToListAsync();
         }
 
         public async Task<List<JobSeeker>> GetByPreferredLocationAsync(string location)
         {
-            return await Task.Run(() =>
-            context.JobSeekers
-            .Where(js => js.PreferredLoc.ToLower() == location.ToLower())
-            .AsQueryable());
+            return await context.JobSeekers.FromSqlInterpolated($"SELECT * FROM [ JobSeeker ] WHERE preferred_loc LIKE {location}").ToListAsync();
         }
 
         public async Task<List<JobSeeker>> GetByInterestsAsync(string interests)
         {
-            return await Task.Run(() =>
-            context.JobSeekers
-            .Where(js => js.Interests.ToLower().Contains(interests.ToLower()))
-            .AsQueryable());
+            return await context.JobSeekers.FromSqlInterpolated($"SELECT * FROM [ JobSeeker ] WHERE interests LIKE {interests}").ToListAsync();
         }
 
         public async Task<List<JobApplication>> GetApplicationsForJobSeekerAsync(int jobSeekerId)
         {
-            return await Task.Run(() =>
-            context.JobApplications
-            .Where(ja => ja.JobseekerId == jobSeekerId)
-            .AsQueryable());
+            return await context.JobApplications.FromSqlInterpolated($"SELECT * FROM [ JobApplication ] WHERE jobseeker_id = {jobSeekerId}").ToListAsync();
         }
 
         public async Task<List<SavedJob>> GetSavedJobsForJobSeekerAsync(int jobSeekerId)
         {
-            return await Task.Run(() =>
-            context.SavedJobs
-            .Where(sj => sj.JobseekerId == jobSeekerId)
-            .AsQueryable());
+            return await context.SavedJobs.FromSqlInterpolated($"SELECT * FROM [ SavedJob ] WHERE jobseeker_id = {jobSeekerId}").ToListAsync();
         }
 
         public async Task UpdateResumeAsync(int jobSeekerId, byte[] resume)

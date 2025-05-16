@@ -17,31 +17,22 @@ namespace DAL.Repositories
 
         public async Task<List<SavedJob>> GetByJobSeekerIdAsync(int jobSeekerId)
         {
-            return await Task.Run(() => 
-            context.SavedJobs
-            .Where(sj => sj.JobseekerId == jobSeekerId)
-            .AsQueryable());
+            return await context.SavedJobs.FromSqlInterpolated($"SELECT * FROM [ SavedJob ] WHERE saved_job_id = {jobSeekerId}").ToListAsync();
         }
 
         public async Task<List<SavedJob>> GetByVacancyIdAsync(int vacancyId)
         {
-            return await Task.Run(() => 
-            context.SavedJobs
-            .Where(sj => sj.VacancyId == vacancyId)
-            .AsQueryable());
+            return await context.SavedJobs.FromSqlInterpolated($"SELECT * FROMM [ SavedJob ] WHERE vacancy_id = {vacancyId}").ToListAsync();
         }
 
         public async Task<List<SavedJob>> GetBySaveDateRangeAsync(DateTime startDate, DateTime endDate)
         {
-            return await Task.Run(() => 
-            context.SavedJobs
-            .Where(sj => sj.SaveDate >= startDate && sj.SaveDate <= endDate)
-            .AsQueryable());
+            return await context.SavedJobs.FromSqlInterpolated($"SELECT * FROM [ SavedJob ] WHERE save_date BETWEEN {startDate} AND {endDate}").ToListAsync();
         }
 
         public async Task<bool> IsSavedByJobSeekerAsync(int jobSeekerId, int vacancyId)
         {
-            return await context.SavedJobs.AnyAsync(sj => sj.JobseekerId == jobSeekerId && sj.VacancyId == vacancyId);
+            return await context.SavedJobs.FromSqlInterpolated($"SELECT * FROM [ JobSeeker ] WHERE jobseeker_id = {jobSeekerId} AND vacancy_id = {vacancyId}").FirstOrDefaultAsync() != null;
         }
     }
 }
