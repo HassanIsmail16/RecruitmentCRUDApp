@@ -10,7 +10,7 @@ namespace DAL.Interfaces
     {
         Task<List<TEntity>> GetAllAsync();
         Task<TEntity> GetByIdAsync(int id);
-        Task AddAsync(TEntity entity);
+        Task<int> AddAsync(TEntity entity);
         Task UpdateAsync(TEntity entity);
         Task DeleteByIdAsync(int id);
         Task<bool> ExistsAsync(int id);

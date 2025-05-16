@@ -30,25 +30,59 @@ namespace DAL.Repositories
             return await context.Set<TEntity>().FromSqlInterpolated($"SELECT * FROM {typeof(TEntity).Name} WHERE {idColumnName} = {id}").FirstOrDefaultAsync();
         }
 
-        public async Task AddAsync(TEntity entity)
+        public async Task<int> AddAsync(TEntity entity)
         {
+            // Get the table name for the entity
             var tableName = context.Model.FindEntityType(typeof(TEntity)).GetTableName();
+
+            // Find all non-key properties
             var properties = context.Model.FindEntityType(typeof(TEntity))
                 .GetProperties()
                 .Where(p => !p.IsKey())
                 .ToList();
 
+            // Find the primary key property
+            var keyProperty = context.Model.FindEntityType(typeof(TEntity))
+                .GetProperties()
+                .First(p => p.IsKey());
+
+            // Build column and value lists for SQL
             var columns = string.Join(", ", properties.Select(p => $"[{p.GetColumnName()}]"));
             var values = string.Join(", ", properties.Select(p => $"@{p.Name}"));
 
+            // Create parameters for SQL query
             var parameters = properties.Select(p =>
                 new SqlParameter($"@{p.Name}", p.PropertyInfo.GetValue(entity) ?? DBNull.Value)
             ).ToArray();
 
+            // SQL query to insert and return the ID
             var sql = $@"
-                        INSERT INTO {tableName} ({columns})
-                        OUTPUT INSERTED.*
-                        VALUES ({values})";
+                INSERT INTO {tableName} ({columns})
+                OUTPUT INSERTED.[{keyProperty.GetColumnName()}]
+                VALUES ({values})";
+
+            // Execute the query and get the ID
+            var result = await context.Database.ExecuteSqlRawAsync(sql, parameters);
+
+            // If using DbContext.Database.ExecuteSqlRawAsync, we need a different approach
+            // since it returns affected rows count, not the inserted ID
+
+            // Alternative implementation using ADO.NET:
+            using (var connection = context.Database.GetDbConnection())
+            {
+                if (connection.State != System.Data.ConnectionState.Open)
+                    await connection.OpenAsync();
+
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = sql;
+                    command.Parameters.AddRange(parameters);
+
+                    // For SQL Server, this will return the ID
+                    var newId = await command.ExecuteScalarAsync();
+                    return Convert.ToInt32(newId);
+                }
+            }
         }
 
         public async Task UpdateAsync(TEntity entity)

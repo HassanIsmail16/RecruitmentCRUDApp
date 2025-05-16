@@ -7,15 +7,16 @@ using System.Linq;
 using System.Text;
 using Models;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace RecruitmentApplication.Controllers
 {
     internal class SignUpController
     {
-        frmSignup view;
-        IUserRepository userRepository;
-        IJobSeekerRepository jobSeekerRepository;
-        IEmployerRepository employerRepository;
+        private frmSignup view;
+        private readonly IUserRepository userRepository;
+        private readonly IJobSeekerRepository jobSeekerRepository;
+        private readonly IEmployerRepository employerRepository;
 
         public SignUpController(IUserRepository userRepository,
             IJobSeekerRepository jobSeekerRepository,
@@ -32,51 +33,100 @@ namespace RecruitmentApplication.Controllers
             this.view.OnSignUp += SignUp;
         }
 
-        public void SignUp(object sender, frmSignup.SignUpEventArgs e)
+        public async void SignUp(object sender, frmSignup.SignUpEventArgs e)
         {
             if (e == null)
             {
+                MessageBox.Show("Signup error", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             if (e.FullName.IsNullOrEmpty())
             {
+                MessageBox.Show("Full name cannot be empty", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             if (e.Email.IsNullOrEmpty())
             {
+                MessageBox.Show("Email cannot be empty", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             if (e.Password.IsNullOrEmpty())
             {
+                MessageBox.Show("Password cannot be empty", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             if (e.ConfirmPassword != e.Password)
             {
+                MessageBox.Show("Passwords do not match", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             if (e.UserType.IsNullOrEmpty())
             {
+                MessageBox.Show("User type must be selected", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            if (userRepository.GetByEmailAsync(e.Email).Result != null)
+            if (await userRepository.GetByEmailAsync(e.Email) != null)
             {
+                MessageBox.Show("Email is already registered", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            User newUser = new User
+            try
             {
-                Name = e.FullName, Email = e.Email, Password = e.Password, Phone = e.PhoneNumber, BirthDate = e.BirthDate, SignupDate = DateTime.Now, UserType = e.UserType
-            };
+                User newUser = new User
+                {
+                    Name = e.FullName,
+                    Email = e.Email,
+                    Password = e.Password,
+                    Phone = e.PhoneNumber,
+                    BirthDate = e.BirthDate,
+                    SignupDate = DateTime.Now,
+                    UserType = e.UserType
+                };
 
-            userRepository.AddAsync(newUser);
+                // Add the user to the database
+                int userId = await userRepository.AddAsync(newUser);
 
-            // TODO: add job seeker and employer insertion
+                // Create corresponding profile based on user type
+                if (e.UserType == "JobSeeker")
+                {
+                    await jobSeekerRepository.AddAsync(new JobSeeker
+                    {
+                        UserId = userId,
+                        // Add other necessary JobSeeker properties
+                    });
+                }
+                else if (e.UserType == "Employer")
+                {
+                    await employerRepository.AddAsync(new Employer
+                    {
+                        UserId = userId,
+                        // Add other necessary Employer properties
+                    });
+                }
+
+                MessageBox.Show("Registration successful! Please login.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                // Close signup form and show login form
+                view.Invoke((MethodInvoker) delegate
+                {
+                    view.Hide();
+                    var loginForm = new Views.frmLogin();
+                    var loginController = new LoginController(userRepository, loginForm);
+                    loginForm.Show();
+                    view.Close();
+                });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error during registration: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

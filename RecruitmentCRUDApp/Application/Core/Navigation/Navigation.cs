@@ -12,6 +12,7 @@ namespace RecruitmentApplication.Core.Navigation
         private readonly Panel container;
         private readonly Dictionary<Type, Func<object>> controllerFactories = new();
         private readonly Dictionary<Type, object> controllers = new();
+        private readonly Dictionary<Type, UserControl> views = new();
 
         public Navigation(Panel container)
         {
@@ -23,21 +24,36 @@ namespace RecruitmentApplication.Core.Navigation
             if (!controllerFactories.TryGetValue(typeof(TView), out var factory))
             {
                 throw new InvalidOperationException($"View {typeof(TView).Name} is not registered");
-            } // if the controller does not have a registered factory, throw an exception
+            }
 
+            // Get or create controller instance
             if (!controllers.TryGetValue(typeof(TView), out var controller))
             {
                 controller = factory();
                 controllers[typeof(TView)] = controller;
-            } // if the view is not registered, register it, if it is, get the controller
+            }
 
-            var view = Activator.CreateInstance<TView>(); // create a view instance
+            // Get or create view instance
+            UserControl view;
+            if (!views.TryGetValue(typeof(TView), out view))
+            {
+                view = Activator.CreateInstance<TView>();
+                views[typeof(TView)] = view;
 
-            // binds view to the controller
-            var bindMethod = controller.GetType().GetMethod("BindView");
-            bindMethod?.Invoke(controller, new object[] { view });
+                // Bind the view to its controller
+                var bindMethod = controller.GetType().GetMethod("BindView");
+                if (bindMethod != null)
+                {
+                    bindMethod.Invoke(controller, new object[] { view });
+                }
+                else
+                {
+                    // Log if the BindView method doesn't exist
+                    Debug.WriteLine($"Warning: Controller {controller.GetType().Name} does not have a BindView method");
+                }
+            }
 
-            // displays the view in the central panel
+            // Display the view in the container panel
             container.SuspendLayout();
             container.Controls.Clear();
             view.Dock = DockStyle.Fill;

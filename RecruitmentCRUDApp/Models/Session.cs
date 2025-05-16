@@ -15,7 +15,7 @@ namespace Models
             CurrentUser = user;
         }
 
-        public static void Logout(User user)
+        public static void Logout()
         {
             CurrentUser = null;
         }
