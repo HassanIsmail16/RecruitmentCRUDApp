@@ -1,4 +1,5 @@
 ﻿using DAL.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using Models;
 using System;
 using System.Collections.Generic;
@@ -16,52 +17,32 @@ namespace DAL.Repositories
 
         public async Task<List<JobApplication>> GetByJobSeekerIdAsync(int jobSeekerId)
         {
-            return await Task.Run(() => 
-            context.JobApplications
-            .Where(ja => ja.JobseekerId == jobSeekerId)
-            .AsQueryable());
+            return await context.JobApplications.FromSqlInterpolated($"SELECT * FROM [ JobApplication ] WHERE jobseeker_id = {jobSeekerId}").ToListAsync():
         }
 
         public async Task<List<JobApplication>> GetByEmployerIdAsync(int employerId)
         {
-            return await Task.Run(() =>
-            context.JobApplications
-            .Where(ja => ja.EmployerId == employerId)
-            .AsQueryable());
+            return await context.JobApplications.FromSqlInterpolated($"SELECT * FROM [ JobApplication ] WHERE employer_id = {employerId}").ToListAsync();
         }
 
         public async Task<List<JobApplication>> GetByVacancyIdAsync(int vacancyId)
         {
-            return await Task.Run(() =>
-            context.JobApplications
-            .Where(ja => ja.VacancyId == vacancyId)
-            .AsQueryable());
+            return await context.JobApplications.FromSqlInterpolated($"SELECT * FROM [ JobApplication ] WHERE vacancy_id = {vacancyId}").ToListAsync();
         }
 
         public async Task<List<JobApplication>> GetByStatusAsync(string status)
         {
-            return await Task.Run(() => 
-            context.JobApplications
-            .Where(ja => ja.Status == status)
-            .AsQueryable());
+            return await context.JobApplications.FromSqlInterpolated($"SELECT * FROM [ JobApplication ] WHERE status = {status}").ToListAsync();
         }
 
         public async Task<List<JobApplication>> GetApplicationsByDateRangeAsync(DateTime startDate, DateTime endDate)
         {
-            return await Task.Run(() => 
-            context.JobApplications
-            .Where(ja => ja.AppDate >= startDate && ja.AppDate <= endDate)
-            .AsQueryable());
+            return await context.JobApplications.FromSqlInterpolated($"SELECT * FROM JobApplication WHERE app_date BETWEEN {startDate} AND {endDate}").ToListAsync();
         }
 
         public async Task UpdateApplicationStatusAsync(int appId, string status)
         {
-            var application = await context.JobApplications.FindAsync(appId);
-            if (application != null)
-            {
-                application.Status = status;
-                await UpdateAsync(application);
-            }
+            await context.Database.ExecuteSqlRawAsync("UPDATE JobApplication SET status = {0} WHERE app_id = {1}", status, appId);
         }
     }
 }

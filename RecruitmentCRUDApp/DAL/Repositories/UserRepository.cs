@@ -18,7 +18,7 @@ namespace DAL.Repositories
 
         public async Task<User> GetByEmailAsync(string email)
         {
-            return await context.Users.FirstOrDefaultAsync(u => u.Email.ToLower() == email.ToLower());
+            return await context.Users.FromSqlInterpolated($"SELECT * FROM [ User ] WHERE email = {email}").FirstOrDefaultAsync();
         }
 
         public async Task<List<User>> GetByUserTypeAsync(string userType)

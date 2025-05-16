@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Data.Entity;
 using System.Linq;
 using System.Text;
@@ -18,21 +19,17 @@ namespace DAL.Repositories
 
         public async Task<Employer> GetByUserIdAsync(int userId)
         {
-            return await context.Employers.FirstOrDefaultAsync(e => e.UserId == userId);
+            return await context.Employers.FromSqlInterpolated($"SELECT * FROM [ JobApplication ] WHERE user_id = {userId}").FirstOrDefaultAsync();
         }
 
         public async Task<List<JobApplication>> GetJobApplicationsForEmployerAsync(int employerId)
         {
-            return await Task.Run(() =>
-            context.JobApplications.Where(ja => ja.EmployerId == employerId)
-            .AsQueryable());
+            return await context.JobApplications.FromSqlInterpolated($"SELECT * FROM [ JobApplication ] WHERE employer_id = {employerId}").ToListAsync();
         }
 
         public async Task<List<Vacancy>> GetVacanciesPostedByEmployerAsync(int employerId)
         {
-            return await Task.Run(() =>
-            context.Vacancies.Where(v => v.EmployerId == employerId)
-            .AsQueryable());
+            return await context.Vacancies.FromSqlInterpolated($"SELECT * FROM [ Vacancy ] WHERE employer_id = {employerId}").ToListAsync();
         }
     }
 }
