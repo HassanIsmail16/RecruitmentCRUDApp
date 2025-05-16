@@ -1,4 +1,5 @@
 ﻿using DAL.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using Models;
 using System;
 using System.Collections.Generic;
@@ -14,24 +15,33 @@ namespace DAL.Repositories
         {
         }
 
-        public Task<IQueryable<SavedJob>> GetByJobSeekerIdAsync(int jobSeekerId)
+        public async Task<IQueryable<SavedJob>> GetByJobSeekerIdAsync(int jobSeekerId)
         {
-            throw new NotImplementedException();
+            return await Task.Run(() => 
+            context.SavedJobs
+            .Where(sj => sj.JobseekerId == jobSeekerId)
+            .AsQueryable());
         }
 
-        public Task<IQueryable<SavedJob>> GetBySaveDateRangeAsync(DateTime startDate, DateTime endDate)
+        public async Task<IQueryable<SavedJob>> GetByVacancyIdAsync(int vacancyId)
         {
-            throw new NotImplementedException();
+            return await Task.Run(() => 
+            context.SavedJobs
+            .Where(sj => sj.VacancyId == vacancyId)
+            .AsQueryable());
         }
 
-        public Task<IQueryable<SavedJob>> GetByVacancyIdAsync(int vacancyId)
+        public async Task<IQueryable<SavedJob>> GetBySaveDateRangeAsync(DateTime startDate, DateTime endDate)
         {
-            throw new NotImplementedException();
+            return await Task.Run(() => 
+            context.SavedJobs
+            .Where(sj => sj.SaveDate >= startDate && sj.SaveDate <= endDate)
+            .AsQueryable());
         }
 
-        public Task<bool> IsSavedByJobSeekerAsync(int jobSeekerId, int vacancyId)
+        public async Task<bool> IsSavedByJobSeekerAsync(int jobSeekerId, int vacancyId)
         {
-            throw new NotImplementedException();
+            return await context.SavedJobs.AnyAsync(sj => sj.JobseekerId == jobSeekerId && sj.VacancyId == vacancyId);
         }
     }
 }

@@ -23,12 +23,16 @@ namespace DAL.Repositories
 
         public async Task<IQueryable<JobApplication>> GetJobApplicationsForEmployerAsync(int employerId)
         {
-            return await Task.Run(() => context.JobApplications.Where(ja => ja.EmployerId == employerId).AsQueryable());
+            return await Task.Run(() =>
+            context.JobApplications.Where(ja => ja.EmployerId == employerId)
+            .AsQueryable());
         }
 
         public async Task<IQueryable<Vacancy>> GetVacanciesPostedByEmployerAsync(int employerId)
         {
-            return await Task.Run(() => context.Vacancies.Where(v => v.EmployerId == employerId).AsQueryable());
+            return await Task.Run(() =>
+            context.Vacancies.Where(v => v.EmployerId == employerId)
+            .AsQueryable());
         }
     }
 }

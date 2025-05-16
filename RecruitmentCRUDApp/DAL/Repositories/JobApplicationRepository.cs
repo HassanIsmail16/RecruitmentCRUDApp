@@ -14,34 +14,54 @@ namespace DAL.Repositories
         {
         }
 
-        public Task<IQueryable<JobApplication>> GetApplicationsByDateRangeAsync(DateTime startDate, DateTime endDate)
+        public async Task<IQueryable<JobApplication>> GetByJobSeekerIdAsync(int jobSeekerId)
         {
-            throw new NotImplementedException();
+            return await Task.Run(() => 
+            context.JobApplications
+            .Where(ja => ja.JobseekerId == jobSeekerId)
+            .AsQueryable());
         }
 
-        public Task<IQueryable<JobApplication>> GetByEmployerIdAsync(int employerId)
+        public async Task<IQueryable<JobApplication>> GetByEmployerIdAsync(int employerId)
         {
-            throw new NotImplementedException();
+            return await Task.Run(() =>
+            context.JobApplications
+            .Where(ja => ja.EmployerId == employerId)
+            .AsQueryable());
         }
 
-        public Task<IQueryable<JobApplication>> GetByJobSeekerIdAsync(int jobSeekerId)
+        public async Task<IQueryable<JobApplication>> GetByVacancyIdAsync(int vacancyId)
         {
-            throw new NotImplementedException();
+            return await Task.Run(() =>
+            context.JobApplications
+            .Where(ja => ja.VacancyId == vacancyId)
+            .AsQueryable());
         }
 
-        public Task<IQueryable<JobApplication>> GetByStatusAsync(string status)
+        public async Task<IQueryable<JobApplication>> GetByStatusAsync(string status)
         {
-            throw new NotImplementedException();
+            return await Task.Run(() => 
+            context.JobApplications
+            .Where(ja => ja.Status == status)
+            .AsQueryable());
         }
 
-        public Task<IQueryable<JobApplication>> GetByVacancyIdAsync(int vacancyId)
+        public async Task<IQueryable<JobApplication>> GetApplicationsByDateRangeAsync(DateTime startDate, DateTime endDate)
         {
-            throw new NotImplementedException();
+            return await Task.Run(() => 
+            context.JobApplications
+            .Where(ja => ja.AppDate >= startDate && ja.AppDate <= endDate)
+            .AsQueryable());
         }
 
-        public Task UpdateApplicationStatusAsync(int appId, string status)
+        public async Task UpdateApplicationStatusAsync(int appId, string status)
         {
-            throw new NotImplementedException();
+            var application = await context.JobApplications.FindAsync(appId);
+            if (application != null)
+            {
+                application.Status = status;
+                await UpdateAsync(application);
+            }
         }
     }
 }
