@@ -1,4 +1,8 @@
-﻿using System;
+﻿using DAL.Repositories;
+using Models;
+using RecruitmentApplication.Controllers;
+using RecruitmentApplication.Core.Navigation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,15 +17,21 @@ namespace RecruitmentApplication.Views
 {
     public partial class MainForm : Form
     {
+        private INavigation navigation;
         public MainForm()
         {
             InitializeComponent();
-            Navigator.Initialize(centralPanel);
+            navigation = new Navigation(centralPanel);
+
+            navigation.RegisterView<JobsControl, JobsController>(
+                () => new JobsController(new VacancyRepository()));
+
+            navigation.NavigateTo<JobsControl>();
         }
 
         private void navJobsBtn_Click(object sender, EventArgs e)
         {
-            Navigator.Navigate(new JobsControl());
+            navigation.NavigateTo<JobsControl>();
         }
     }
 }
