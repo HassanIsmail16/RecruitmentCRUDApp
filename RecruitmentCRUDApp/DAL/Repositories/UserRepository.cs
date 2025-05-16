@@ -1,11 +1,12 @@
-﻿using System;
+﻿using DAL.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using Models;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DAL.Interfaces;
-using Models;
 
 namespace DAL.Repositories
 {
@@ -15,29 +16,40 @@ namespace DAL.Repositories
         {
         }
 
-        public Task<User> GetByEmailAsync(string email)
+        public async Task<User> GetByEmailAsync(string email)
         {
-            throw new NotImplementedException();
+            return await context.Users.FirstOrDefaultAsync(u => u.Email.ToLower() == email.ToLower());
         }
 
-        public Task<IQueryable<User>> GetBySignupDateRangeAsync(DateTime startDate, DateTime endDate)
+        public async Task<IQueryable<User>> GetByUserTypeAsync(string userType)
         {
-            throw new NotImplementedException();
+            return await Task.Run(() => 
+            context.Users
+            .Where(u => u.UserType.ToLower() == userType.ToLower())
+            .AsQueryable());
         }
 
-        public Task<IQueryable<User>> GetByUserTypeAsync(string userType)
+        public async Task<IQueryable<User>> GetBySignupDateRangeAsync(DateTime startDate, DateTime endDate)
         {
-            throw new NotImplementedException();
+            return await Task.Run(() => 
+            context.Users
+            .Where(u => u.SignupDate >= startDate && u.SignupDate <= endDate)
+            .AsQueryable());
         }
 
-        public Task<bool> IsEmailUniqueAsync(string email)
+        public async Task<bool> IsEmailUniqueAsync(string email)
         {
-            throw new NotImplementedException();
+            return !await context.Users.AnyAsync(u => u.Email.ToLower() == email.ToLower());
         }
 
-        public Task UpdatePasswordAsync(int userId, string password)
+        public async Task UpdatePasswordAsync(int userId, string password)
         {
-            throw new NotImplementedException();
+            var user = await GetByIdAsync(userId);
+            if (user != null)
+            {
+                user.Password = password;
+                await UpdateAsync(user);
+            }
         }
     }
 }

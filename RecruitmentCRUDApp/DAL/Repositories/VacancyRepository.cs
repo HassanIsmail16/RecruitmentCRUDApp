@@ -14,59 +14,95 @@ namespace DAL.Repositories
         {
         }
 
-        public Task<IQueryable<JobApplication>> GetApplicationsForVacancyAsync(int vacancyId)
+        public async Task<IQueryable<Vacancy>> GetByCompanyIdAsync(int companyId)
         {
-            throw new NotImplementedException();
+            return await Task.Run(() => 
+            context.Vacancies
+            .Where(v => v.CompanyId == companyId)
+            .AsQueryable());
         }
 
-        public Task<IQueryable<Vacancy>> GetByCompanyIdAsync(int companyId)
+        public async Task<IQueryable<Vacancy>> GetByEmployerIdAsync(int employerId)
         {
-            throw new NotImplementedException();
+            return await Task.Run(() => 
+            context.Vacancies
+            .Where(v => v.EmployerId == employerId)
+            .AsQueryable());
         }
 
-        public Task<IQueryable<Vacancy>> GetByDeadlineRangeAsync(DateTime startDate, DateTime endDate)
+        public async Task<IQueryable<Vacancy>> GetByStatusAsync(string status)
         {
-            throw new NotImplementedException();
+            return await Task.Run(() => 
+            context.Vacancies
+            .Where(v => v.Status.ToLower() == status.ToLower())
+            .AsQueryable());
         }
 
-        public Task<IQueryable<Vacancy>> GetByEmployerIdAsync(int employerId)
+        public async Task<IQueryable<Vacancy>> GetByExperienceLevelAsync(string experienceLevel)
         {
-            throw new NotImplementedException();
+            return await Task.Run(() => 
+            context.Vacancies
+            .Where(v => v.ExperienceLevel.ToLower() == experienceLevel.ToLower())
+            .AsQueryable());
         }
 
-        public Task<IQueryable<Vacancy>> GetByExperienceLevelAsync(string experienceLevel)
+        public async Task<IQueryable<Vacancy>> GetByWorkModeAsync(string workMode)
         {
-            throw new NotImplementedException();
+            return await Task.Run(() => 
+            context.Vacancies
+            .Where(v => v.WorkMode.ToLower() == workMode.ToLower())
+            .AsQueryable());
         }
 
-        public Task<IQueryable<Vacancy>> GetByJobTypeAsync(string jobType)
+        public async Task<IQueryable<Vacancy>> GetByJobTypeAsync(string jobType)
         {
-            throw new NotImplementedException();
+            return await Task.Run(() => 
+            context.Vacancies
+            .Where(v => v.JobType.ToLower() == jobType.ToLower())
+            .AsQueryable());
         }
 
-        public Task<IQueryable<Vacancy>> GetBySkillsRequiredAsync(string skills)
+        public async Task<IQueryable<Vacancy>> GetByDeadlineRangeAsync(DateTime startDate, DateTime endDate)
         {
-            throw new NotImplementedException();
+            return await Task.Run(() => 
+            context.Vacancies
+            .Where(v => v.Deadline >= startDate && v.Deadline <= endDate)
+            .AsQueryable());
         }
 
-        public Task<IQueryable<Vacancy>> GetByStatusAsync(string status)
+        // TODO: consider removing this if it's useless
+        public async Task<IQueryable<Vacancy>> GetBySkillsRequiredAsync(string skills)
         {
-            throw new NotImplementedException();
+            return await Task.Run(() => 
+            context.Vacancies
+            .Where(v => v.Skills.ToLower().Contains(skills.ToLower()))
+            .AsQueryable());
         }
 
-        public Task<IQueryable<Vacancy>> GetByWorkModeAsync(string workMode)
+        public async Task<IQueryable<JobApplication>> GetApplicationsForVacancyAsync(int vacancyId)
         {
-            throw new NotImplementedException();
+            return await Task.Run(() => 
+            context.JobApplications
+            .Where(ja => ja.VacancyId == vacancyId)
+            .AsQueryable());
         }
 
-        public Task<IQueryable<SavedJob>> GetSavedJobsForVacancyAsync(int vacancyId)
+        public async Task<IQueryable<SavedJob>> GetSavedJobsForVacancyAsync(int vacancyId)
         {
-            throw new NotImplementedException();
+            return await Task.Run(() => 
+            context.SavedJobs
+            .Where(sj => sj.VacancyId == vacancyId)
+            .AsQueryable());
         }
 
-        public Task UpdateStatusAsync(int vacancyId, string status)
+        public async Task UpdateStatusAsync(int vacancyId, string status)
         {
-            throw new NotImplementedException();
+            var vacancy = await context.Vacancies.FindAsync(vacancyId);
+            if (vacancy != null)
+            {
+                vacancy.Status = status;
+                await context.SaveChangesAsync();
+            }
         }
     }
 }

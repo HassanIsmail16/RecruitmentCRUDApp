@@ -20,6 +20,7 @@ namespace DAL.Repositories
             return await context.JobSeekers.FirstOrDefaultAsync(js => js.UserId == userId);
         }
 
+        // TODO: consider removing this if it's useless
         public async Task<IQueryable<JobSeeker>> GetBySkillsAsync(string skills)
         {
             return await Task.Run(() =>
