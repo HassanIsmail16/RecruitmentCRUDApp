@@ -5,15 +5,21 @@ using System.Collections.Generic;
 
 namespace Models
 {
-    public partial class SavedJob
+    public partial class JobApplication
     {
-        public int SavedJobId { get; set; }
+        public int AppId { get; set; }
 
-        public DateTime? SaveDate { get; set; }
+        public DateTime? AppDate { get; set; }
 
         public int JobseekerId { get; set; }
 
         public int VacancyId { get; set; }
+
+        public int EmployerId { get; set; }
+
+        public string Status { get; set; }
+
+        public virtual Employer Employer { get; set; }
 
         public virtual JobSeeker Jobseeker { get; set; }
 

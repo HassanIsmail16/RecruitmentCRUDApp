@@ -23,7 +23,7 @@ namespace RecruitmentApplication.Views
             InitializeComponent();
             this.vacancy = vacancy;
             lblCompany.Text = "whatever co"; // TODO: replace with actual data
-            lblTitle.Text = vacancy.title;
+            lblTitle.Text = vacancy.Title;
             lblLocation.Text = "wherever"; // TODO: replace with actual data
             //pictureBoxLogo.Image = TODO: add logo here
         }
