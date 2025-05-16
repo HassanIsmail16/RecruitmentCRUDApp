@@ -24,9 +24,11 @@ namespace RecruitmentApplication
 
             // Create login form with properly initialized controller
             var loginForm = new Views.frmLogin();
+            var signupForm = new Views.Auth.frmSignup();
             var loginController = new Controllers.LoginController(userRepository, loginForm);
+            var signupController = new Controllers.SignUpController(userRepository, jobSeekerRepository, employerRepository, signupForm);
 
-            Application.Run(loginForm);
+            Application.Run(signupForm);
         }
     }
 }

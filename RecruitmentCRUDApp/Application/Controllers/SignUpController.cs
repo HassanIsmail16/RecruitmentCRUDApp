@@ -8,6 +8,7 @@ using System.Text;
 using Models;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace RecruitmentApplication.Controllers
 {
@@ -20,11 +21,13 @@ namespace RecruitmentApplication.Controllers
 
         public SignUpController(IUserRepository userRepository,
             IJobSeekerRepository jobSeekerRepository,
-            IEmployerRepository employerRepository)
+            IEmployerRepository employerRepository,
+            frmSignup view)
         {
             this.userRepository = userRepository;
             this.jobSeekerRepository = jobSeekerRepository;
             this.employerRepository = employerRepository;
+            BindView(view);
         }
 
         public void BindView(frmSignup view)
@@ -90,16 +93,14 @@ namespace RecruitmentApplication.Controllers
                     UserType = e.UserType
                 };
 
-                // Add the user to the database
                 int userId = await userRepository.AddAsync(newUser);
+                Debug.WriteLine($"user id is {userId}");
 
-                // Create corresponding profile based on user type
                 if (e.UserType == "JobSeeker")
                 {
                     await jobSeekerRepository.AddAsync(new JobSeeker
                     {
                         UserId = userId,
-                        // Add other necessary JobSeeker properties
                     });
                 }
                 else if (e.UserType == "Employer")
@@ -107,13 +108,11 @@ namespace RecruitmentApplication.Controllers
                     await employerRepository.AddAsync(new Employer
                     {
                         UserId = userId,
-                        // Add other necessary Employer properties
                     });
                 }
 
                 MessageBox.Show("Registration successful! Please login.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                // Close signup form and show login form
                 view.Invoke((MethodInvoker) delegate
                 {
                     view.Hide();

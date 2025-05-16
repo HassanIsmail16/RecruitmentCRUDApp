@@ -57,7 +57,7 @@ namespace RecruitmentApplication.Views
                 var userRepo = new UserRepository(context);
                 var jobSeekerRepo = new JobSeekerRepository(context);
                 var employerRepo = new EmployerRepository(context);
-                var signupController = new SignUpController(userRepo, jobSeekerRepo, employerRepo);
+                var signupController = new SignUpController(userRepo, jobSeekerRepo, employerRepo, signupForm);
                 signupController.BindView(signupForm);
             }
 
