@@ -16,12 +16,6 @@ namespace RecruitmentApplication.Views
 {
     partial class JobDetailsForm
     {
-        private int jobId;
-        public JobDetailsForm(int jobId)
-        {
-            this.jobId = jobId;
-        }
-
         /// <summary>
         /// Required designer variable.
         /// </summary>

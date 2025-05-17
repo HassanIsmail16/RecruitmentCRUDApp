@@ -13,9 +13,11 @@ namespace RecruitmentApplication.Views
 {
     public partial class JobDetailsForm : Form
     {
-        public JobDetailsForm()
+        private int jobId;
+        public JobDetailsForm(int jobId)
         {
             InitializeComponent();
+            this.jobId = jobId;
 
             readOnlyFields();
             loadJobDetails();
@@ -33,12 +35,16 @@ namespace RecruitmentApplication.Views
         }
         public void loadJobDetails()
         {
-            using (SqlConnection conn = new SqlConnection("Data Source=localhost;Initial Catalog=RecruitmentDB;Integrated Security=True"))
+            using (SqlConnection conn = new SqlConnection("Data Source=.;Initial Catalog=Recruitment;Integrated Security=True;TrustServerCertificate=True;"))
             using (SqlCommand cmd = new SqlCommand(
-                @"SELECT title, status, experience_level, work_mode, job_type, skills, description, deadline, company_name 
-                  FROM Vacancy WHERE Vacancy_id = @jobId", conn))
+                @"SELECT V.title, V.status, V.experience_level, V.work_mode, V.job_type, V.skills, V.description, V.deadline, C.name 
+                  FROM [Vacancy] V INNER JOIN [Company] C
+                  ON V.company_id = C.company_id
+                  WHERE vacancy_id = @jobId", conn))
             {
                 conn.Open();
+                cmd.Parameters.AddWithValue("@jobId", jobId);
+
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
                     if (reader.Read())
@@ -50,7 +56,7 @@ namespace RecruitmentApplication.Views
                         tboxJobType.Text = reader["job_type"]?.ToString() ?? "";
                         tboxSkills.Text = reader["skills"]?.ToString() ?? "";
                         tboxDescription.Text = reader["description"]?.ToString() ?? "";
-                        lblCompanyName.Text = reader["company_name"]?.ToString() ?? "";
+                        lblCompanyName.Text = reader["name"]?.ToString() ?? "";
                         if (reader["deadline"] != DBNull.Value)
                             dateDeadline.Value = Convert.ToDateTime(reader["deadline"]);
                         else

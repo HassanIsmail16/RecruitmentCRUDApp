@@ -44,8 +44,6 @@
             this.cboxExperienceLevelMidLevel = new CheckBox();
             this.cboxExperienceLevelSenior = new CheckBox();
             this.btnApplyFilters = new Button();
-            this.cmboxIndustry = new ComboBox();
-            this.lblIndustry = new Label();
             this.tboxSearchInput = new TextBox();
             this.btnSearch = new Button();
             this.dataGridPostings = new DataGridView();
@@ -226,24 +224,6 @@
             this.btnApplyFilters.UseVisualStyleBackColor = true;
             this.btnApplyFilters.Click += this.refreshBtn_Click;
             // 
-            // cmboxIndustry
-            // 
-            this.cmboxIndustry.FormattingEnabled = true;
-            this.cmboxIndustry.Location = new Point(477, 326);
-            this.cmboxIndustry.Name = "cmboxIndustry";
-            this.cmboxIndustry.Size = new Size(121, 23);
-            this.cmboxIndustry.TabIndex = 3;
-            // 
-            // lblIndustry
-            // 
-            this.lblIndustry.AutoSize = true;
-            this.lblIndustry.Location = new Point(477, 308);
-            this.lblIndustry.Name = "lblIndustry";
-            this.lblIndustry.Size = new Size(50, 15);
-            this.lblIndustry.TabIndex = 4;
-            this.lblIndustry.Text = "Industry";
-            this.lblIndustry.TextAlign = ContentAlignment.TopCenter;
-            // 
             // tboxSearchInput
             // 
             this.tboxSearchInput.Location = new Point(22, 16);
@@ -268,6 +248,7 @@
             this.dataGridPostings.Name = "dataGridPostings";
             this.dataGridPostings.Size = new Size(607, 235);
             this.dataGridPostings.TabIndex = 7;
+            this.dataGridPostings.CellContentClick += this.dataGridPostings_CellContentClick;
             // 
             // JobsControl
             // 
@@ -276,8 +257,6 @@
             this.Controls.Add(this.dataGridPostings);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.tboxSearchInput);
-            this.Controls.Add(this.lblIndustry);
-            this.Controls.Add(this.cmboxIndustry);
             this.Controls.Add(this.gboxExperienceLevel);
             this.Controls.Add(this.gboxWorkMode);
             this.Controls.Add(this.groupJobType);
@@ -314,8 +293,6 @@
         private Button btnApplyFilters;
         private CheckBox cboxExperienceLevelFreshGrad;
         private CheckBox cboxExperienceLevelIntern;
-        private ComboBox cmboxIndustry;
-        private Label lblIndustry;
         private TextBox tboxSearchInput;
         private Button btnSearch;
         private DataGridView dataGridPostings;
