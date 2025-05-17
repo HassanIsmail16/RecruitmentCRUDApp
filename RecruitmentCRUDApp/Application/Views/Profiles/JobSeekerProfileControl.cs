@@ -1,4 +1,5 @@
-﻿using Models;
+﻿using Microsoft.VisualBasic.ApplicationServices;
+using Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,6 +18,38 @@ namespace RecruitmentApplication.Views.Profiles
         public JobSeekerProfileControl()
         {
             InitializeComponent();
+        }
+
+        private void btnSaveChangesSkills_Click(object sender, EventArgs e)
+        {
+            string skills = textBoxSkills.Text;
+            string interests = textBoxInterests.Text;
+
+            string connectionString = "Data Source=.;Initial Catalog=Recruitment;Integrated Security=True;TrustServerCertificate=True;";
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                string saveUserChangesQuery =
+                    "UPDATE [User] " +
+                    "SET skills = @skills, interests = @interests" +
+                    "WHERE user_id = @userId;";
+                SqlCommand saveUserChangesCmd = new SqlCommand(saveUserChangesQuery, connection);
+                saveUserChangesCmd.Parameters.AddWithValue("@skills", skills);
+                saveUserChangesCmd.Parameters.AddWithValue("@interests", interests);
+                saveUserChangesCmd.Parameters.AddWithValue("@userId", Session.CurrentUserId);
+
+                var result = saveUserChangesCmd.ExecuteNonQuery();
+                if (result > 0)
+                {
+                    MessageBox.Show("Saved changes successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+                else
+                {
+                    MessageBox.Show("Failed to save changes.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
         }
 
         private void btnSaveChanges_Click(object sender, EventArgs e)
@@ -103,6 +136,108 @@ namespace RecruitmentApplication.Views.Profiles
             txtPhoneNumber.Text = "";
             birthDatePicker.Value = DateTime.Now;
             textBox4.Text = "";
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnRemove_Click(object sender, EventArgs e)
+        {
+            string connectionString = "Data Source=.;Initial Catalog=Recruitment;Integrated Security=True;TrustServerCertificate=True;";
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                string removeResumeQuery =
+                    "UPDATE[JobSeeker]" +
+                    "SET resume = NULL" +
+                    "WHERE user_id = @userId";
+                SqlCommand removeResumeCmd = new SqlCommand(removeResumeQuery, connection);
+
+                var result = removeResumeCmd.ExecuteNonQuery();
+                if (result > 0)
+                {
+                    MessageBox.Show("Saved changes successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+                else
+                {
+                    MessageBox.Show("Failed to save changes.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
+        }
+
+        private void btnUpload_Click(object sender, EventArgs e)
+        {
+            byte[] resume = null;
+
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        resume = File.ReadAllBytes(openFileDialog.FileName);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error reading file: " + ex.Message, "File Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return; 
+                    }
+                }
+                else
+                {
+                    return; 
+                }
+            }
+
+            if (resume == null)
+            {
+                return;
+            }
+
+            string connectionString = "Data Source=.;Initial Catalog=Recruitment;Integrated Security=True;TrustServerCertificate=True;";
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    string uploadResumeQuery =
+                        "UPDATE [JobSeeker] " +
+                        "SET resume = @resume " + 
+                        "WHERE user_id = @userId;";
+
+                    SqlCommand uploadResumeCmd = new SqlCommand(uploadResumeQuery, connection);
+
+                    uploadResumeCmd.Parameters.AddWithValue("@resume", resume);
+                    uploadResumeCmd.Parameters.AddWithValue("@userId", Session.CurrentUserId);
+
+                    var result = uploadResumeCmd.ExecuteNonQuery();
+                    if (result > 0)
+                    {
+                        MessageBox.Show("Saved changes successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Failed to save changes. User not found or no resume to update.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                catch (SqlException sqlEx)
+                {
+                    MessageBox.Show("Database error: " + sqlEx.Message, "SQL Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An unexpected error occurred: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
     }
 }
