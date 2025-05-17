@@ -15,6 +15,7 @@ namespace RecruitmentApplication
             ApplicationConfiguration.Initialize();
 
             Application.Run(new Views.frmLogin());
+            // Application.Run(new Views.frmPostedJobs());
         }
     }
 }
