@@ -16,6 +16,12 @@ namespace RecruitmentApplication.Views
 {
     partial class JobDetailsForm
     {
+        private int jobId;
+        public JobDetailsForm(int jobId)
+        {
+            this.jobId = jobId;
+        }
+
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -191,6 +197,7 @@ namespace RecruitmentApplication.Views
             btnCancel.TabIndex = 21;
             btnCancel.Text = "Cancel";
             btnCancel.UseVisualStyleBackColor = true;
+            btnCancel.Click += btnCancel_Click;
             // 
             // lblHeader
             // 
