@@ -56,7 +56,7 @@ namespace RecruitmentApplication.Views
                         tboxJobType.Text = reader["job_type"]?.ToString() ?? "";
                         tboxSkills.Text = reader["skills"]?.ToString() ?? "";
                         tboxDescription.Text = reader["description"]?.ToString() ?? "";
-                        lblCompanyName.Text = reader["name"]?.ToString() ??  "";
+                        tboxCompanyName.Text = reader["name"]?.ToString() ??  "";
                         if (reader["deadline"] != DBNull.Value)
                             dateDeadline.Value = Convert.ToDateTime(reader["deadline"]);
                         else
@@ -71,7 +71,7 @@ namespace RecruitmentApplication.Views
                         tboxJobType.Text = "";
                         tboxSkills.Text = "";
                         tboxDescription.Text = "";
-                        lblCompanyName.Text = "";
+                        tboxCompanyName.Text = "";
                         dateDeadline.Value = DateTime.Now;
                     }
                 }
