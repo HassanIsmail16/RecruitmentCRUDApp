@@ -16,5 +16,10 @@ namespace RecruitmentApplication.Views
         {
             InitializeComponent();
         }
+
+        private void tboxTitle_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

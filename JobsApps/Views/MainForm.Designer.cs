@@ -29,107 +29,113 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            this.navPanel = new Panel();
-            this.toolStrip1 = new ToolStrip();
-            this.navJobsBtn = new ToolStripButton();
-            this.navSavedJobsBtn = new ToolStripButton();
-            this.navProfileBtn = new ToolStripButton();
-            this.navLogoutBtn = new ToolStripButton();
-            this.centralPanel = new Panel();
-            this.navPanel.SuspendLayout();
-            this.toolStrip1.SuspendLayout();
-            this.SuspendLayout();
+            navPanel = new Panel();
+            toolStrip1 = new ToolStrip();
+            navJobsBtn = new ToolStripButton();
+            navSavedJobsBtn = new ToolStripButton();
+            navProfileBtn = new ToolStripButton();
+            navLogoutBtn = new ToolStripButton();
+            centralPanel = new Panel();
+            navPanel.SuspendLayout();
+            toolStrip1.SuspendLayout();
+            SuspendLayout();
             // 
             // navPanel
             // 
-            this.navPanel.Anchor =  AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            this.navPanel.BackgroundImageLayout = ImageLayout.Center;
-            this.navPanel.Controls.Add(this.toolStrip1);
-            this.navPanel.Location = new Point(0, 0);
-            this.navPanel.Name = "navPanel";
-            this.navPanel.Size = new Size(178, 450);
-            this.navPanel.TabIndex = 0;
+            navPanel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            navPanel.BackgroundImageLayout = ImageLayout.Center;
+            navPanel.Controls.Add(toolStrip1);
+            navPanel.Location = new Point(0, 0);
+            navPanel.Margin = new Padding(3, 4, 3, 4);
+            navPanel.Name = "navPanel";
+            navPanel.Size = new Size(203, 600);
+            navPanel.TabIndex = 0;
             // 
             // toolStrip1
             // 
-            this.toolStrip1.Dock = DockStyle.Left;
-            this.toolStrip1.GripStyle = ToolStripGripStyle.Hidden;
-            this.toolStrip1.Items.AddRange(new ToolStripItem[] { this.navJobsBtn, this.navSavedJobsBtn, this.navProfileBtn, this.navLogoutBtn });
-            this.toolStrip1.Location = new Point(0, 0);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.RenderMode = ToolStripRenderMode.Professional;
-            this.toolStrip1.Size = new Size(171, 450);
-            this.toolStrip1.TabIndex = 0;
-            this.toolStrip1.Text = "toolStrip1";
+            toolStrip1.Dock = DockStyle.Left;
+            toolStrip1.GripStyle = ToolStripGripStyle.Hidden;
+            toolStrip1.ImageScalingSize = new Size(20, 20);
+            toolStrip1.Items.AddRange(new ToolStripItem[] { navJobsBtn, navSavedJobsBtn, navProfileBtn, navLogoutBtn });
+            toolStrip1.Location = new Point(0, 0);
+            toolStrip1.Name = "toolStrip1";
+            toolStrip1.RenderMode = ToolStripRenderMode.Professional;
+            toolStrip1.Size = new Size(171, 600);
+            toolStrip1.TabIndex = 0;
+            toolStrip1.Text = "toolStrip1";
             // 
             // navJobsBtn
             // 
-            this.navJobsBtn.AutoSize = false;
-            this.navJobsBtn.Image = (Image) resources.GetObject("navJobsBtn.Image");
-            this.navJobsBtn.ImageTransparentColor = Color.Magenta;
-            this.navJobsBtn.Name = "navJobsBtn";
-            this.navJobsBtn.Overflow = ToolStripItemOverflow.Never;
-            this.navJobsBtn.Padding = new Padding(10);
-            this.navJobsBtn.Size = new Size(170, 45);
-            this.navJobsBtn.Text = "Jobs";
-            this.navJobsBtn.Click += this.navJobsBtn_Click;
+            navJobsBtn.AutoSize = false;
+            navJobsBtn.Image = (Image)resources.GetObject("navJobsBtn.Image");
+            navJobsBtn.ImageTransparentColor = Color.Magenta;
+            navJobsBtn.Name = "navJobsBtn";
+            navJobsBtn.Overflow = ToolStripItemOverflow.Never;
+            navJobsBtn.Padding = new Padding(10);
+            navJobsBtn.Size = new Size(170, 45);
+            navJobsBtn.Text = "Jobs";
+            navJobsBtn.Click += navJobsBtn_Click;
             // 
             // navSavedJobsBtn
             // 
-            this.navSavedJobsBtn.AutoSize = false;
-            this.navSavedJobsBtn.Image = (Image) resources.GetObject("navSavedJobsBtn.Image");
-            this.navSavedJobsBtn.ImageTransparentColor = Color.Magenta;
-            this.navSavedJobsBtn.Name = "navSavedJobsBtn";
-            this.navSavedJobsBtn.Overflow = ToolStripItemOverflow.Never;
-            this.navSavedJobsBtn.Padding = new Padding(10);
-            this.navSavedJobsBtn.Size = new Size(170, 45);
-            this.navSavedJobsBtn.Text = "Saved Jobs";
-            this.navSavedJobsBtn.Click += this.navSavedJobsBtn_Click;
+            navSavedJobsBtn.AutoSize = false;
+            navSavedJobsBtn.Image = (Image)resources.GetObject("navSavedJobsBtn.Image");
+            navSavedJobsBtn.ImageTransparentColor = Color.Magenta;
+            navSavedJobsBtn.Name = "navSavedJobsBtn";
+            navSavedJobsBtn.Overflow = ToolStripItemOverflow.Never;
+            navSavedJobsBtn.Padding = new Padding(10);
+            navSavedJobsBtn.Size = new Size(170, 45);
+            navSavedJobsBtn.Text = "Saved Jobs";
+            navSavedJobsBtn.Click += navSavedJobsBtn_Click;
             // 
             // navProfileBtn
             // 
-            this.navProfileBtn.AutoSize = false;
-            this.navProfileBtn.Image = (Image) resources.GetObject("navProfileBtn.Image");
-            this.navProfileBtn.ImageTransparentColor = Color.Magenta;
-            this.navProfileBtn.Name = "navProfileBtn";
-            this.navProfileBtn.Overflow = ToolStripItemOverflow.Never;
-            this.navProfileBtn.Padding = new Padding(10);
-            this.navProfileBtn.Size = new Size(170, 45);
-            this.navProfileBtn.Text = "Profile";
+            navProfileBtn.AutoSize = false;
+            navProfileBtn.Image = (Image)resources.GetObject("navProfileBtn.Image");
+            navProfileBtn.ImageTransparentColor = Color.Magenta;
+            navProfileBtn.Name = "navProfileBtn";
+            navProfileBtn.Overflow = ToolStripItemOverflow.Never;
+            navProfileBtn.Padding = new Padding(10);
+            navProfileBtn.Size = new Size(170, 45);
+            navProfileBtn.Text = "Profile";
+            navProfileBtn.Click += navProfileBtn_Click;
             // 
             // navLogoutBtn
             // 
-            this.navLogoutBtn.AutoSize = false;
-            this.navLogoutBtn.Image = (Image) resources.GetObject("navLogoutBtn.Image");
-            this.navLogoutBtn.ImageTransparentColor = Color.Magenta;
-            this.navLogoutBtn.Name = "navLogoutBtn";
-            this.navLogoutBtn.Overflow = ToolStripItemOverflow.Never;
-            this.navLogoutBtn.Padding = new Padding(10);
-            this.navLogoutBtn.Size = new Size(170, 45);
-            this.navLogoutBtn.Text = "Log Out";
+            navLogoutBtn.AutoSize = false;
+            navLogoutBtn.Image = (Image)resources.GetObject("navLogoutBtn.Image");
+            navLogoutBtn.ImageTransparentColor = Color.Magenta;
+            navLogoutBtn.Name = "navLogoutBtn";
+            navLogoutBtn.Overflow = ToolStripItemOverflow.Never;
+            navLogoutBtn.Padding = new Padding(10);
+            navLogoutBtn.Size = new Size(170, 45);
+            navLogoutBtn.Text = "Log Out";
+            navLogoutBtn.Click += navLogoutBtn_Click;
             // 
             // centralPanel
             // 
-            this.centralPanel.Anchor =  AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            this.centralPanel.Location = new Point(174, 0);
-            this.centralPanel.Name = "centralPanel";
-            this.centralPanel.Size = new Size(626, 450);
-            this.centralPanel.TabIndex = 1;
+            centralPanel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            centralPanel.Location = new Point(199, 0);
+            centralPanel.Margin = new Padding(3, 4, 3, 4);
+            centralPanel.Name = "centralPanel";
+            centralPanel.Size = new Size(715, 600);
+            centralPanel.TabIndex = 1;
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new SizeF(7F, 15F);
-            this.AutoScaleMode = AutoScaleMode.Font;
-            this.ClientSize = new Size(800, 450);
-            this.Controls.Add(this.centralPanel);
-            this.Controls.Add(this.navPanel);
-            this.Name = "MainForm";
-            this.Text = "MainForm";
-            this.navPanel.ResumeLayout(false);
-            this.navPanel.PerformLayout();
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
-            this.ResumeLayout(false);
+            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(914, 600);
+            Controls.Add(centralPanel);
+            Controls.Add(navPanel);
+            Margin = new Padding(3, 4, 3, 4);
+            Name = "MainForm";
+            Text = "MainForm";
+            navPanel.ResumeLayout(false);
+            navPanel.PerformLayout();
+            toolStrip1.ResumeLayout(false);
+            toolStrip1.PerformLayout();
+            ResumeLayout(false);
         }
 
         #endregion

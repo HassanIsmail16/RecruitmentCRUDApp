@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using RecruitmentApplication.Views.Auth;
 
 namespace JobsApps
 {
@@ -20,9 +21,9 @@ namespace JobsApps
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string connStr = "Data Source=LAPTOP-7RP4DTQ6;Initial Catalog=jobs;Integrated Security=True;Trust Server Certificate=True";
-            SqlConnection conn = new SqlConnection(connStr);
+            var signupForm = new frmSignup();
+            signupForm.Show();
+            this.Hide(); // Optional: hides Form1 if you want only the signup form visible
         }
     }
 }
-            

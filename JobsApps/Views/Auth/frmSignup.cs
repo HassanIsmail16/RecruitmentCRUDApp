@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.Data.SqlClient;
 using RecruitmentApplication.Views;
 using static RecruitmentApplication.Views.frmLogin;
 
@@ -68,17 +69,89 @@ namespace RecruitmentApplication.Views.Auth
             string confirmPassword = txtConfirmPassword.Text;
             string phoneNumber = txtPhoneNumber.Text;
             DateTime? birthDate = this.birthDate.Value;
-            
-            string userType;
-            if (radioBtnEmployer.Checked)
+
+            // Password match check
+            if (password != confirmPassword)
             {
-                userType = "Employer";
-            } else
-            {
-                userType = "JobSeeker";
+                MessageBox.Show("Password and Confirm Password do not match. Please try again.", "Password Mismatch", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtPassword.Clear();
+                txtConfirmPassword.Clear();
+                txtPassword.Focus();
+                return;
             }
-            
-            OnSignUp?.Invoke(this, new SignUpEventArgs(fullName, email, password, confirmPassword, phoneNumber, birthDate, userType));   
+
+            string userType = radioBtnEmployer.Checked ? "Employer" : "JobSeeker";
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection("Data Source=LAPTOP-7RP4DTQ6;Initial Catalog=Recruitment;Integrated Security=True;Trust Server Certificate=True"))
+                using (SqlCommand cmd = new SqlCommand(
+                    "INSERT INTO [User] (name, email, password, phone, birth_date,user_type) VALUES (@fullName, @email, @password, @phoneNumber, @birthDate,@userType)", conn))
+                {
+                    cmd.Parameters.AddWithValue("@fullName", fullName);
+                    cmd.Parameters.AddWithValue("@email", email);
+                    cmd.Parameters.AddWithValue("@password", password);
+                    cmd.Parameters.AddWithValue("@phoneNumber", phoneNumber);
+                    cmd.Parameters.AddWithValue("@birthDate", birthDate ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("@userType", userType);
+
+                    conn.Open();
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    conn.Close();
+
+                    if (rowsAffected > 0)
+                    {
+                        MessageBox.Show("Signup successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Signup failed. Please try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void txtFullName_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtEmail_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtPassword_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtPhoneNumber_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void birthDate_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void radioBtnJobseeker_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void radioBtnEmployer_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void gboxUserType_Enter(object sender, EventArgs e)
+        {
 
         }
     }

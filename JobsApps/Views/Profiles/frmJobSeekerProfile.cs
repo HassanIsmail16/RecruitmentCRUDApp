@@ -174,7 +174,7 @@ namespace RecruitmentApplication.Views.Profiles
                         {
                             if (img.Width < 100 || img.Height < 100)
                             {
-                                MessageBox.Show("Image is too small. Please select an image that is at least 100x100 pixels.", 
+                                MessageBox.Show("Image is too small. Please select an image that is at least 100x100 pixels.",
                                     "Image Size Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                 return;
                             }
@@ -208,7 +208,7 @@ namespace RecruitmentApplication.Views.Profiles
 
             float aspectRatio = (float)sourceImage.Width / sourceImage.Height;
 
-            if (aspectRatio > 1) 
+            if (aspectRatio > 1)
             {
                 newWidth = maxWidth;
                 newHeight = (int)(maxWidth / aspectRatio);
@@ -232,6 +232,16 @@ namespace RecruitmentApplication.Views.Profiles
             }
 
             return newImage;
+        }
+
+        private void labelUserName_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void profilePictureBox_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

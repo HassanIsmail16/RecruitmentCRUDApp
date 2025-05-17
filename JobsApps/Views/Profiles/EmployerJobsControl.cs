@@ -1,5 +1,4 @@
-﻿using Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -39,9 +38,8 @@ namespace RecruitmentApplication.Views.Profiles
             // TODO: make columns read only
         }
 
-        public void RenderVacancies(List<Vacancy> vacancies)
+        public void RenderVacancies()
         {
-            dataGridPostings.DataSource = vacancies;
         }
 
         private void refreshBtn_Click(object sender, EventArgs e)

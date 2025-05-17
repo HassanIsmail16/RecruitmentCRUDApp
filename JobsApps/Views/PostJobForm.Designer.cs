@@ -28,225 +28,237 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnPost = new Button();
-            this.lblHeader = new Label();
-            this.tboxSkills = new TextBox();
-            this.tboxDescription = new TextBox();
-            this.dateDeadline = new DateTimePicker();
-            this.cmboxJobType = new ComboBox();
-            this.cmboxWorkMode = new ComboBox();
-            this.cmboxExpLevel = new ComboBox();
-            this.lblJobType = new Label();
-            this.cmboxStatus = new ComboBox();
-            this.lblSkills = new Label();
-            this.lblWorkMode = new Label();
-            this.lblDescription = new Label();
-            this.lblExpLevel = new Label();
-            this.lblDeadline = new Label();
-            this.lblStatus = new Label();
-            this.tboxTitle = new TextBox();
-            this.lblTitle = new Label();
-            this.btnCancel = new Button();
-            this.SuspendLayout();
+            btnPost = new Button();
+            lblHeader = new Label();
+            tboxSkills = new TextBox();
+            tboxDescription = new TextBox();
+            dateDeadline = new DateTimePicker();
+            cmboxJobType = new ComboBox();
+            cmboxWorkMode = new ComboBox();
+            cmboxExpLevel = new ComboBox();
+            lblJobType = new Label();
+            cmboxStatus = new ComboBox();
+            lblSkills = new Label();
+            lblWorkMode = new Label();
+            lblDescription = new Label();
+            lblExpLevel = new Label();
+            lblDeadline = new Label();
+            lblStatus = new Label();
+            tboxTitle = new TextBox();
+            lblTitle = new Label();
+            btnCancel = new Button();
+            SuspendLayout();
             // 
             // btnPost
             // 
-            this.btnPost.Location = new Point(268, 454);
-            this.btnPost.Name = "btnPost";
-            this.btnPost.Size = new Size(75, 29);
-            this.btnPost.TabIndex = 24;
-            this.btnPost.Text = "Post";
-            this.btnPost.UseVisualStyleBackColor = true;
+            btnPost.Location = new Point(306, 605);
+            btnPost.Margin = new Padding(3, 4, 3, 4);
+            btnPost.Name = "btnPost";
+            btnPost.Size = new Size(86, 39);
+            btnPost.TabIndex = 24;
+            btnPost.Text = "Post";
+            btnPost.UseVisualStyleBackColor = true;
             // 
             // lblHeader
             // 
-            this.lblHeader.AutoSize = true;
-            this.lblHeader.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point,  0);
-            this.lblHeader.Location = new Point(75, 24);
-            this.lblHeader.Name = "lblHeader";
-            this.lblHeader.Size = new Size(228, 32);
-            this.lblHeader.TabIndex = 23;
-            this.lblHeader.Text = "Create Job Posting";
+            lblHeader.AutoSize = true;
+            lblHeader.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblHeader.Location = new Point(86, 32);
+            lblHeader.Name = "lblHeader";
+            lblHeader.Size = new Size(281, 41);
+            lblHeader.TabIndex = 23;
+            lblHeader.Text = "Create Job Posting";
             // 
             // tboxSkills
             // 
-            this.tboxSkills.Anchor =  AnchorStyles.Bottom | AnchorStyles.Right;
-            this.tboxSkills.Location = new Point(134, 256);
-            this.tboxSkills.Multiline = true;
-            this.tboxSkills.Name = "tboxSkills";
-            this.tboxSkills.Size = new Size(209, 58);
-            this.tboxSkills.TabIndex = 22;
+            tboxSkills.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            tboxSkills.Location = new Point(153, 341);
+            tboxSkills.Margin = new Padding(3, 4, 3, 4);
+            tboxSkills.Multiline = true;
+            tboxSkills.Name = "tboxSkills";
+            tboxSkills.Size = new Size(238, 76);
+            tboxSkills.TabIndex = 22;
             // 
             // tboxDescription
             // 
-            this.tboxDescription.Anchor =  AnchorStyles.Bottom | AnchorStyles.Right;
-            this.tboxDescription.Location = new Point(134, 320);
-            this.tboxDescription.Multiline = true;
-            this.tboxDescription.Name = "tboxDescription";
-            this.tboxDescription.Size = new Size(209, 126);
-            this.tboxDescription.TabIndex = 21;
+            tboxDescription.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            tboxDescription.Location = new Point(153, 427);
+            tboxDescription.Margin = new Padding(3, 4, 3, 4);
+            tboxDescription.Multiline = true;
+            tboxDescription.Name = "tboxDescription";
+            tboxDescription.Size = new Size(238, 167);
+            tboxDescription.TabIndex = 21;
             // 
             // dateDeadline
             // 
-            this.dateDeadline.Anchor = AnchorStyles.Right;
-            this.dateDeadline.Location = new Point(134, 222);
-            this.dateDeadline.Name = "dateDeadline";
-            this.dateDeadline.Size = new Size(209, 23);
-            this.dateDeadline.TabIndex = 20;
+            dateDeadline.Anchor = AnchorStyles.Right;
+            dateDeadline.Location = new Point(153, 296);
+            dateDeadline.Margin = new Padding(3, 4, 3, 4);
+            dateDeadline.Name = "dateDeadline";
+            dateDeadline.Size = new Size(238, 27);
+            dateDeadline.TabIndex = 20;
             // 
             // cmboxJobType
             // 
-            this.cmboxJobType.Anchor = AnchorStyles.Right;
-            this.cmboxJobType.FormattingEnabled = true;
-            this.cmboxJobType.Location = new Point(134, 188);
-            this.cmboxJobType.Name = "cmboxJobType";
-            this.cmboxJobType.Size = new Size(209, 23);
-            this.cmboxJobType.TabIndex = 18;
+            cmboxJobType.Anchor = AnchorStyles.Right;
+            cmboxJobType.FormattingEnabled = true;
+            cmboxJobType.Location = new Point(153, 251);
+            cmboxJobType.Margin = new Padding(3, 4, 3, 4);
+            cmboxJobType.Name = "cmboxJobType";
+            cmboxJobType.Size = new Size(238, 28);
+            cmboxJobType.TabIndex = 18;
             // 
             // cmboxWorkMode
             // 
-            this.cmboxWorkMode.Anchor = AnchorStyles.Right;
-            this.cmboxWorkMode.FormattingEnabled = true;
-            this.cmboxWorkMode.Location = new Point(134, 159);
-            this.cmboxWorkMode.Name = "cmboxWorkMode";
-            this.cmboxWorkMode.Size = new Size(209, 23);
-            this.cmboxWorkMode.TabIndex = 17;
+            cmboxWorkMode.Anchor = AnchorStyles.Right;
+            cmboxWorkMode.FormattingEnabled = true;
+            cmboxWorkMode.Location = new Point(153, 212);
+            cmboxWorkMode.Margin = new Padding(3, 4, 3, 4);
+            cmboxWorkMode.Name = "cmboxWorkMode";
+            cmboxWorkMode.Size = new Size(238, 28);
+            cmboxWorkMode.TabIndex = 17;
             // 
             // cmboxExpLevel
             // 
-            this.cmboxExpLevel.Anchor = AnchorStyles.Right;
-            this.cmboxExpLevel.FormattingEnabled = true;
-            this.cmboxExpLevel.Location = new Point(134, 130);
-            this.cmboxExpLevel.Name = "cmboxExpLevel";
-            this.cmboxExpLevel.Size = new Size(209, 23);
-            this.cmboxExpLevel.TabIndex = 19;
+            cmboxExpLevel.Anchor = AnchorStyles.Right;
+            cmboxExpLevel.FormattingEnabled = true;
+            cmboxExpLevel.Location = new Point(153, 173);
+            cmboxExpLevel.Margin = new Padding(3, 4, 3, 4);
+            cmboxExpLevel.Name = "cmboxExpLevel";
+            cmboxExpLevel.Size = new Size(238, 28);
+            cmboxExpLevel.TabIndex = 19;
             // 
             // lblJobType
             // 
-            this.lblJobType.AutoSize = true;
-            this.lblJobType.Location = new Point(62, 188);
-            this.lblJobType.Name = "lblJobType";
-            this.lblJobType.Size = new Size(52, 15);
-            this.lblJobType.TabIndex = 7;
-            this.lblJobType.Text = "Job Type";
+            lblJobType.AutoSize = true;
+            lblJobType.Location = new Point(71, 251);
+            lblJobType.Name = "lblJobType";
+            lblJobType.Size = new Size(67, 20);
+            lblJobType.TabIndex = 7;
+            lblJobType.Text = "Job Type";
             // 
             // cmboxStatus
             // 
-            this.cmboxStatus.Anchor = AnchorStyles.Right;
-            this.cmboxStatus.FormattingEnabled = true;
-            this.cmboxStatus.Location = new Point(134, 101);
-            this.cmboxStatus.Name = "cmboxStatus";
-            this.cmboxStatus.Size = new Size(209, 23);
-            this.cmboxStatus.TabIndex = 16;
+            cmboxStatus.Anchor = AnchorStyles.Right;
+            cmboxStatus.FormattingEnabled = true;
+            cmboxStatus.Location = new Point(153, 135);
+            cmboxStatus.Margin = new Padding(3, 4, 3, 4);
+            cmboxStatus.Name = "cmboxStatus";
+            cmboxStatus.Size = new Size(238, 28);
+            cmboxStatus.TabIndex = 16;
             // 
             // lblSkills
             // 
-            this.lblSkills.AutoSize = true;
-            this.lblSkills.Location = new Point(81, 256);
-            this.lblSkills.Name = "lblSkills";
-            this.lblSkills.Size = new Size(33, 15);
-            this.lblSkills.TabIndex = 13;
-            this.lblSkills.Text = "Skills";
+            lblSkills.AutoSize = true;
+            lblSkills.Location = new Point(93, 341);
+            lblSkills.Name = "lblSkills";
+            lblSkills.Size = new Size(42, 20);
+            lblSkills.TabIndex = 13;
+            lblSkills.Text = "Skills";
             // 
             // lblWorkMode
             // 
-            this.lblWorkMode.AutoSize = true;
-            this.lblWorkMode.Location = new Point(45, 159);
-            this.lblWorkMode.Name = "lblWorkMode";
-            this.lblWorkMode.Size = new Size(69, 15);
-            this.lblWorkMode.TabIndex = 12;
-            this.lblWorkMode.Text = "Work Mode";
+            lblWorkMode.AutoSize = true;
+            lblWorkMode.Location = new Point(51, 212);
+            lblWorkMode.Name = "lblWorkMode";
+            lblWorkMode.Size = new Size(86, 20);
+            lblWorkMode.TabIndex = 12;
+            lblWorkMode.Text = "Work Mode";
             // 
             // lblDescription
             // 
-            this.lblDescription.AutoSize = true;
-            this.lblDescription.Location = new Point(47, 320);
-            this.lblDescription.Name = "lblDescription";
-            this.lblDescription.Size = new Size(67, 15);
-            this.lblDescription.TabIndex = 11;
-            this.lblDescription.Text = "Description";
+            lblDescription.AutoSize = true;
+            lblDescription.Location = new Point(54, 427);
+            lblDescription.Name = "lblDescription";
+            lblDescription.Size = new Size(85, 20);
+            lblDescription.TabIndex = 11;
+            lblDescription.Text = "Description";
             // 
             // lblExpLevel
             // 
-            this.lblExpLevel.AutoSize = true;
-            this.lblExpLevel.Location = new Point(20, 130);
-            this.lblExpLevel.Name = "lblExpLevel";
-            this.lblExpLevel.Size = new Size(94, 15);
-            this.lblExpLevel.TabIndex = 10;
-            this.lblExpLevel.Text = "Experience Level";
+            lblExpLevel.AutoSize = true;
+            lblExpLevel.Location = new Point(23, 173);
+            lblExpLevel.Name = "lblExpLevel";
+            lblExpLevel.Size = new Size(119, 20);
+            lblExpLevel.TabIndex = 10;
+            lblExpLevel.Text = "Experience Level";
             // 
             // lblDeadline
             // 
-            this.lblDeadline.AutoSize = true;
-            this.lblDeadline.Location = new Point(61, 228);
-            this.lblDeadline.Name = "lblDeadline";
-            this.lblDeadline.Size = new Size(53, 15);
-            this.lblDeadline.TabIndex = 9;
-            this.lblDeadline.Text = "Deadline";
+            lblDeadline.AutoSize = true;
+            lblDeadline.Location = new Point(70, 304);
+            lblDeadline.Name = "lblDeadline";
+            lblDeadline.Size = new Size(69, 20);
+            lblDeadline.TabIndex = 9;
+            lblDeadline.Text = "Deadline";
             // 
             // lblStatus
             // 
-            this.lblStatus.AutoSize = true;
-            this.lblStatus.Location = new Point(75, 101);
-            this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new Size(39, 15);
-            this.lblStatus.TabIndex = 8;
-            this.lblStatus.Text = "Status";
+            lblStatus.AutoSize = true;
+            lblStatus.Location = new Point(86, 135);
+            lblStatus.Name = "lblStatus";
+            lblStatus.Size = new Size(49, 20);
+            lblStatus.TabIndex = 8;
+            lblStatus.Text = "Status";
             // 
             // tboxTitle
             // 
-            this.tboxTitle.Anchor =  AnchorStyles.Top | AnchorStyles.Right;
-            this.tboxTitle.Location = new Point(134, 69);
-            this.tboxTitle.Name = "tboxTitle";
-            this.tboxTitle.Size = new Size(209, 23);
-            this.tboxTitle.TabIndex = 15;
+            tboxTitle.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            tboxTitle.Location = new Point(153, 92);
+            tboxTitle.Margin = new Padding(3, 4, 3, 4);
+            tboxTitle.Name = "tboxTitle";
+            tboxTitle.Size = new Size(238, 27);
+            tboxTitle.TabIndex = 15;
+            tboxTitle.TextChanged += tboxTitle_TextChanged;
             // 
             // lblTitle
             // 
-            this.lblTitle.AutoSize = true;
-            this.lblTitle.Location = new Point(85, 72);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new Size(29, 15);
-            this.lblTitle.TabIndex = 14;
-            this.lblTitle.Text = "Title";
+            lblTitle.AutoSize = true;
+            lblTitle.Location = new Point(97, 96);
+            lblTitle.Name = "lblTitle";
+            lblTitle.Size = new Size(38, 20);
+            lblTitle.TabIndex = 14;
+            lblTitle.Text = "Title";
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new Point(187, 454);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new Size(75, 29);
-            this.btnCancel.TabIndex = 24;
-            this.btnCancel.Text = "Cancel";
-            this.btnCancel.UseVisualStyleBackColor = true;
+            btnCancel.Location = new Point(214, 605);
+            btnCancel.Margin = new Padding(3, 4, 3, 4);
+            btnCancel.Name = "btnCancel";
+            btnCancel.Size = new Size(86, 39);
+            btnCancel.TabIndex = 24;
+            btnCancel.Text = "Cancel";
+            btnCancel.UseVisualStyleBackColor = true;
             // 
             // PostJobForm
             // 
-            this.AutoScaleDimensions = new SizeF(7F, 15F);
-            this.AutoScaleMode = AutoScaleMode.Font;
-            this.ClientSize = new Size(372, 506);
-            this.Controls.Add(this.btnCancel);
-            this.Controls.Add(this.btnPost);
-            this.Controls.Add(this.lblHeader);
-            this.Controls.Add(this.tboxSkills);
-            this.Controls.Add(this.tboxDescription);
-            this.Controls.Add(this.dateDeadline);
-            this.Controls.Add(this.cmboxJobType);
-            this.Controls.Add(this.cmboxWorkMode);
-            this.Controls.Add(this.cmboxExpLevel);
-            this.Controls.Add(this.lblJobType);
-            this.Controls.Add(this.cmboxStatus);
-            this.Controls.Add(this.lblSkills);
-            this.Controls.Add(this.lblWorkMode);
-            this.Controls.Add(this.lblDescription);
-            this.Controls.Add(this.lblExpLevel);
-            this.Controls.Add(this.lblDeadline);
-            this.Controls.Add(this.lblStatus);
-            this.Controls.Add(this.tboxTitle);
-            this.Controls.Add(this.lblTitle);
-            this.Name = "PostJobForm";
-            this.Text = "PostJobForm";
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(425, 675);
+            Controls.Add(btnCancel);
+            Controls.Add(btnPost);
+            Controls.Add(lblHeader);
+            Controls.Add(tboxSkills);
+            Controls.Add(tboxDescription);
+            Controls.Add(dateDeadline);
+            Controls.Add(cmboxJobType);
+            Controls.Add(cmboxWorkMode);
+            Controls.Add(cmboxExpLevel);
+            Controls.Add(lblJobType);
+            Controls.Add(cmboxStatus);
+            Controls.Add(lblSkills);
+            Controls.Add(lblWorkMode);
+            Controls.Add(lblDescription);
+            Controls.Add(lblExpLevel);
+            Controls.Add(lblDeadline);
+            Controls.Add(lblStatus);
+            Controls.Add(tboxTitle);
+            Controls.Add(lblTitle);
+            Margin = new Padding(3, 4, 3, 4);
+            Name = "PostJobForm";
+            Text = "PostJobForm";
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion

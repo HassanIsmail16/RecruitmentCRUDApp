@@ -16,5 +16,10 @@ namespace RecruitmentApplication.Views
         {
             InitializeComponent();
         }
+
+        private void cmboxStatus_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
