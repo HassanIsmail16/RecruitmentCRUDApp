@@ -285,6 +285,7 @@
             this.Controls.Add(this.refreshBtn);
             this.Name = "JobsControl";
             this.Size = new Size(649, 501);
+            this.Load += this.JobsControl_Load;
             this.groupJobType.ResumeLayout(false);
             this.groupJobType.PerformLayout();
             this.gboxWorkMode.ResumeLayout(false);

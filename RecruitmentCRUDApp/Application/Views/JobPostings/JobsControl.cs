@@ -56,5 +56,10 @@ namespace RecruitmentApplication.Views
                 dataGridPostings.DataSource = table;
             }
         }
+
+        private void JobsControl_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
