@@ -8,75 +8,114 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using RecruitmentApplication.Utilities;
 
 namespace RecruitmentApplication.Views
 {
     public partial class EditJobForm : Form
     {
         private int jobId;
-        public EditJobForm(int jobId )
+        public EditJobForm(int jobId)
         {
             InitializeComponent();
             this.jobId = jobId;
         }
 
-        private void btnSave_Click(object sender, EventArgs e)
+        private bool ValidateInputs()
         {
-            string connectionString = "Data Source=.;Initial Catalog=Recruitment;Integrated Security=True;";
+            string title = tboxTitle.Text.Trim();
+            string description = tboxDescription.Text.Trim();
+            string skills = tboxSkills.Text.Trim();
+            string status = cmboxStatus.SelectedItem?.ToString();
+            string expLevel = cmboxExpLevel.SelectedItem?.ToString();
+            string workMode = cmboxWorkMode.SelectedItem?.ToString();
+            string jobType = cmboxJobType.SelectedItem?.ToString();
+            DateTime deadline = dateDeadline.Value;
 
-            // validate fields
-            if (string.IsNullOrWhiteSpace(tboxTitle.Text))
+            // Validate title
+            if (!AppUtilities.IsValidJobTitle(title))
             {
-                MessageBox.Show("Please enter a job title.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                AppUtilities.ShowError($"Job title must be between {AppUtilities.ValidationRules.MinJobTitleLength} and {AppUtilities.ValidationRules.MaxJobTitleLength} characters.");
                 tboxTitle.Focus();
-                return;
+                return false;
             }
 
-            if (string.IsNullOrWhiteSpace(tboxDescription.Text))
+            // Validate description
+            if (!AppUtilities.IsValidJobDescription(description))
             {
-                MessageBox.Show("Please enter a job description.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                AppUtilities.ShowError($"Job description must not exceed {AppUtilities.ValidationRules.MaxJobDescriptionLength} characters.");
                 tboxDescription.Focus();
-                return;
+                return false;
             }
 
-            if (cmboxExpLevel.SelectedIndex == -1)
+            // Validate skills
+            if (!AppUtilities.IsValidSkills(skills))
             {
-                MessageBox.Show("Please select an experience level.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                AppUtilities.ShowError($"Skills text must not exceed {AppUtilities.ValidationRules.MaxSkillsLength} characters.");
+                tboxSkills.Focus();
+                return false;
+            }
+
+            // Validate experience level
+            if (string.IsNullOrEmpty(expLevel) || !AppUtilities.IsValidExperienceLevel(expLevel))
+            {
+                AppUtilities.ShowError("Please select a valid experience level.");
                 cmboxExpLevel.Focus();
-                return;
+                return false;
             }
 
-            if (cmboxWorkMode.SelectedIndex == -1)
+            // Validate work mode
+            if (string.IsNullOrEmpty(workMode) || !AppUtilities.IsValidWorkMode(workMode))
             {
-                MessageBox.Show("Please select a work mode.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                AppUtilities.ShowError("Please select a valid work mode.");
                 cmboxWorkMode.Focus();
-                return;
+                return false;
             }
 
-            if (cmboxJobType.SelectedIndex == -1)
+            // Validate job type
+            if (string.IsNullOrEmpty(jobType) || !AppUtilities.IsValidJobType(jobType))
             {
-                MessageBox.Show("Please select a job type.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                AppUtilities.ShowError("Please select a valid job type.");
                 cmboxJobType.Focus();
-                return;
+                return false;
             }
 
-            if (cmboxStatus.SelectedIndex == -1)
+            // Validate status
+            if (string.IsNullOrEmpty(status) || !AppUtilities.IsValidVacancyStatus(status))
             {
-                MessageBox.Show("Please select a status.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                AppUtilities.ShowError("Please select a valid status.");
                 cmboxStatus.Focus();
-                return;
+                return false;
             }
 
+            // Validate deadline
+            if (!AppUtilities.IsValidDeadline(deadline))
+            {
+                AppUtilities.ShowError("Deadline must be a future date.");
+                dateDeadline.Focus();
+                return false;
+            }
+
+            // Validate job ID
             if (jobId <= 0)
             {
-                MessageBox.Show("Invalid job ID. Cannot update job vacancy!", "Error",
-                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                AppUtilities.ShowError("Invalid job ID. Cannot update job vacancy!");
+                return false;
+            }
+
+            return true;
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            if (!ValidateInputs())
+            {
                 return;
             }
 
             try
             {
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlConnection connection = new SqlConnection(AppUtilities.DatabaseConstants.ConnectionString))
                 {
                     connection.Open();
                     using (SqlTransaction transaction = connection.BeginTransaction())
@@ -111,18 +150,15 @@ namespace RecruitmentApplication.Views
                                 if (rowsAffected > 0)
                                 {
                                     transaction.Commit();
-                                    MessageBox.Show("Job vacancy updated successfully!", "Success",
-                                                   MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    AppUtilities.ShowInfo("Job vacancy updated successfully!");
 
-                                    // EZ PEASY 
                                     this.DialogResult = DialogResult.OK;
                                     this.Close();
                                 }
                                 else
                                 {
                                     transaction.Rollback();
-                                    MessageBox.Show("Failed to update job vacancy. The job may no longer exist.",
-                                                   "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    AppUtilities.ShowError("Failed to update job vacancy. The job may no longer exist.");
                                 }
                             }
                         }
@@ -136,41 +172,45 @@ namespace RecruitmentApplication.Views
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error updating job vacancy: {ex.Message}", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                AppUtilities.ShowError($"Error updating job vacancy: {ex.Message}");
             }
         }
 
         private void EditJobForm_Load(object sender, EventArgs e)
         {
-            string connectionString = "Data Source=.;Initial Catalog=Recruitment;Integrated Security=True;TrustServerCertificate=True;";
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            try
             {
-                connection.Open();
-                string getJobDataQuery = "SELECT * FROM [Vacancy] WHERE vacancy_id = @jobId";
-                SqlCommand cmd = new SqlCommand(getJobDataQuery, connection);
-                cmd.Parameters.AddWithValue("@jobId", jobId);
-
-                SqlDataReader reader = cmd.ExecuteReader();
-                if (reader.Read())
+                using (SqlConnection connection = new SqlConnection(AppUtilities.DatabaseConstants.ConnectionString))
                 {
-                    tboxTitle.Text = reader["title"].ToString();
-                    cmboxStatus.Text = reader["status"].ToString();
-                    cmboxExpLevel.Text = reader["experience_level"].ToString();
-                    cmboxWorkMode.Text = reader["work_mode"].ToString();
-                    cmboxJobType.Text = reader["job_type"].ToString();
-                    if (reader["deadline"] != DBNull.Value)
-                        dateDeadline.Value = Convert.ToDateTime(reader["deadline"]);
+                    connection.Open();
+                    string getJobDataQuery = "SELECT * FROM [Vacancy] WHERE vacancy_id = @jobId";
+                    SqlCommand cmd = new SqlCommand(getJobDataQuery, connection);
+                    cmd.Parameters.AddWithValue("@jobId", jobId);
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        tboxTitle.Text = reader["title"].ToString();
+                        cmboxStatus.Text = reader["status"].ToString();
+                        cmboxExpLevel.Text = reader["experience_level"].ToString();
+                        cmboxWorkMode.Text = reader["work_mode"].ToString();
+                        cmboxJobType.Text = reader["job_type"].ToString();
+                        if (reader["deadline"] != DBNull.Value)
+                            dateDeadline.Value = Convert.ToDateTime(reader["deadline"]);
+                        else
+                            dateDeadline.Value = DateTime.Now;
+                        tboxSkills.Text = reader["skills"].ToString();
+                        tboxDescription.Text = reader["description"].ToString();
+                    } 
                     else
-                        dateDeadline.Value = DateTime.Now;
-                    tboxSkills.Text = reader["skills"].ToString();
-                    tboxDescription.Text = reader["description"].ToString();
-                } 
-                else
-                {
-                    MessageBox.Show("Failed to fetch job data from the database.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    {
+                        AppUtilities.ShowError("Failed to fetch job data from the database.");
+                    }
                 }
-
+            }
+            catch (Exception ex)
+            {
+                AppUtilities.ShowError($"Error loading job data: {ex.Message}");
             }
         }
     }

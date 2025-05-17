@@ -1,6 +1,7 @@
 ﻿using Microsoft.Data.SqlClient;
 using Microsoft.IdentityModel.Tokens;
 using Models;
+using RecruitmentApplication.Utilities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -164,12 +165,13 @@ namespace RecruitmentApplication.Views
                 ClearFilters();
             }
 
-            string connectionString = "Data Source=.;Initial Catalog=Recruitment;Integrated Security=True;TrustServerCertificate=True;";
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            try
             {
-                connection.Open();
+                using (SqlConnection connection = new SqlConnection(AppUtilities.DatabaseConstants.ConnectionString))
+                {
+                    connection.Open();
 
-                string getJobDataQuery = @"
+                    string getJobDataQuery = @"
             SELECT 
                 v.vacancy_id,
                 v.title,
@@ -188,29 +190,34 @@ namespace RecruitmentApplication.Views
             INNER JOIN Employer e ON v.employer_id = e.user_id
             INNER JOIN [User] u ON e.user_id = u.user_id";
 
-                if (!string.IsNullOrWhiteSpace(whereClause))
-                    getJobDataQuery += " WHERE " + whereClause;
+                    if (!string.IsNullOrWhiteSpace(whereClause))
+                        getJobDataQuery += " WHERE " + whereClause;
 
-                SqlCommand getJobDataCmd = new SqlCommand(getJobDataQuery, connection);
+                    SqlCommand getJobDataCmd = new SqlCommand(getJobDataQuery, connection);
 
-                if (!string.IsNullOrEmpty(searchTerm))
-                {
-                    getJobDataCmd.Parameters.AddWithValue("@searchTerm", $"%{searchTerm}%");
+                    if (!string.IsNullOrEmpty(searchTerm))
+                    {
+                        getJobDataCmd.Parameters.AddWithValue("@searchTerm", $"%{searchTerm}%");
+                    }
+
+                    SqlDataAdapter adapter = new SqlDataAdapter(getJobDataCmd);
+                    dataSource = new DataTable();
+
+                    adapter.Fill(dataSource);
+
+                    if (!string.IsNullOrEmpty(currentSortColumn))
+                    {
+                        SortData(currentSortColumn, currentSortOrder);
+                    }
+                    else
+                    {
+                        PopulateDataGridView();
+                    }
                 }
-
-                SqlDataAdapter adapter = new SqlDataAdapter(getJobDataCmd);
-                dataSource = new DataTable();
-
-                adapter.Fill(dataSource);
-
-                if (!string.IsNullOrEmpty(currentSortColumn))
-                {
-                    SortData(currentSortColumn, currentSortOrder);
-                }
-                else
-                {
-                    PopulateDataGridView();
-                }
+            }
+            catch (Exception ex)
+            {
+                AppUtilities.ShowError($"Error loading job data: {ex.Message}");
             }
         }
 
@@ -285,18 +292,11 @@ namespace RecruitmentApplication.Views
 
                 if (HasUserAlreadAppliedToJob(jobId))
                 {
-                    MessageBox.Show("You have already applied to this job.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    AppUtilities.ShowError("You have already applied to this job.");
                     return;
                 }
 
-                DialogResult result = MessageBox.Show(
-                    $"Are you sure you want to apply to \"{jobTitle}\"?",
-                    "Confirm Application",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Question
-                );
-
-                if (result == DialogResult.Yes)
+                if (AppUtilities.ShowConfirmation($"Are you sure you want to apply to \"{jobTitle}\"?"))
                 {
                     ApplyToJob(jobId, empId);
                 }
@@ -305,94 +305,121 @@ namespace RecruitmentApplication.Views
 
         private void SaveJob(int jobId)
         {
-            string connectionString = "Data Source=.;Initial Catalog=Recruitment;Integrated Security=True;TrustServerCertificate=True;";
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            try
             {
-                connection.Open();
-
-                if (IsJobAlreadySaved(jobId, connection))
+                using (SqlConnection connection = new SqlConnection(AppUtilities.DatabaseConstants.ConnectionString))
                 {
-                    MessageBox.Show("Job is already saved.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
+                    connection.Open();
 
-                string saveJobQuery =
-                    "INSERT INTO [SavedJob] " +
-                    "(jobseeker_id, vacancy_id) " +
-                    "VALUES (@userId, @jobId);";
-                SqlCommand saveJobCmd = new SqlCommand(saveJobQuery, connection);
-                saveJobCmd.Parameters.AddWithValue("@userId", Session.CurrentUserId);
-                saveJobCmd.Parameters.AddWithValue("@jobId", jobId);
+                    if (IsJobAlreadySaved(jobId, connection))
+                    {
+                        AppUtilities.ShowError("Job is already saved.");
+                        return;
+                    }
 
-                var result = saveJobCmd.ExecuteNonQuery();
-                if (result > 0)
-                {
-                    MessageBox.Show("Job has been saved successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    string saveJobQuery =
+                        "INSERT INTO [SavedJob] " +
+                        "(jobseeker_id, vacancy_id) " +
+                        "VALUES (@userId, @jobId);";
+                    SqlCommand saveJobCmd = new SqlCommand(saveJobQuery, connection);
+                    saveJobCmd.Parameters.AddWithValue("@userId", Session.CurrentUserId);
+                    saveJobCmd.Parameters.AddWithValue("@jobId", jobId);
+
+                    var result = saveJobCmd.ExecuteNonQuery();
+                    if (result > 0)
+                    {
+                        AppUtilities.ShowInfo("Job has been saved successfully.");
+                    }
+                    else
+                    {
+                        AppUtilities.ShowError("Failed to save job.");
+                    }
                 }
-                else
-                {
-                    MessageBox.Show("Failed to save job.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+            }
+            catch (Exception ex)
+            {
+                AppUtilities.ShowError($"Error saving job: {ex.Message}");
             }
         }
 
         private void ApplyToJob(int jobId, int employerId)
         {
-            string connectionString = "Data Source=.;Initial Catalog=Recruitment;Integrated Security=True;TrustServerCertificate=True;";
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            try
             {
-                connection.Open();
-
-                string applyToJobQuery =
-                    @"INSERT INTO [JobApplication]
-                      (jobseeker_id, vacancy_id, employer_id)
-                      VALUES (@userId, @jobId, @empId);";
-                SqlCommand applyToJobCommand = new SqlCommand(applyToJobQuery, connection);
-                applyToJobCommand.Parameters.AddWithValue("@userId", Session.CurrentUserId);
-                applyToJobCommand.Parameters.AddWithValue("@jobId", jobId);
-                applyToJobCommand.Parameters.AddWithValue("@empId", employerId);
-
-                var result = applyToJobCommand.ExecuteNonQuery();
-
-                if (result > 0)
+                using (SqlConnection connection = new SqlConnection(AppUtilities.DatabaseConstants.ConnectionString))
                 {
-                    MessageBox.Show("Successfully applied to job.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    connection.Open();
+
+                    string applyToJobQuery =
+                        @"INSERT INTO [JobApplication]
+                          (jobseeker_id, vacancy_id, employer_id)
+                          VALUES (@userId, @jobId, @empId);";
+                    SqlCommand applyToJobCommand = new SqlCommand(applyToJobQuery, connection);
+                    applyToJobCommand.Parameters.AddWithValue("@userId", Session.CurrentUserId);
+                    applyToJobCommand.Parameters.AddWithValue("@jobId", jobId);
+                    applyToJobCommand.Parameters.AddWithValue("@empId", employerId);
+
+                    var result = applyToJobCommand.ExecuteNonQuery();
+
+                    if (result > 0)
+                    {
+                        AppUtilities.ShowInfo("Successfully applied to job.");
+                    }
+                    else
+                    {
+                        AppUtilities.ShowError("Failed to apply to the job.");
+                    }
                 }
-                else
-                {
-                    MessageBox.Show("Failed to apply to the job.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+            }
+            catch (Exception ex)
+            {
+                AppUtilities.ShowError($"Error applying to job: {ex.Message}");
             }
         }
 
         private bool HasUserAlreadAppliedToJob(int jobId)
         {
-            string connectionString = "Data Source=.;Initial Catalog=Recruitment;Integrated Security=True;TrustServerCertificate=True;";
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            try
             {
-                connection.Open();
+                using (SqlConnection connection = new SqlConnection(AppUtilities.DatabaseConstants.ConnectionString))
+                {
+                    connection.Open();
 
-                string hasUserAppliedQuery = "SELECT * FROM [JobApplication] WHERE vacancy_id = @jobId AND jobseeker_id = @userId";
-                SqlCommand hasUserAppliedCmd = new SqlCommand(hasUserAppliedQuery, connection);
-                hasUserAppliedCmd.Parameters.AddWithValue("@jobId", jobId);
-                hasUserAppliedCmd.Parameters.AddWithValue("@userId", Session.CurrentUserId);
-                SqlDataReader reader = hasUserAppliedCmd.ExecuteReader();
-                bool applied = reader.HasRows;
-                reader.Close();
-                return applied;
+                    string hasUserAppliedQuery = "SELECT * FROM [JobApplication] WHERE vacancy_id = @jobId AND jobseeker_id = @userId";
+                    SqlCommand hasUserAppliedCmd = new SqlCommand(hasUserAppliedQuery, connection);
+                    hasUserAppliedCmd.Parameters.AddWithValue("@jobId", jobId);
+                    hasUserAppliedCmd.Parameters.AddWithValue("@userId", Session.CurrentUserId);
+                    SqlDataReader reader = hasUserAppliedCmd.ExecuteReader();
+                    bool applied = reader.HasRows;
+                    reader.Close();
+                    return applied;
+                }
+            }
+            catch (Exception ex)
+            {
+                AppUtilities.ShowError($"Error checking application status: {ex.Message}");
+                return false;
             }
         }
 
         private bool IsJobAlreadySaved(int jobId, SqlConnection connection)
         {
-            string isJobSavedQuery = "SELECT * FROM [SavedJob] WHERE vacancy_id = @jobId AND jobseeker_id = @userId";
-            SqlCommand isJobSavedCmd = new SqlCommand(isJobSavedQuery, connection);
-            isJobSavedCmd.Parameters.AddWithValue("@jobId", jobId);
-            isJobSavedCmd.Parameters.AddWithValue("@userId", Session.CurrentUserId);
-            SqlDataReader reader = isJobSavedCmd.ExecuteReader();
-            bool saved = reader.HasRows;
-            reader.Close();
-            return saved;
+            try
+            {
+                string isJobSavedQuery = "SELECT * FROM [SavedJob] WHERE vacancy_id = @jobId AND jobseeker_id = @userId";
+                SqlCommand isJobSavedCmd = new SqlCommand(isJobSavedQuery, connection);
+                isJobSavedCmd.Parameters.AddWithValue("@jobId", jobId);
+                isJobSavedCmd.Parameters.AddWithValue("@userId", Session.CurrentUserId);
+                SqlDataReader reader = isJobSavedCmd.ExecuteReader();
+                bool saved = reader.HasRows;
+                reader.Close();
+                return saved;
+            }
+            catch (Exception ex)
+            {
+                AppUtilities.ShowError($"Error checking saved job status: {ex.Message}");
+                return false;
+            }
         }
 
         private void btnApplyFilters_Click(object sender, EventArgs e)
@@ -412,35 +439,35 @@ namespace RecruitmentApplication.Views
 
             List<string> jobTypeFilters = new List<string>();
             if (cbxJobTypeFullTime.Checked)
-                jobTypeFilters.Add("v.job_type = 'Full-Time'");
+                jobTypeFilters.Add($"v.job_type = '{AppUtilities.DatabaseConstants.JobTypes.FullTime}'");
             if (cbxJobTypePartTime.Checked)
-                jobTypeFilters.Add("v.job_type = 'Part-Time'");
+                jobTypeFilters.Add($"v.job_type = '{AppUtilities.DatabaseConstants.JobTypes.PartTime}'");
             if (cbxJobTypeContract.Checked)
-                jobTypeFilters.Add("v.job_type = 'Contract'");
+                jobTypeFilters.Add($"v.job_type = '{AppUtilities.DatabaseConstants.JobTypes.Internship}'");
             if (jobTypeFilters.Count > 0)
                 filters.Add("(" + string.Join(" OR ", jobTypeFilters) + ")");
 
             List<string> workModeFilters = new List<string>();
             if (cboxWorkModeOnSite.Checked)
-                workModeFilters.Add("v.work_mode = 'On-Site'");
+                workModeFilters.Add($"v.work_mode = '{AppUtilities.DatabaseConstants.WorkModes.OnSite}'");
             if (cboxWorkModeRemote.Checked)
-                workModeFilters.Add("v.work_mode = 'Remote'");
+                workModeFilters.Add($"v.work_mode = '{AppUtilities.DatabaseConstants.WorkModes.Remote}'");
             if (cboxWorkModeHybrid.Checked)
-                workModeFilters.Add("v.work_mode = 'Hybrid'");
+                workModeFilters.Add($"v.work_mode = '{AppUtilities.DatabaseConstants.WorkModes.Hybrid}'");
             if (workModeFilters.Count > 0)
                 filters.Add("(" + string.Join(" OR ", workModeFilters) + ")");
 
             List<string> experienceLevelFilters = new List<string>();
             if (cboxExperienceLevelSenior.Checked)
-                experienceLevelFilters.Add("v.experience_level = 'Senior'");
+                experienceLevelFilters.Add($"v.experience_level = '{AppUtilities.DatabaseConstants.ExperienceLevels.Senior}'");
             if (cboxExperienceLevelMidLevel.Checked)
-                experienceLevelFilters.Add("v.experience_level = 'Mid-Level'");
+                experienceLevelFilters.Add($"v.experience_level = '{AppUtilities.DatabaseConstants.ExperienceLevels.MidLevel}'");
             if (cboxExperienceLevelJunior.Checked)
-                experienceLevelFilters.Add("v.experience_level = 'Junior'");
+                experienceLevelFilters.Add($"v.experience_level = '{AppUtilities.DatabaseConstants.ExperienceLevels.Junior}'");
             if (cboxExperienceLevelFreshGrad.Checked)
-                experienceLevelFilters.Add("v.experience_level = 'Fresh Graduate'");
+                experienceLevelFilters.Add($"v.experience_level = '{AppUtilities.DatabaseConstants.ExperienceLevels.FreshGraduate}'");
             if (cboxExperienceLevelStudent.Checked)
-                experienceLevelFilters.Add("v.experience_level = 'Student'");
+                experienceLevelFilters.Add($"v.experience_level = '{AppUtilities.DatabaseConstants.ExperienceLevels.Student}'");
             if (experienceLevelFilters.Count > 0)
                 filters.Add("(" + string.Join(" OR ", experienceLevelFilters) + ")");
 

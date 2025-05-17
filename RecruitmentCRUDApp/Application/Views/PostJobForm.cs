@@ -1,5 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using Models;
+using RecruitmentApplication.Utilities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,65 +20,164 @@ namespace RecruitmentApplication.Views
             InitializeComponent();
         }
 
+        private bool ValidateInputs()
+        {
+            string title = tboxTitle.Text.Trim();
+            string description = tboxDescription.Text.Trim();
+            string skills = tboxSkills.Text.Trim();
+            string status = cmboxStatus.SelectedItem?.ToString();
+            string expLevel = cmboxExpLevel.SelectedItem?.ToString();
+            string workMode = cmboxWorkMode.SelectedItem?.ToString();
+            string jobType = cmboxJobType.SelectedItem?.ToString();
+            DateTime deadline = dateDeadline.Value;
+
+            // Validate title
+            if (!AppUtilities.IsValidJobTitle(title))
+            {
+                AppUtilities.ShowError($"Job title must be between {AppUtilities.ValidationRules.MinJobTitleLength} and {AppUtilities.ValidationRules.MaxJobTitleLength} characters.");
+                tboxTitle.Focus();
+                return false;
+            }
+
+            // Validate description
+            if (!AppUtilities.IsValidJobDescription(description))
+            {
+                AppUtilities.ShowError($"Job description must not exceed {AppUtilities.ValidationRules.MaxJobDescriptionLength} characters.");
+                tboxDescription.Focus();
+                return false;
+            }
+
+            // Validate skills
+            if (!AppUtilities.IsValidSkills(skills))
+            {
+                AppUtilities.ShowError($"Skills text must not exceed {AppUtilities.ValidationRules.MaxSkillsLength} characters.");
+                tboxSkills.Focus();
+                return false;
+            }
+
+            // Validate experience level
+            if (string.IsNullOrEmpty(expLevel) || !AppUtilities.IsValidExperienceLevel(expLevel))
+            {
+                AppUtilities.ShowError("Please select a valid experience level.");
+                cmboxExpLevel.Focus();
+                return false;
+            }
+
+            // Validate work mode
+            if (string.IsNullOrEmpty(workMode) || !AppUtilities.IsValidWorkMode(workMode))
+            {
+                AppUtilities.ShowError("Please select a valid work mode.");
+                cmboxWorkMode.Focus();
+                return false;
+            }
+
+            // Validate job type
+            if (string.IsNullOrEmpty(jobType) || !AppUtilities.IsValidJobType(jobType))
+            {
+                AppUtilities.ShowError("Please select a valid job type.");
+                cmboxJobType.Focus();
+                return false;
+            }
+
+            // Validate status
+            if (string.IsNullOrEmpty(status) || !AppUtilities.IsValidVacancyStatus(status))
+            {
+                AppUtilities.ShowError("Please select a valid status.");
+                cmboxStatus.Focus();
+                return false;
+            }
+
+            // Validate deadline
+            if (!AppUtilities.IsValidDeadline(deadline))
+            {
+                AppUtilities.ShowError("Deadline must be a future date.");
+                dateDeadline.Focus();
+                return false;
+            }
+
+            return true;
+        }
+
         private void btnPost_Click(object sender, EventArgs e)
         {
-            string title = tboxTitle.Text;
-            string status = cmboxStatus.Text;
-            string expLevel = cmboxExpLevel.Text;
-            string workMode = cmboxWorkMode.Text;
-            string jobType = cmboxJobType.Text;
-            DateTime? deadline = dateDeadline.Value;
-            string skills = tboxSkills.Text;
-            string description = tboxDescription.Text;
-
-            string connectionString = "Data Source=.;Initial Catalog=Recruitment;Integrated Security=True;TrustServerCertificate=True;";
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            if (!ValidateInputs())
             {
-                connection.Open();
+                return;
+            }
 
-                string getCompanyIdQuery = "SELECT company_id FROM [Employer] WHERE user_id = @userId";
-                SqlCommand getCompanyIdCmd = new SqlCommand(getCompanyIdQuery, connection);
-                getCompanyIdCmd.Parameters.AddWithValue("@userId", Session.CurrentUserId);
-                SqlDataReader reader = getCompanyIdCmd.ExecuteReader();
-                int companyId;
-                if (reader.Read())
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(AppUtilities.DatabaseConstants.ConnectionString))
                 {
-                    companyId = reader.GetInt32(0);
-                }
-                else
-                {
-                    MessageBox.Show($"Failed to post job {title}.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
+                    connection.Open();
+                    using (SqlTransaction transaction = connection.BeginTransaction())
+                    {
+                        try
+                        {
+                            string getCompanyIdQuery = "SELECT company_id FROM [Employer] WHERE user_id = @userId";
+                            SqlCommand getCompanyIdCmd = new SqlCommand(getCompanyIdQuery, connection, transaction);
+                            getCompanyIdCmd.Parameters.AddWithValue("@userId", Session.CurrentUserId);
+                            
+                            int companyId;
+                            using (SqlDataReader reader = getCompanyIdCmd.ExecuteReader())
+                            {
+                                if (reader.Read())
+                                {
+                                    companyId = reader.GetInt32(0);
+                                }
+                                else
+                                {
+                                    transaction.Rollback();
+                                    AppUtilities.ShowError("Failed to get company information.");
+                                    return;
+                                }
+                            }
 
+                            string insertVacancyQuery =
+                                "INSERT INTO [Vacancy] " +
+                                "(title, description, skills, status, experience_level, work_mode, job_type, deadline, company_id, employer_id) " +
+                                "VALUES (@title, @description, @skills, @status, @expLevel, @workMode, @jobType, @deadline, @companyId, @employerId);";
+                            
+                            using (SqlCommand insertVacancyCmd = new SqlCommand(insertVacancyQuery, connection, transaction))
+                            {
+                                insertVacancyCmd.Parameters.AddWithValue("@title", tboxTitle.Text.Trim());
+                                insertVacancyCmd.Parameters.AddWithValue("@description", tboxDescription.Text.Trim());
+                                insertVacancyCmd.Parameters.AddWithValue("@skills", tboxSkills.Text.Trim());
+                                insertVacancyCmd.Parameters.AddWithValue("@status", cmboxStatus.SelectedItem.ToString());
+                                insertVacancyCmd.Parameters.AddWithValue("@expLevel", cmboxExpLevel.SelectedItem.ToString());
+                                insertVacancyCmd.Parameters.AddWithValue("@workMode", cmboxWorkMode.SelectedItem.ToString());
+                                insertVacancyCmd.Parameters.AddWithValue("@jobType", cmboxJobType.SelectedItem.ToString());
+                                insertVacancyCmd.Parameters.AddWithValue("@deadline", dateDeadline.Value);
+                                insertVacancyCmd.Parameters.AddWithValue("@companyId", companyId);
+                                insertVacancyCmd.Parameters.AddWithValue("@employerId", Session.CurrentUserId);
 
-                string insertVacancyQuery =
-                    "INSERT INTO [Vacancy] " +
-                    "(title, description, skills, status, experience_level, work_mode, job_type, deadline, company_id, employer_id) " +
-                    "VALUES (@title, @description, @skills, @status, @expLevel, @workMode, @jobType, @deadline, @companyId, @employerId);";
-                SqlCommand insertVacancyCmd = new SqlCommand(insertVacancyQuery, connection);
-                insertVacancyCmd.Parameters.AddWithValue("@title", title);
-                insertVacancyCmd.Parameters.AddWithValue("@description", description);
-                insertVacancyCmd.Parameters.AddWithValue("@skills", skills);
-                insertVacancyCmd.Parameters.AddWithValue("@status", status);
-                insertVacancyCmd.Parameters.AddWithValue("@expLevel", expLevel);
-                insertVacancyCmd.Parameters.AddWithValue("@workMode", workMode);
-                insertVacancyCmd.Parameters.AddWithValue("@jobType", jobType);
-                insertVacancyCmd.Parameters.AddWithValue("@deadline", deadline);
-                insertVacancyCmd.Parameters.AddWithValue("@companyId", companyId);
-                insertVacancyCmd.Parameters.AddWithValue("@employerId", Session.CurrentUserId);
+                                int result = insertVacancyCmd.ExecuteNonQuery();
 
-                var result = insertVacancyCmd.ExecuteNonQuery();
-
-                if (result > 0)
-                {
-                    MessageBox.Show($"Vacancy {title} posted successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    this.Close();
+                                if (result > 0)
+                                {
+                                    transaction.Commit();
+                                    AppUtilities.ShowInfo($"Vacancy {tboxTitle.Text.Trim()} posted successfully!");
+                                    this.DialogResult = DialogResult.OK;
+                                    this.Close();
+                                }
+                                else
+                                {
+                                    transaction.Rollback();
+                                    AppUtilities.ShowError($"Failed to post job {tboxTitle.Text.Trim()}.");
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            transaction.Rollback();
+                            throw;
+                        }
+                    }
                 }
-                else
-                {
-                    MessageBox.Show($"Failed to post job {title}.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+            }
+            catch (Exception ex)
+            {
+                AppUtilities.ShowError($"Error posting job vacancy: {ex.Message}");
             }
         }
 
@@ -88,29 +188,33 @@ namespace RecruitmentApplication.Views
 
         private void PostJobForm_Load(object sender, EventArgs e)
         {
-            cmboxStatus.Items.Add("Open");
-            cmboxStatus.Items.Add("Closed");
-            cmboxStatus.Items.Add("Hidden");
+            // Status options
+            cmboxStatus.Items.Add(AppUtilities.DatabaseConstants.VacancyStatus.Open);
+            cmboxStatus.Items.Add(AppUtilities.DatabaseConstants.VacancyStatus.Closed);
+            cmboxStatus.Items.Add(AppUtilities.DatabaseConstants.VacancyStatus.Hidden);
             cmboxStatus.SelectedIndex = 0;
             cmboxStatus.DropDownStyle = ComboBoxStyle.DropDownList;
 
-            cmboxExpLevel.Items.Add("Student");
-            cmboxExpLevel.Items.Add("Fresh Graduate");
-            cmboxExpLevel.Items.Add("Junior");
-            cmboxExpLevel.Items.Add("Mid-Level");
-            cmboxExpLevel.Items.Add("Senior");
+            // Experience level options
+            cmboxExpLevel.Items.Add(AppUtilities.DatabaseConstants.ExperienceLevels.Student);
+            cmboxExpLevel.Items.Add(AppUtilities.DatabaseConstants.ExperienceLevels.FreshGraduate);
+            cmboxExpLevel.Items.Add(AppUtilities.DatabaseConstants.ExperienceLevels.Junior);
+            cmboxExpLevel.Items.Add(AppUtilities.DatabaseConstants.ExperienceLevels.MidLevel);
+            cmboxExpLevel.Items.Add(AppUtilities.DatabaseConstants.ExperienceLevels.Senior);
             cmboxExpLevel.SelectedIndex = 0;
             cmboxExpLevel.DropDownStyle = ComboBoxStyle.DropDownList;
 
-            cmboxWorkMode.Items.Add("On-Site");
-            cmboxWorkMode.Items.Add("Remote");
-            cmboxWorkMode.Items.Add("Hybrid");
+            // Work mode options
+            cmboxWorkMode.Items.Add(AppUtilities.DatabaseConstants.WorkModes.OnSite);
+            cmboxWorkMode.Items.Add(AppUtilities.DatabaseConstants.WorkModes.Remote);
+            cmboxWorkMode.Items.Add(AppUtilities.DatabaseConstants.WorkModes.Hybrid);
             cmboxWorkMode.SelectedIndex = 0;
             cmboxWorkMode.DropDownStyle = ComboBoxStyle.DropDownList;
 
-            cmboxJobType.Items.Add("Full-Time");
-            cmboxJobType.Items.Add("Part-Time");
-            cmboxJobType.Items.Add("Internship");
+            // Job type options
+            cmboxJobType.Items.Add(AppUtilities.DatabaseConstants.JobTypes.FullTime);
+            cmboxJobType.Items.Add(AppUtilities.DatabaseConstants.JobTypes.PartTime);
+            cmboxJobType.Items.Add(AppUtilities.DatabaseConstants.JobTypes.Internship);
             cmboxJobType.SelectedIndex = 0;
             cmboxJobType.DropDownStyle = ComboBoxStyle.DropDownList;
         }

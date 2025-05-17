@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using RecruitmentApplication.Utilities;
 
 namespace RecruitmentApplication.Views
 {
@@ -19,29 +20,73 @@ namespace RecruitmentApplication.Views
             InitializeComponent();
         }
 
+        private bool ValidateInputs()
+        {
+            string companyName = txtCompanyName.Text.Trim();
+            string email = textEmail.Text.Trim();
+            string phone = textPhone.Text.Trim();
+            string description = textDescription.Text.Trim();
+
+            // Validate company name
+            if (!AppUtilities.IsValidCompanyName(companyName))
+            {
+                AppUtilities.ShowError($"Company name must be between {AppUtilities.ValidationRules.MinCompanyNameLength} and {AppUtilities.ValidationRules.MaxCompanyNameLength} characters.");
+                txtCompanyName.Focus();
+                return false;
+            }
+
+            // Validate email
+            if (!AppUtilities.IsValidEmail(email))
+            {
+                AppUtilities.ShowError("Please enter a valid email address.");
+                textEmail.Focus();
+                return false;
+            }
+
+            // Validate phone (optional)
+            if (!string.IsNullOrWhiteSpace(phone) && !AppUtilities.IsValidPhoneNumber(phone))
+            {
+                AppUtilities.ShowError("Please enter a valid phone number.");
+                textPhone.Focus();
+                return false;
+            }
+
+            // Validate description (optional)
+            if (!string.IsNullOrWhiteSpace(description) && !AppUtilities.IsValidCompanyDescription(description))
+            {
+                AppUtilities.ShowError($"Company description must not exceed {AppUtilities.ValidationRules.MaxCompanyDescriptionLength} characters.");
+                textDescription.Focus();
+                return false;
+            }
+
+            return true;
+        }
+
         private void brnCreate_Click(object sender, EventArgs e)
         {
-            // get values from form fields
-            string companyName = txtCompanyName.Text;
-            string email = textEmail.Text;
-            string phone = textPhone.Text;
-            string description = textDescription.Text;
-
-            // validate inputs
-            if (string.IsNullOrWhiteSpace(companyName) || string.IsNullOrWhiteSpace(email))
+            if (!ValidateInputs())
             {
-                MessageBox.Show("Company name and email are required fields.", "Validation Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            string connectionString = "Data Source=.;Initial Catalog=Recruitment;Integrated Security=True;TrustServerCertificate=True;";
-
             try
             {
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlConnection connection = new SqlConnection(AppUtilities.DatabaseConstants.ConnectionString))
                 {
                     connection.Open();
+
+                    // Check if company with same email already exists
+                    string checkEmailQuery = "SELECT COUNT(*) FROM [Company] WHERE email = @email";
+                    using (SqlCommand checkEmailCmd = new SqlCommand(checkEmailQuery, connection))
+                    {
+                        checkEmailCmd.Parameters.AddWithValue("@email", textEmail.Text.Trim());
+                        int existingCount = (int)checkEmailCmd.ExecuteScalar();
+                        if (existingCount > 0)
+                        {
+                            AppUtilities.ShowError("A company with this email already exists.");
+                            return;
+                        }
+                    }
 
                     // sql command for inserting company
                     string insertCompanyQuery =
@@ -49,37 +94,38 @@ namespace RecruitmentApplication.Views
                         "(name, email, phone, description, manager_id) " +
                         "VALUES (@name, @email, @phone, @description, @managerId);";
 
-                    SqlCommand insertCompanyCmd = new SqlCommand(insertCompanyQuery, connection);
-                    insertCompanyCmd.Parameters.AddWithValue("@name", companyName);
-                    insertCompanyCmd.Parameters.AddWithValue("@email", email);
-                    insertCompanyCmd.Parameters.AddWithValue("@phone", phone ?? (object)DBNull.Value);
-                    insertCompanyCmd.Parameters.AddWithValue("@description", description ?? (object)DBNull.Value);
-                    insertCompanyCmd.Parameters.AddWithValue("@managerId", Session.CurrentUserId);
-
-                    var result = insertCompanyCmd.ExecuteNonQuery();
-
-                    if (result > 0)
+                    using (SqlCommand insertCompanyCmd = new SqlCommand(insertCompanyQuery, connection))
                     {
-                        MessageBox.Show($"Company '{companyName}' created successfully!", "Success",
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        this.Close();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Failed to create company.", "Error",
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        insertCompanyCmd.Parameters.AddWithValue("@name", txtCompanyName.Text.Trim());
+                        insertCompanyCmd.Parameters.AddWithValue("@email", textEmail.Text.Trim());
+                        insertCompanyCmd.Parameters.AddWithValue("@phone", string.IsNullOrWhiteSpace(textPhone.Text) ? (object)DBNull.Value : textPhone.Text.Trim());
+                        insertCompanyCmd.Parameters.AddWithValue("@description", string.IsNullOrWhiteSpace(textDescription.Text) ? (object)DBNull.Value : textDescription.Text.Trim());
+                        insertCompanyCmd.Parameters.AddWithValue("@managerId", Session.CurrentUserId);
+
+                        var result = insertCompanyCmd.ExecuteNonQuery();
+
+                        if (result > 0)
+                        {
+                            AppUtilities.ShowInfo($"Company '{txtCompanyName.Text.Trim()}' created successfully!");
+                            this.DialogResult = DialogResult.OK;
+                            this.Close();
+                        }
+                        else
+                        {
+                            AppUtilities.ShowError("Failed to create company.");
+                        }
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"An unexpected error occurred: {ex.Message}", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                AppUtilities.ShowError($"An error occurred while creating the company: {ex.Message}");
             }
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
+            this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
     }
