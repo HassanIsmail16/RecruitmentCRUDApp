@@ -1,6 +1,4 @@
-﻿using DAL.Interfaces;
-using DAL.Repositories;
-using Models;
+﻿using Models;
 using RecruitmentApplication.Views.Auth;
 using RecruitmentApplication.Views.Profiles;
 using System;

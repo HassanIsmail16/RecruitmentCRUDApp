@@ -1,4 +1,5 @@
-﻿using Models;
+﻿using Microsoft.Data.SqlClient;
+using Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,7 +14,6 @@ namespace RecruitmentApplication.Views
 {
     public partial class JobsControl : UserControl
     {
-        public event Action OnRequestRefresh;
         public JobsControl()
         {
             InitializeComponent();
@@ -39,14 +39,22 @@ namespace RecruitmentApplication.Views
             // TODO: make columns read only
         }
 
-        public void RenderVacancies(List<Vacancy> vacancies)
-        {
-            dataGridPostings.DataSource = vacancies;
-        }
-
         private void refreshBtn_Click(object sender, EventArgs e)
         {
-            OnRequestRefresh?.Invoke();
+            string connectionString = "Data Source=.;Initial Catalog=Recruitment;Integrated Security=True;TrustServerCertificate=True;";
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                string getJobDataQuery = "SELECT * FROM [Vacancy]";
+                SqlCommand getJobDataCmd = new SqlCommand(getJobDataQuery, connection);
+                SqlDataAdapter adapter = new SqlDataAdapter(getJobDataCmd);
+                DataTable table = new DataTable();
+
+                adapter.Fill(table);
+
+                dataGridPostings.DataSource = table;
+            }
         }
     }
 }

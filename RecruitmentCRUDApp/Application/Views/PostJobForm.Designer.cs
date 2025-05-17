@@ -57,6 +57,7 @@
             this.btnPost.TabIndex = 24;
             this.btnPost.Text = "Post";
             this.btnPost.UseVisualStyleBackColor = true;
+            this.btnPost.Click += this.btnPost_Click;
             // 
             // lblHeader
             // 
@@ -218,6 +219,7 @@
             this.btnCancel.TabIndex = 24;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += this.btnCancel_Click;
             // 
             // PostJobForm
             // 
@@ -245,6 +247,7 @@
             this.Controls.Add(this.lblTitle);
             this.Name = "PostJobForm";
             this.Text = "PostJobForm";
+            this.Load += this.PostJobForm_Load;
             this.ResumeLayout(false);
             this.PerformLayout();
         }
