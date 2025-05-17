@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             dataGridJobApplicants = new DataGridView();
-            colJobSeekerName = new DataGridViewTextBoxColumn();
+            colApplicantName = new DataGridViewTextBoxColumn();
             colAppDate = new DataGridViewTextBoxColumn();
             colStatus = new DataGridViewComboBoxColumn();
             colPostDate = new DataGridViewTextBoxColumn();
@@ -45,19 +45,19 @@
             dataGridJobApplicants.AllowUserToDeleteRows = false;
             dataGridJobApplicants.AllowUserToResizeRows = false;
             dataGridJobApplicants.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridJobApplicants.Columns.AddRange(new DataGridViewColumn[] { colJobSeekerName, colAppDate, colStatus, colPostDate });
+            dataGridJobApplicants.Columns.AddRange(new DataGridViewColumn[] { colApplicantName, colAppDate, colStatus, colPostDate });
             dataGridJobApplicants.Location = new Point(12, 80);
             dataGridJobApplicants.Name = "dataGridJobApplicants";
             dataGridJobApplicants.Size = new Size(643, 406);
             dataGridJobApplicants.TabIndex = 2;
             // 
-            // colJobSeekerName
+            // colApplicantName
             // 
-            colJobSeekerName.HeaderText = "Name";
-            colJobSeekerName.MaxInputLength = 100;
-            colJobSeekerName.Name = "colJobSeekerName";
-            colJobSeekerName.ReadOnly = true;
-            colJobSeekerName.Width = 200;
+            colApplicantName.HeaderText = "Applicant Name";
+            colApplicantName.MaxInputLength = 100;
+            colApplicantName.Name = "colApplicantName";
+            colApplicantName.ReadOnly = true;
+            colApplicantName.Width = 200;
             // 
             // colAppDate
             // 
@@ -87,6 +87,7 @@
             btnRefresh.TabIndex = 3;
             btnRefresh.Text = "Refresh";
             btnRefresh.UseVisualStyleBackColor = true;
+            btnRefresh.Click += btnRefresh_Click;
             // 
             // btnCancel
             // 
@@ -105,6 +106,7 @@
             btnSaveChanges.TabIndex = 5;
             btnSaveChanges.Text = "Save Changes";
             btnSaveChanges.UseVisualStyleBackColor = true;
+            btnSaveChanges.Click += btnSaveChanges_Click;
             // 
             // ListOfApplicantsForm
             // 
@@ -123,12 +125,12 @@
 
         #endregion
         private DataGridView dataGridJobApplicants;
-        private DataGridViewTextBoxColumn colJobSeekerName;
-        private DataGridViewTextBoxColumn colAppDate;
-        private DataGridViewComboBoxColumn colStatus;
-        private DataGridViewTextBoxColumn colPostDate;
         private Button btnRefresh;
         private Button btnCancel;
         private Button btnSaveChanges;
+        private DataGridViewTextBoxColumn colApplicantName;
+        private DataGridViewTextBoxColumn colAppDate;
+        private DataGridViewComboBoxColumn colStatus;
+        private DataGridViewTextBoxColumn colPostDate;
     }
 }
