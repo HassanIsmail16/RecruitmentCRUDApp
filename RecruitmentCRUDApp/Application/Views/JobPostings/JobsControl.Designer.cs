@@ -50,6 +50,7 @@
             this.layout = new TableLayoutPanel();
             this.searchPanel = new Panel();
             this.filtersPanel = new Panel();
+            this.btnClearFilters = new Button();
             this.groupJobType.SuspendLayout();
             this.gboxWorkMode.SuspendLayout();
             this.gboxExperienceLevel.SuspendLayout();
@@ -233,11 +234,11 @@
             // tboxSearchInput
             // 
             this.tboxSearchInput.Anchor =  AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            this.tboxSearchInput.Location = new Point(6, 7);
-            this.tboxSearchInput.Multiline = true;
+            this.tboxSearchInput.Location = new Point(6, 9);
+            this.tboxSearchInput.MinimumSize = new Size(0, 27);
             this.tboxSearchInput.Name = "tboxSearchInput";
             this.tboxSearchInput.PlaceholderText = "Search for available vacancies";
-            this.tboxSearchInput.Size = new Size(532, 31);
+            this.tboxSearchInput.Size = new Size(532, 27);
             this.tboxSearchInput.TabIndex = 5;
             // 
             // btnSearch
@@ -295,6 +296,7 @@
             this.filtersPanel.Controls.Add(this.gboxExperienceLevel);
             this.filtersPanel.Controls.Add(this.refreshBtn);
             this.filtersPanel.Controls.Add(this.gboxWorkMode);
+            this.filtersPanel.Controls.Add(this.btnClearFilters);
             this.filtersPanel.Controls.Add(this.btnApplyFilters);
             this.filtersPanel.Controls.Add(this.groupJobType);
             this.filtersPanel.Dock = DockStyle.Fill;
@@ -302,6 +304,17 @@
             this.filtersPanel.Name = "filtersPanel";
             this.filtersPanel.Size = new Size(643, 194);
             this.filtersPanel.TabIndex = 9;
+            // 
+            // btnClearFilters
+            // 
+            this.btnClearFilters.Anchor = AnchorStyles.Left;
+            this.btnClearFilters.Location = new Point(6, 103);
+            this.btnClearFilters.Name = "btnClearFilters";
+            this.btnClearFilters.Size = new Size(98, 38);
+            this.btnClearFilters.TabIndex = 1;
+            this.btnClearFilters.Text = "Clear Filters";
+            this.btnClearFilters.UseVisualStyleBackColor = true;
+            this.btnClearFilters.Click += this.btnClearFilters_Click;
             // 
             // JobsControl
             // 
@@ -349,5 +362,6 @@
         private TableLayoutPanel layout;
         private Panel searchPanel;
         private Panel filtersPanel;
+        private Button btnClearFilters;
     }
 }

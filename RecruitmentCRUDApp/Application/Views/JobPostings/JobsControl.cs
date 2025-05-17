@@ -15,6 +15,9 @@ namespace RecruitmentApplication.Views
 {
     public partial class JobsControl : UserControl
     {
+        private DataTable dataSource;
+        private string currentSortColumn = "";
+        private System.Windows.Forms.SortOrder currentSortOrder = System.Windows.Forms.SortOrder.None;
         public JobsControl()
         {
             InitializeComponent();
@@ -23,12 +26,25 @@ namespace RecruitmentApplication.Views
             tboxSearchInput.KeyPress += (s, e) =>
             {
                 if (e.KeyChar == (char) Keys.Enter)
+                {
+                    e.Handled = true;
                     Search();
+                }
             };
         }
 
         private void InitializeGrid()
         {
+            dataGridPostings.Columns.Clear();
+
+            dataGridPostings.Columns.Add("title", "Title");
+            dataGridPostings.Columns.Add("experience_level", "Experience Level");
+            dataGridPostings.Columns.Add("job_type", "Job Type");
+            dataGridPostings.Columns.Add("work_mode", "Work Mode");
+            dataGridPostings.Columns.Add("deadline", "Deadline");
+            dataGridPostings.Columns.Add("company_name", "Company");
+            dataGridPostings.Columns.Add("employer_name", "Employer");
+
             var applyButtonColumn = new DataGridViewButtonColumn();
             applyButtonColumn.Name = "Apply";
             applyButtonColumn.HeaderText = "Apply";
@@ -51,6 +67,8 @@ namespace RecruitmentApplication.Views
             dataGridPostings.Columns.Add(saveButtonColumn);
 
             dataGridPostings.AllowUserToAddRows = false;
+            dataGridPostings.AutoGenerateColumns = false;
+            dataGridPostings.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 
             foreach (DataGridViewColumn column in dataGridPostings.Columns)
             {
@@ -58,9 +76,71 @@ namespace RecruitmentApplication.Views
                 {
                     column.SortMode = DataGridViewColumnSortMode.Programmatic;
                 }
+                column.ReadOnly = true;
             }
 
-            // TODO: make columns read only
+            dataGridPostings.ColumnHeaderMouseClick += (sender, e) =>
+            {
+                if (e.ColumnIndex < 0 || dataGridPostings.Columns[e.ColumnIndex] is DataGridViewButtonColumn)
+                    return;
+
+                string columnName = dataGridPostings.Columns[e.ColumnIndex].Name;
+
+                if (columnName == currentSortColumn)
+                {
+                    currentSortOrder = currentSortOrder == System.Windows.Forms.SortOrder.Ascending ?
+                        System.Windows.Forms.SortOrder.Descending : System.Windows.Forms.SortOrder.Ascending;
+                }
+                else
+                {
+                    currentSortColumn = columnName;
+                    currentSortOrder = System.Windows.Forms.SortOrder.Ascending;
+                }
+
+                SortData(columnName, currentSortOrder);
+
+                foreach (DataGridViewColumn col in dataGridPostings.Columns)
+                {
+                    col.HeaderCell.SortGlyphDirection = System.Windows.Forms.SortOrder.None;
+                }
+                dataGridPostings.Columns[e.ColumnIndex].HeaderCell.SortGlyphDirection = currentSortOrder;
+            };
+        }
+
+        private void SortData(string columnName, System.Windows.Forms.SortOrder sortOrder)
+        {
+            if (dataSource == null) return;
+
+            DataView dv = dataSource.DefaultView;
+
+            if (columnName == "deadline")
+            {
+                if (!dataSource.Columns.Contains("_sort_deadline"))
+                {
+                    dataSource.Columns.Add("_sort_deadline", typeof(DateTime));
+                }
+
+                foreach (DataRow row in dataSource.Rows)
+                {
+                    row["_sort_deadline"] = row["deadline"] == DBNull.Value
+                        ? DateTime.MaxValue
+                        : DateTime.Parse(row["deadline"].ToString());
+                }
+                dv.Sort = $"_sort_deadline {(sortOrder == System.Windows.Forms.SortOrder.Ascending ? "ASC" : "DESC")}";
+            }
+            else
+            {
+                dv.Sort = $"{columnName} {(sortOrder == System.Windows.Forms.SortOrder.Ascending ? "ASC" : "DESC")}";
+            }
+
+            dataSource = dv.ToTable();
+
+            if (dataSource.Columns.Contains("_sort_deadline"))
+            {
+                dataSource.Columns.Remove("_sort_deadline");
+            }
+
+            PopulateDataGridView();
         }
 
         private void refreshBtn_Click(object sender, EventArgs e)
@@ -71,14 +151,16 @@ namespace RecruitmentApplication.Views
         private void JobsControl_Load(object sender, EventArgs e)
         {
             RefreshDataGridView();
-
         }
 
-        private void RefreshDataGridView(string whereClause = "")
+        private void RefreshDataGridView(string whereClause = "", string searchTerm = "")
         {
             if (string.IsNullOrEmpty(whereClause))
             {
-                tboxSearchInput.Text = "";
+                if (string.IsNullOrEmpty(searchTerm))
+                {
+                    tboxSearchInput.Text = "";
+                }
                 ClearFilters();
             }
 
@@ -87,17 +169,73 @@ namespace RecruitmentApplication.Views
             {
                 connection.Open();
 
-                string getJobDataQuery = "SELECT * FROM [Vacancy]";
+                string getJobDataQuery = @"
+            SELECT 
+                v.vacancy_id,
+                v.title,
+                v.experience_level,
+                v.job_type,
+                v.work_mode,
+                CASE 
+                    WHEN v.deadline IS NULL THEN NULL 
+                    ELSE FORMAT(v.deadline, 'dd MMM yyyy') 
+                END AS deadline,
+                c.name AS company_name,
+                u.name AS employer_name,
+                v.employer_id
+            FROM [Vacancy] v
+            INNER JOIN Company c ON v.company_id = c.company_id
+            INNER JOIN Employer e ON v.employer_id = e.user_id
+            INNER JOIN [User] u ON e.user_id = u.user_id";
+
                 if (!string.IsNullOrWhiteSpace(whereClause))
                     getJobDataQuery += " WHERE " + whereClause;
 
                 SqlCommand getJobDataCmd = new SqlCommand(getJobDataQuery, connection);
+
+                if (!string.IsNullOrEmpty(searchTerm))
+                {
+                    getJobDataCmd.Parameters.AddWithValue("@searchTerm", $"%{searchTerm}%");
+                }
+
                 SqlDataAdapter adapter = new SqlDataAdapter(getJobDataCmd);
-                DataTable table = new DataTable();
+                dataSource = new DataTable();
 
-                adapter.Fill(table);
+                adapter.Fill(dataSource);
 
-                dataGridPostings.DataSource = table;
+                if (!string.IsNullOrEmpty(currentSortColumn))
+                {
+                    SortData(currentSortColumn, currentSortOrder);
+                }
+                else
+                {
+                    PopulateDataGridView();
+                }
+            }
+        }
+
+        private void PopulateDataGridView()
+        {
+            dataGridPostings.Rows.Clear();
+
+            foreach (DataRow row in dataSource.Rows)
+            {
+                int rowIndex = dataGridPostings.Rows.Add(
+                    row["title"],
+                    row["experience_level"],
+                    row["job_type"],
+                    row["work_mode"],
+                    row["deadline"] == DBNull.Value ? "No deadline" : row["deadline"],
+                    row["company_name"],
+                    row["employer_name"]
+                );
+
+                var rowData = new Dictionary<string, object>
+                {
+                    { "vacancy_id", row["vacancy_id"] },
+                    { "employer_id", row["employer_id"] }
+                };
+                dataGridPostings.Rows[rowIndex].Tag = rowData;
             }
         }
 
@@ -120,73 +258,49 @@ namespace RecruitmentApplication.Views
 
         private void dataGridPostings_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex < 0)
-            {
+            if (e.RowIndex < 0 || e.ColumnIndex < 0)
                 return;
-            }
+
+            var row = dataGridPostings.Rows[e.RowIndex];
+            var rowData = row.Tag as Dictionary<string, object>;
+
+            if (rowData == null || !rowData.ContainsKey("vacancy_id") || !rowData.ContainsKey("employer_id"))
+                return;
+
+            int jobId = Convert.ToInt32(rowData["vacancy_id"]);
+            int empId = Convert.ToInt32(rowData["employer_id"]);
 
             if (dataGridPostings.Columns[e.ColumnIndex].Name == "Details")
             {
-                var jobIdObj = dataGridPostings.Rows[e.RowIndex].Cells["vacancy_id"].Value;
-                if (jobIdObj != null && int.TryParse(jobIdObj.ToString(), out int jobId))
-                {
-                    var detailsForm = new JobDetailsForm(jobId);
-                    detailsForm.ShowDialog();
-                }
-                else
-                {
-                    MessageBox.Show("Failed to show job details.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                var detailsForm = new JobDetailsForm(jobId);
+                detailsForm.ShowDialog();
             }
-
-            if (dataGridPostings.Columns[e.ColumnIndex].Name == "Save")
+            else if (dataGridPostings.Columns[e.ColumnIndex].Name == "Save")
             {
-                var jobIdObj = dataGridPostings.Rows[e.RowIndex].Cells["vacancy_id"].Value;
-                if (jobIdObj != null && int.TryParse(jobIdObj.ToString(), out int jobId))
-                {
-                    SaveJob(jobId);
-                }
-                else
-                {
-                    MessageBox.Show("Failed to show job details.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                SaveJob(jobId);
             }
-
-            if (dataGridPostings.Columns[e.ColumnIndex].Name == "Apply")
+            else if (dataGridPostings.Columns[e.ColumnIndex].Name == "Apply")
             {
-                var jobIdObj = dataGridPostings.Rows[e.RowIndex].Cells["vacancy_id"].Value;
-                var emplIdObj = dataGridPostings.Rows[e.RowIndex].Cells["employer_id"].Value;
-                var jobTitleObj = dataGridPostings.Rows[e.RowIndex].Cells["title"].Value;
+                string jobTitle = row.Cells["title"].Value?.ToString() ?? "this job";
 
-                if ((jobIdObj != null && int.TryParse(jobIdObj.ToString(), out int jobId))
-                    && (emplIdObj != null && int.TryParse(emplIdObj.ToString(), out int empId)))
+                if (HasUserAlreadAppliedToJob(jobId))
                 {
-                    string jobTitle = jobTitleObj?.ToString() ?? "this job";
-
-                    if (HasUserAlreadAppliedToJob(jobId))
-                    {
-                        MessageBox.Show("You have already applied to this job.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-
-                    DialogResult result = MessageBox.Show(
-                        $"Are you sure you want to apply to \"{jobTitle}\"?",
-                        "Confirm Application",
-                        MessageBoxButtons.YesNo,
-                        MessageBoxIcon.Question
-                    );
-
-                    if (result == DialogResult.Yes)
-                    {
-                        ApplyToJob(jobId, empId);
-                    }
+                    MessageBox.Show("You have already applied to this job.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
                 }
-                else
+
+                DialogResult result = MessageBox.Show(
+                    $"Are you sure you want to apply to \"{jobTitle}\"?",
+                    "Confirm Application",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question
+                );
+
+                if (result == DialogResult.Yes)
                 {
-                    MessageBox.Show("Failed to apply to the job.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    ApplyToJob(jobId, empId);
                 }
             }
-
         }
 
         private void SaveJob(int jobId)
@@ -296,40 +410,37 @@ namespace RecruitmentApplication.Views
         {
             List<string> filters = new List<string>();
 
-            // Job Type
             List<string> jobTypeFilters = new List<string>();
             if (cbxJobTypeFullTime.Checked)
-                jobTypeFilters.Add("job_type = 'Full-Time'");
+                jobTypeFilters.Add("v.job_type = 'Full-Time'");
             if (cbxJobTypePartTime.Checked)
-                jobTypeFilters.Add("job_type = 'Part-Time'");
+                jobTypeFilters.Add("v.job_type = 'Part-Time'");
             if (cbxJobTypeContract.Checked)
-                jobTypeFilters.Add("job_type = 'Contract'");
+                jobTypeFilters.Add("v.job_type = 'Contract'");
             if (jobTypeFilters.Count > 0)
                 filters.Add("(" + string.Join(" OR ", jobTypeFilters) + ")");
 
-            // Work Mode
             List<string> workModeFilters = new List<string>();
             if (cboxWorkModeOnSite.Checked)
-                workModeFilters.Add("work_mode = 'On-Site'");
+                workModeFilters.Add("v.work_mode = 'On-Site'");
             if (cboxWorkModeRemote.Checked)
-                workModeFilters.Add("work_mode = 'Remote'");
+                workModeFilters.Add("v.work_mode = 'Remote'");
             if (cboxWorkModeHybrid.Checked)
-                workModeFilters.Add("work_mode = 'Hybrid'");
+                workModeFilters.Add("v.work_mode = 'Hybrid'");
             if (workModeFilters.Count > 0)
                 filters.Add("(" + string.Join(" OR ", workModeFilters) + ")");
 
-            // Experience Level
             List<string> experienceLevelFilters = new List<string>();
             if (cboxExperienceLevelSenior.Checked)
-                experienceLevelFilters.Add("experience_level = 'Senior'");
+                experienceLevelFilters.Add("v.experience_level = 'Senior'");
             if (cboxExperienceLevelMidLevel.Checked)
-                experienceLevelFilters.Add("experience_level = 'Mid-Level'");
+                experienceLevelFilters.Add("v.experience_level = 'Mid-Level'");
             if (cboxExperienceLevelJunior.Checked)
-                experienceLevelFilters.Add("experience_level = 'Junior'");
+                experienceLevelFilters.Add("v.experience_level = 'Junior'");
             if (cboxExperienceLevelFreshGrad.Checked)
-                experienceLevelFilters.Add("experience_level = 'Fresh Graduate'");
+                experienceLevelFilters.Add("v.experience_level = 'Fresh Graduate'");
             if (cboxExperienceLevelStudent.Checked)
-                experienceLevelFilters.Add("experience_level = 'Student'");
+                experienceLevelFilters.Add("v.experience_level = 'Student'");
             if (experienceLevelFilters.Count > 0)
                 filters.Add("(" + string.Join(" OR ", experienceLevelFilters) + ")");
 
@@ -345,22 +456,39 @@ namespace RecruitmentApplication.Views
         {
             string searchTerm = tboxSearchInput.Text.Trim();
 
-            string searchCondition =
-                "(title LIKE '%" + searchTerm + "%' OR " +
-                "description LIKE '%" + searchTerm + "%' OR " +
-                "skills LIKE '%" + searchTerm + "%')";
+            List<string> allConditions = new List<string> { "v.status = 'Open'" };
+
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                string searchCondition = $@"
+            (v.title LIKE @searchTerm OR 
+             v.description LIKE @searchTerm OR 
+             v.skills LIKE @searchTerm OR
+             v.job_type LIKE @searchTerm OR
+             v.work_mode LIKE @searchTerm OR
+             v.experience_level LIKE @searchTerm OR
+             c.name LIKE @searchTerm OR
+             u.name LIKE @searchTerm)";
+
+                allConditions.Add(searchCondition);
+            }
 
             string filterCondition = GetFilterCondition();
-            List<string> allConditions = new List<string> { "status = 'Open'" };
-
             if (!string.IsNullOrWhiteSpace(filterCondition))
+            {
                 allConditions.Add(filterCondition);
+            }
 
-            allConditions.Add(searchCondition);
+            string finalWhereClause = allConditions.Count > 0
+                ? string.Join(" AND ", allConditions)
+                : "";
 
-            string finalWhereClause = string.Join(" AND ", allConditions);
+            RefreshDataGridView(finalWhereClause, searchTerm);
+        }
 
-            RefreshDataGridView(finalWhereClause);
+        private void btnClearFilters_Click(object sender, EventArgs e)
+        {
+            ClearFilters();
         }
     }
 }
