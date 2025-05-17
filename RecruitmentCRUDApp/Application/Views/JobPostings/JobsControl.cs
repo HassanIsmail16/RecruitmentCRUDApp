@@ -36,6 +36,12 @@ namespace RecruitmentApplication.Views
             detailsButtonColumn.UseColumnTextForButtonValue = true;
             dataGridPostings.Columns.Add(detailsButtonColumn);
 
+            var saveButtonColumn = new DataGridViewButtonColumn();
+            saveButtonColumn.Name = "Save";
+            saveButtonColumn.HeaderText = "Save";
+            saveButtonColumn.Text = "Save";
+            saveButtonColumn.UseColumnTextForButtonValue = true;
+            dataGridPostings.Columns.Add(saveButtonColumn);
             // TODO: make columns read only
         }
 
@@ -86,6 +92,46 @@ namespace RecruitmentApplication.Views
                 else
                 {
                     MessageBox.Show("Failed to show job details.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+
+            if (dataGridPostings.Columns[e.ColumnIndex].Name == "Save")
+            {
+                var jobIdObj = dataGridPostings.Rows[e.RowIndex].Cells["vacancy_id"].Value;
+                if (jobIdObj != null && int.TryParse(jobIdObj.ToString(), out int jobId))
+                {
+                    SaveJob(jobId);
+                }
+                else
+                {
+                    MessageBox.Show("Failed to show job details.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void SaveJob(int jobId)
+        {
+            string connectionString = "Data Source=.;Initial Catalog=Recruitment;Integrated Security=True;TrustServerCertificate=True;";
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                string saveJobQuery =
+                    "INSERT INTO [SavedJob] " +
+                    "(jobseeker_id, vacancy_id) " +
+                    "VALUES (@userId, @jobId);";
+                SqlCommand saveJobCmd = new SqlCommand(saveJobQuery, connection);
+                saveJobCmd.Parameters.AddWithValue("@userId", Session.CurrentUserId);
+                saveJobCmd.Parameters.AddWithValue("@jobId", jobId);
+
+                var result = saveJobCmd.ExecuteNonQuery();
+                if (result > 0)
+                {
+                    MessageBox.Show("Job has been saved successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                } 
+                else
+                {
+                    MessageBox.Show("Failed to save job.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
