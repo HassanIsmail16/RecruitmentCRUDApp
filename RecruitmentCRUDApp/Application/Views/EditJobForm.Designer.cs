@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.btnCancel = new Button();
-            this.btnPost = new Button();
+            this.btnSave = new Button();
             this.lblHeader = new Label();
             this.tboxSkills = new TextBox();
             this.tboxDescription = new TextBox();
@@ -58,14 +58,14 @@
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
-            // btnPost
+            // btnSave
             // 
-            this.btnPost.Location = new Point(272, 460);
-            this.btnPost.Name = "btnPost";
-            this.btnPost.Size = new Size(75, 29);
-            this.btnPost.TabIndex = 42;
-            this.btnPost.Text = "Post";
-            this.btnPost.UseVisualStyleBackColor = true;
+            this.btnSave.Location = new Point(272, 460);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new Size(75, 29);
+            this.btnSave.TabIndex = 42;
+            this.btnSave.Text = "Save";
+            this.btnSave.UseVisualStyleBackColor = true;
             // 
             // lblHeader
             // 
@@ -225,7 +225,7 @@
             this.AutoScaleMode = AutoScaleMode.Font;
             this.ClientSize = new Size(388, 528);
             this.Controls.Add(this.btnCancel);
-            this.Controls.Add(this.btnPost);
+            this.Controls.Add(this.btnSave);
             this.Controls.Add(this.lblHeader);
             this.Controls.Add(this.tboxSkills);
             this.Controls.Add(this.tboxDescription);
@@ -252,7 +252,7 @@
         #endregion
 
         private Button btnCancel;
-        private Button btnPost;
+        private Button btnSave;
         private Label lblHeader;
         private TextBox tboxSkills;
         private TextBox tboxDescription;

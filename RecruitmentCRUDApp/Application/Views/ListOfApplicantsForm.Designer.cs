@@ -28,42 +28,109 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new TextBox();
-            this.button1 = new Button();
-            this.SuspendLayout();
+            dataGridJobApplicants = new DataGridView();
+            colApplicantName = new DataGridViewTextBoxColumn();
+            colAppDate = new DataGridViewTextBoxColumn();
+            colStatus = new DataGridViewComboBoxColumn();
+            colPostDate = new DataGridViewTextBoxColumn();
+            btnRefresh = new Button();
+            btnCancel = new Button();
+            btnSaveChanges = new Button();
+            ((System.ComponentModel.ISupportInitialize)dataGridJobApplicants).BeginInit();
+            SuspendLayout();
             // 
-            // textBox1
+            // dataGridJobApplicants
             // 
-            this.textBox1.Location = new Point(12, 12);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new Size(331, 23);
-            this.textBox1.TabIndex = 0;
+            dataGridJobApplicants.AllowUserToAddRows = false;
+            dataGridJobApplicants.AllowUserToDeleteRows = false;
+            dataGridJobApplicants.AllowUserToResizeRows = false;
+            dataGridJobApplicants.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridJobApplicants.Columns.AddRange(new DataGridViewColumn[] { colApplicantName, colAppDate, colStatus, colPostDate });
+            dataGridJobApplicants.Location = new Point(12, 80);
+            dataGridJobApplicants.Name = "dataGridJobApplicants";
+            dataGridJobApplicants.Size = new Size(643, 406);
+            dataGridJobApplicants.TabIndex = 2;
             // 
-            // button1
+            // colApplicantName
             // 
-            this.button1.Location = new Point(349, 12);
-            this.button1.Name = "button1";
-            this.button1.Size = new Size(75, 23);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
+            colApplicantName.HeaderText = "Applicant Name";
+            colApplicantName.MaxInputLength = 100;
+            colApplicantName.Name = "colApplicantName";
+            colApplicantName.ReadOnly = true;
+            colApplicantName.Width = 200;
+            // 
+            // colAppDate
+            // 
+            colAppDate.HeaderText = "Application Date";
+            colAppDate.Name = "colAppDate";
+            colAppDate.ReadOnly = true;
+            colAppDate.Width = 150;
+            // 
+            // colStatus
+            // 
+            colStatus.HeaderText = "Status";
+            colStatus.Items.AddRange(new object[] { "Pending", "Under Review", "Interviewed", "Accepted", "Rejected" });
+            colStatus.Name = "colStatus";
+            // 
+            // colPostDate
+            // 
+            colPostDate.HeaderText = "Post Date";
+            colPostDate.Name = "colPostDate";
+            colPostDate.ReadOnly = true;
+            colPostDate.Width = 150;
+            // 
+            // btnRefresh
+            // 
+            btnRefresh.Location = new Point(12, 12);
+            btnRefresh.Name = "btnRefresh";
+            btnRefresh.Size = new Size(75, 44);
+            btnRefresh.TabIndex = 3;
+            btnRefresh.Text = "Refresh";
+            btnRefresh.UseVisualStyleBackColor = true;
+            btnRefresh.Click += btnRefresh_Click;
+            // 
+            // btnCancel
+            // 
+            btnCancel.Location = new Point(221, 12);
+            btnCancel.Name = "btnCancel";
+            btnCancel.Size = new Size(75, 44);
+            btnCancel.TabIndex = 4;
+            btnCancel.Text = "Cancel";
+            btnCancel.UseVisualStyleBackColor = true;
+            // 
+            // btnSaveChanges
+            // 
+            btnSaveChanges.Location = new Point(121, 12);
+            btnSaveChanges.Name = "btnSaveChanges";
+            btnSaveChanges.Size = new Size(94, 44);
+            btnSaveChanges.TabIndex = 5;
+            btnSaveChanges.Text = "Save Changes";
+            btnSaveChanges.UseVisualStyleBackColor = true;
+            btnSaveChanges.Click += btnSaveChanges_Click;
             // 
             // ListOfApplicantsForm
             // 
-            this.AutoScaleDimensions = new SizeF(7F, 15F);
-            this.AutoScaleMode = AutoScaleMode.Font;
-            this.ClientSize = new Size(541, 450);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.textBox1);
-            this.Name = "ListOfApplicantsForm";
-            this.Text = "ListOfApplicantsForm";
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(667, 498);
+            Controls.Add(btnSaveChanges);
+            Controls.Add(btnCancel);
+            Controls.Add(btnRefresh);
+            Controls.Add(dataGridJobApplicants);
+            Name = "ListOfApplicantsForm";
+            Text = "ListOfApplicantsForm";
+            ((System.ComponentModel.ISupportInitialize)dataGridJobApplicants).EndInit();
+            ResumeLayout(false);
         }
 
         #endregion
-
-        private TextBox textBox1;
-        private Button button1;
+        private DataGridView dataGridJobApplicants;
+        private Button btnRefresh;
+        private Button btnCancel;
+        private Button btnSaveChanges;
+        private DataGridViewTextBoxColumn colApplicantName;
+        private DataGridViewTextBoxColumn colAppDate;
+        private DataGridViewComboBoxColumn colStatus;
+        private DataGridViewTextBoxColumn colPostDate;
     }
 }
