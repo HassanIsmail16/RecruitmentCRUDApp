@@ -11,38 +11,11 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Data.SqlClient;
 using RecruitmentApplication.Views;
-using static RecruitmentApplication.Views.frmLogin;
 
 namespace RecruitmentApplication.Views.Auth
 {
     public partial class frmSignup : Form
     {
-        private static frmLogin loginForm;
-        public class SignUpEventArgs
-        {
-            public string FullName { get; }
-            public string Email { get; }
-            public string Password { get; }
-            public string ConfirmPassword { get; }
-            public string PhoneNumber { get; }
-            public DateTime? BirthDate { get; }
-            public string UserType { get; }
-
-            public SignUpEventArgs(string fullName, string email, string password,
-                string confirmPassword, string phoneNumber, DateTime? birthDate, string userType)
-            {
-                FullName = fullName;
-                Email = email;
-                Password = password;
-                ConfirmPassword = confirmPassword;
-                PhoneNumber = phoneNumber;
-                BirthDate = birthDate;
-                UserType = userType;
-            }
-        }
-
-        public event EventHandler<SignUpEventArgs> OnSignUp;
-
         public frmSignup()
         {
             InitializeComponent();
@@ -50,16 +23,8 @@ namespace RecruitmentApplication.Views.Auth
 
         private void linkLogin_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            // create the login form if it doesnt exist yet
-            if (loginForm == null || loginForm.IsDisposed)
-            {
-                loginForm = new frmLogin();
-            }
-
-            // show the login form
+            var loginForm = new frmLogin();
             loginForm.Show();
-
-            // hide this form
             this.Hide();
         }
 
@@ -99,7 +64,6 @@ namespace RecruitmentApplication.Views.Auth
                     }
                 }
 
-
                 bool passwordsMatch = password == confirmPassword;
                 if (!passwordsMatch)
                 {
@@ -117,7 +81,8 @@ namespace RecruitmentApplication.Views.Auth
                 signupCmd.Parameters.AddWithValue("@password", password);
                 signupCmd.Parameters.AddWithValue("@phone", phoneNumber);
                 signupCmd.Parameters.AddWithValue("@birthDate", birthDate ?? (object) DBNull.Value);
-                signupCmd.Parameters.AddWithValue("@userType", userType); var result = signupCmd.ExecuteNonQuery();
+                signupCmd.Parameters.AddWithValue("@userType", userType); 
+                var result = signupCmd.ExecuteNonQuery();
                 
                 if (result > 0)
                 {
@@ -127,7 +92,8 @@ namespace RecruitmentApplication.Views.Auth
                     loginForm.Show();
                     this.Hide();
 
-                } else
+                } 
+                else
                 {
                     MessageBox.Show("Account creation failed. Please try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
