@@ -185,6 +185,15 @@
             txtFullName.TabIndex = 7;
             txtFullName.Text = "Adham Hamdy Hamed Abdulhameid";
             // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(33, 328);
+            label1.Name = "label1";
+            label1.Size = new Size(74, 15);
+            label1.TabIndex = 6;
+            label1.Text = "Signup Date:";
+            // 
             // labelSignupDate
             // 
             labelSignupDate.AutoSize = true;
@@ -343,13 +352,13 @@
             // 
             // labelResume
             // 
-            labelResume.AutoSize = true;
-            labelResume.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            labelResume.Location = new Point(27, 27);
-            labelResume.Name = "labelResume";
-            labelResume.Size = new Size(103, 32);
-            labelResume.TabIndex = 2;
-            labelResume.Text = "Resume";
+            this.labelResume.AutoSize = true;
+            this.labelResume.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point,  0);
+            this.labelResume.Location = new Point(27, 27);
+            this.labelResume.Name = "labelResume";
+            this.labelResume.Size = new Size(103, 32);
+            this.labelResume.TabIndex = 2;
+            this.labelResume.Text = "Resume";
             // 
             // panelHeader
             // 
@@ -429,5 +438,6 @@
         private Label labelSignupDate;
         private TextBox textBoxInterests;
         private TextBox textBoxSkills;
+        private Label label1;
     }
 }
