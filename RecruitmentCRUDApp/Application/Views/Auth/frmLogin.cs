@@ -1,5 +1,6 @@
 ﻿using Models;
 using RecruitmentApplication.Views.Auth;
+using RecruitmentApplication.Utilities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -30,45 +31,74 @@ namespace RecruitmentApplication.Views
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            string email = txtEmail.Text;
+            string email = txtEmail.Text.Trim();
             string password = txtPassword.Text;
 
-            string connectionString = "Data Source=.;Initial Catalog=Recruitment;Integrated Security=True;";
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            // Validate email
+            if (!AppUtilities.IsValidEmail(email))
             {
-                connection.Open();
+                AppUtilities.ShowError("Please enter a valid email address.");
+                return;
+            }
 
-                string query = "SELECT * FROM [User] WHERE email = @email AND password = @password";
-                using (SqlCommand cmd = new SqlCommand(query, connection))
+            // Validate password is not empty
+            if (string.IsNullOrWhiteSpace(password))
+            {
+                AppUtilities.ShowError("Please enter your password.");
+                return;
+            }
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(AppUtilities.DatabaseConstants.ConnectionString))
                 {
-                    cmd.Parameters.AddWithValue("@email", email);
-                    cmd.Parameters.AddWithValue("@password", password);
+                    connection.Open();
 
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    string query = "SELECT * FROM [User] WHERE email = @email AND password = @password";
+                    using (SqlCommand cmd = new SqlCommand(query, connection))
                     {
-                        if (reader.HasRows)
+                        cmd.Parameters.AddWithValue("@email", email);
+                        cmd.Parameters.AddWithValue("@password", password);
+
+                        using (SqlDataReader reader = cmd.ExecuteReader())
                         {
-                            if (reader.Read())
+                            if (reader.HasRows)
                             {
-                                Session.Login(reader.GetInt32(0), reader["user_type"].ToString());
-                            } 
+                                if (reader.Read())
+                                {
+                                    string userType = reader["user_type"].ToString();
+                                    
+                                    // Validate user type before login
+                                    if (!AppUtilities.IsValidUserType(userType))
+                                    {
+                                        AppUtilities.ShowError("Invalid user type in database.");
+                                        return;
+                                    }
+
+                                    Session.Login(reader.GetInt32(0), userType);
+                                } 
+                                else
+                                {
+                                    AppUtilities.ShowError("Invalid email or password.");
+                                    return;
+                                }
+
+                                AppUtilities.ShowInfo("Login successful!");
+                                MainForm mainform = new MainForm();
+                                mainform.Show();
+                                this.Hide();
+                            }
                             else
                             {
-                                MessageBox.Show("Invalid email or password.", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                return;
+                                AppUtilities.ShowError("Invalid email or password.");
                             }
-
-                            MessageBox.Show("Login successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            MainForm mainform = new MainForm();
-                            mainform.Show();
-                            this.Hide();
-                        }
-                        else
-                        {
-                            MessageBox.Show("Invalid email or password.", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                AppUtilities.ShowError($"An error occurred during login: {ex.Message}");
             }
         }
     }
