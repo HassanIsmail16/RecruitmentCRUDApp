@@ -28,265 +28,265 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.labelCreateAccMsg = new Label();
-            this.txtFullName = new TextBox();
-            this.txtEmail = new TextBox();
-            this.txtPassword = new TextBox();
-            this.txtConfirmPassword = new TextBox();
-            this.txtPhoneNumber = new TextBox();
-            this.labelFullName = new Label();
-            this.labelPassword = new Label();
-            this.labelEmail = new Label();
-            this.labelPhoneNumber = new Label();
-            this.labelBirthDate = new Label();
-            this.labelConfPassword = new Label();
-            this.birthDate = new DateTimePicker();
-            this.btnSignup = new Button();
-            this.radioBtnJobseeker = new RadioButton();
-            this.radioBtnEmployer = new RadioButton();
-            this.labelLoginMsg = new Label();
-            this.linkLogin = new LinkLabel();
-            this.gboxUserType = new GroupBox();
-            this.SuspendLayout();
+            labelCreateAccMsg = new Label();
+            txtFullName = new TextBox();
+            txtEmail = new TextBox();
+            txtPassword = new TextBox();
+            txtConfirmPassword = new TextBox();
+            txtPhoneNumber = new TextBox();
+            labelFullName = new Label();
+            labelPassword = new Label();
+            labelEmail = new Label();
+            labelPhoneNumber = new Label();
+            labelBirthDate = new Label();
+            labelConfPassword = new Label();
+            birthDate = new DateTimePicker();
+            btnSignup = new Button();
+            radioBtnJobseeker = new RadioButton();
+            radioBtnEmployer = new RadioButton();
+            labelLoginMsg = new Label();
+            linkLogin = new LinkLabel();
+            gboxUserType = new GroupBox();
+            SuspendLayout();
             // 
             // labelCreateAccMsg
             // 
-            this.labelCreateAccMsg.Anchor =  AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            this.labelCreateAccMsg.AutoSize = true;
-            this.labelCreateAccMsg.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point,  0);
-            this.labelCreateAccMsg.Location = new Point(33, 7);
-            this.labelCreateAccMsg.Name = "labelCreateAccMsg";
-            this.labelCreateAccMsg.Size = new Size(582, 32);
-            this.labelCreateAccMsg.TabIndex = 0;
-            this.labelCreateAccMsg.Text = "Create an account to launch your professional career.";
+            labelCreateAccMsg.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            labelCreateAccMsg.AutoSize = true;
+            labelCreateAccMsg.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            labelCreateAccMsg.Location = new Point(33, 7);
+            labelCreateAccMsg.Name = "labelCreateAccMsg";
+            labelCreateAccMsg.Size = new Size(582, 32);
+            labelCreateAccMsg.TabIndex = 0;
+            labelCreateAccMsg.Text = "Create an account to launch your professional career.";
             // 
             // txtFullName
             // 
-            this.txtFullName.Anchor =  AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            this.txtFullName.Location = new Point(218, 66);
-            this.txtFullName.Margin = new Padding(3, 2, 3, 2);
-            this.txtFullName.MaxLength = 100;
-            this.txtFullName.Name = "txtFullName";
-            this.txtFullName.PlaceholderText = "Enter your full name";
-            this.txtFullName.Size = new Size(261, 23);
-            this.txtFullName.TabIndex = 1;
+            txtFullName.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            txtFullName.Location = new Point(218, 66);
+            txtFullName.Margin = new Padding(3, 2, 3, 2);
+            txtFullName.MaxLength = 100;
+            txtFullName.Name = "txtFullName";
+            txtFullName.PlaceholderText = "Enter your full name";
+            txtFullName.Size = new Size(261, 23);
+            txtFullName.TabIndex = 1;
             // 
             // txtEmail
             // 
-            this.txtEmail.Anchor =  AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            this.txtEmail.Location = new Point(218, 125);
-            this.txtEmail.Margin = new Padding(3, 2, 3, 2);
-            this.txtEmail.MaxLength = 100;
-            this.txtEmail.Name = "txtEmail";
-            this.txtEmail.PlaceholderText = "Enter your email address";
-            this.txtEmail.Size = new Size(261, 23);
-            this.txtEmail.TabIndex = 2;
+            txtEmail.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            txtEmail.Location = new Point(218, 125);
+            txtEmail.Margin = new Padding(3, 2, 3, 2);
+            txtEmail.MaxLength = 100;
+            txtEmail.Name = "txtEmail";
+            txtEmail.PlaceholderText = "Enter your email address";
+            txtEmail.Size = new Size(261, 23);
+            txtEmail.TabIndex = 2;
             // 
             // txtPassword
             // 
-            this.txtPassword.Anchor =  AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            this.txtPassword.Location = new Point(218, 184);
-            this.txtPassword.Margin = new Padding(3, 2, 3, 2);
-            this.txtPassword.MaxLength = 255;
-            this.txtPassword.Name = "txtPassword";
-            this.txtPassword.PasswordChar = '*';
-            this.txtPassword.PlaceholderText = "Enter your password";
-            this.txtPassword.Size = new Size(261, 23);
-            this.txtPassword.TabIndex = 3;
-            this.txtPassword.UseSystemPasswordChar = true;
+            txtPassword.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            txtPassword.Location = new Point(218, 184);
+            txtPassword.Margin = new Padding(3, 2, 3, 2);
+            txtPassword.MaxLength = 255;
+            txtPassword.Name = "txtPassword";
+            txtPassword.PasswordChar = '*';
+            txtPassword.PlaceholderText = "Enter your password";
+            txtPassword.Size = new Size(261, 23);
+            txtPassword.TabIndex = 3;
+            txtPassword.UseSystemPasswordChar = true;
             // 
             // txtConfirmPassword
             // 
-            this.txtConfirmPassword.Anchor =  AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            this.txtConfirmPassword.Location = new Point(218, 244);
-            this.txtConfirmPassword.Margin = new Padding(3, 2, 3, 2);
-            this.txtConfirmPassword.MaxLength = 255;
-            this.txtConfirmPassword.Name = "txtConfirmPassword";
-            this.txtConfirmPassword.PasswordChar = '*';
-            this.txtConfirmPassword.PlaceholderText = "Write your password again";
-            this.txtConfirmPassword.Size = new Size(261, 23);
-            this.txtConfirmPassword.TabIndex = 4;
-            this.txtConfirmPassword.UseSystemPasswordChar = true;
+            txtConfirmPassword.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            txtConfirmPassword.Location = new Point(218, 244);
+            txtConfirmPassword.Margin = new Padding(3, 2, 3, 2);
+            txtConfirmPassword.MaxLength = 255;
+            txtConfirmPassword.Name = "txtConfirmPassword";
+            txtConfirmPassword.PasswordChar = '*';
+            txtConfirmPassword.PlaceholderText = "Write your password again";
+            txtConfirmPassword.Size = new Size(261, 23);
+            txtConfirmPassword.TabIndex = 4;
+            txtConfirmPassword.UseSystemPasswordChar = true;
             // 
             // txtPhoneNumber
             // 
-            this.txtPhoneNumber.Anchor =  AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            this.txtPhoneNumber.Location = new Point(218, 303);
-            this.txtPhoneNumber.Margin = new Padding(3, 2, 3, 2);
-            this.txtPhoneNumber.MaxLength = 20;
-            this.txtPhoneNumber.Name = "txtPhoneNumber";
-            this.txtPhoneNumber.PlaceholderText = "Enter your phone number";
-            this.txtPhoneNumber.Size = new Size(261, 23);
-            this.txtPhoneNumber.TabIndex = 5;
+            txtPhoneNumber.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            txtPhoneNumber.Location = new Point(218, 303);
+            txtPhoneNumber.Margin = new Padding(3, 2, 3, 2);
+            txtPhoneNumber.MaxLength = 20;
+            txtPhoneNumber.Name = "txtPhoneNumber";
+            txtPhoneNumber.PlaceholderText = "Enter your phone number";
+            txtPhoneNumber.Size = new Size(261, 23);
+            txtPhoneNumber.TabIndex = 5;
             // 
             // labelFullName
             // 
-            this.labelFullName.Anchor =  AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            this.labelFullName.AutoSize = true;
-            this.labelFullName.Location = new Point(221, 49);
-            this.labelFullName.Name = "labelFullName";
-            this.labelFullName.Size = new Size(61, 15);
-            this.labelFullName.TabIndex = 7;
-            this.labelFullName.Text = "Full Name";
+            labelFullName.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            labelFullName.AutoSize = true;
+            labelFullName.Location = new Point(221, 49);
+            labelFullName.Name = "labelFullName";
+            labelFullName.Size = new Size(61, 15);
+            labelFullName.TabIndex = 7;
+            labelFullName.Text = "Full Name";
             // 
             // labelPassword
             // 
-            this.labelPassword.Anchor =  AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            this.labelPassword.AutoSize = true;
-            this.labelPassword.Location = new Point(218, 167);
-            this.labelPassword.Name = "labelPassword";
-            this.labelPassword.Size = new Size(57, 15);
-            this.labelPassword.TabIndex = 8;
-            this.labelPassword.Text = "Password";
+            labelPassword.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            labelPassword.AutoSize = true;
+            labelPassword.Location = new Point(218, 167);
+            labelPassword.Name = "labelPassword";
+            labelPassword.Size = new Size(57, 15);
+            labelPassword.TabIndex = 8;
+            labelPassword.Text = "Password";
             // 
             // labelEmail
             // 
-            this.labelEmail.Anchor =  AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            this.labelEmail.AutoSize = true;
-            this.labelEmail.Location = new Point(221, 108);
-            this.labelEmail.Name = "labelEmail";
-            this.labelEmail.Size = new Size(36, 15);
-            this.labelEmail.TabIndex = 9;
-            this.labelEmail.Text = "Email";
+            labelEmail.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            labelEmail.AutoSize = true;
+            labelEmail.Location = new Point(221, 108);
+            labelEmail.Name = "labelEmail";
+            labelEmail.Size = new Size(36, 15);
+            labelEmail.TabIndex = 9;
+            labelEmail.Text = "Email";
             // 
             // labelPhoneNumber
             // 
-            this.labelPhoneNumber.Anchor =  AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            this.labelPhoneNumber.AutoSize = true;
-            this.labelPhoneNumber.Location = new Point(218, 286);
-            this.labelPhoneNumber.Name = "labelPhoneNumber";
-            this.labelPhoneNumber.Size = new Size(88, 15);
-            this.labelPhoneNumber.TabIndex = 10;
-            this.labelPhoneNumber.Text = "Phone Number";
+            labelPhoneNumber.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            labelPhoneNumber.AutoSize = true;
+            labelPhoneNumber.Location = new Point(218, 286);
+            labelPhoneNumber.Name = "labelPhoneNumber";
+            labelPhoneNumber.Size = new Size(88, 15);
+            labelPhoneNumber.TabIndex = 10;
+            labelPhoneNumber.Text = "Phone Number";
             // 
             // labelBirthDate
             // 
-            this.labelBirthDate.Anchor =  AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            this.labelBirthDate.AutoSize = true;
-            this.labelBirthDate.Location = new Point(218, 345);
-            this.labelBirthDate.Name = "labelBirthDate";
-            this.labelBirthDate.Size = new Size(59, 15);
-            this.labelBirthDate.TabIndex = 11;
-            this.labelBirthDate.Text = "Birth Date";
+            labelBirthDate.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            labelBirthDate.AutoSize = true;
+            labelBirthDate.Location = new Point(218, 345);
+            labelBirthDate.Name = "labelBirthDate";
+            labelBirthDate.Size = new Size(59, 15);
+            labelBirthDate.TabIndex = 11;
+            labelBirthDate.Text = "Birth Date";
             // 
             // labelConfPassword
             // 
-            this.labelConfPassword.Anchor =  AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            this.labelConfPassword.AutoSize = true;
-            this.labelConfPassword.Location = new Point(218, 226);
-            this.labelConfPassword.Name = "labelConfPassword";
-            this.labelConfPassword.Size = new Size(131, 15);
-            this.labelConfPassword.TabIndex = 12;
-            this.labelConfPassword.Text = "Confirm your password";
+            labelConfPassword.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            labelConfPassword.AutoSize = true;
+            labelConfPassword.Location = new Point(218, 226);
+            labelConfPassword.Name = "labelConfPassword";
+            labelConfPassword.Size = new Size(131, 15);
+            labelConfPassword.TabIndex = 12;
+            labelConfPassword.Text = "Confirm your password";
             // 
             // birthDate
             // 
-            this.birthDate.Anchor =  AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            this.birthDate.Location = new Point(218, 362);
-            this.birthDate.Margin = new Padding(3, 2, 3, 2);
-            this.birthDate.Name = "birthDate";
-            this.birthDate.Size = new Size(261, 23);
-            this.birthDate.TabIndex = 6;
+            birthDate.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            birthDate.Location = new Point(218, 362);
+            birthDate.Margin = new Padding(3, 2, 3, 2);
+            birthDate.Name = "birthDate";
+            birthDate.Size = new Size(261, 23);
+            birthDate.TabIndex = 6;
             // 
             // btnSignup
             // 
-            this.btnSignup.Anchor =  AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            this.btnSignup.Location = new Point(307, 450);
-            this.btnSignup.Margin = new Padding(3, 2, 3, 2);
-            this.btnSignup.Name = "btnSignup";
-            this.btnSignup.Size = new Size(82, 22);
-            this.btnSignup.TabIndex = 9;
-            this.btnSignup.Text = "Sign up";
-            this.btnSignup.UseVisualStyleBackColor = true;
-            this.btnSignup.Click += this.btnSignup_Click;
+            btnSignup.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            btnSignup.Location = new Point(307, 450);
+            btnSignup.Margin = new Padding(3, 2, 3, 2);
+            btnSignup.Name = "btnSignup";
+            btnSignup.Size = new Size(82, 31);
+            btnSignup.TabIndex = 9;
+            btnSignup.Text = "Sign up";
+            btnSignup.UseVisualStyleBackColor = true;
+            btnSignup.Click += btnSignup_Click;
             // 
             // radioBtnJobseeker
             // 
-            this.radioBtnJobseeker.Anchor =  AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            this.radioBtnJobseeker.AutoSize = true;
-            this.radioBtnJobseeker.Checked = true;
-            this.radioBtnJobseeker.Location = new Point(225, 420);
-            this.radioBtnJobseeker.Margin = new Padding(3, 2, 3, 2);
-            this.radioBtnJobseeker.Name = "radioBtnJobseeker";
-            this.radioBtnJobseeker.Size = new Size(80, 19);
-            this.radioBtnJobseeker.TabIndex = 7;
-            this.radioBtnJobseeker.TabStop = true;
-            this.radioBtnJobseeker.Text = "Job Seeker";
-            this.radioBtnJobseeker.UseVisualStyleBackColor = true;
+            radioBtnJobseeker.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            radioBtnJobseeker.AutoSize = true;
+            radioBtnJobseeker.Checked = true;
+            radioBtnJobseeker.Location = new Point(225, 420);
+            radioBtnJobseeker.Margin = new Padding(3, 2, 3, 2);
+            radioBtnJobseeker.Name = "radioBtnJobseeker";
+            radioBtnJobseeker.Size = new Size(80, 19);
+            radioBtnJobseeker.TabIndex = 7;
+            radioBtnJobseeker.TabStop = true;
+            radioBtnJobseeker.Text = "Job Seeker";
+            radioBtnJobseeker.UseVisualStyleBackColor = true;
             // 
             // radioBtnEmployer
             // 
-            this.radioBtnEmployer.Anchor =  AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            this.radioBtnEmployer.AutoSize = true;
-            this.radioBtnEmployer.Location = new Point(389, 420);
-            this.radioBtnEmployer.Margin = new Padding(3, 2, 3, 2);
-            this.radioBtnEmployer.Name = "radioBtnEmployer";
-            this.radioBtnEmployer.Size = new Size(75, 19);
-            this.radioBtnEmployer.TabIndex = 8;
-            this.radioBtnEmployer.Text = "Employer";
-            this.radioBtnEmployer.UseVisualStyleBackColor = true;
+            radioBtnEmployer.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            radioBtnEmployer.AutoSize = true;
+            radioBtnEmployer.Location = new Point(389, 420);
+            radioBtnEmployer.Margin = new Padding(3, 2, 3, 2);
+            radioBtnEmployer.Name = "radioBtnEmployer";
+            radioBtnEmployer.Size = new Size(75, 19);
+            radioBtnEmployer.TabIndex = 8;
+            radioBtnEmployer.Text = "Employer";
+            radioBtnEmployer.UseVisualStyleBackColor = true;
             // 
             // labelLoginMsg
             // 
-            this.labelLoginMsg.Anchor = AnchorStyles.Bottom;
-            this.labelLoginMsg.AutoSize = true;
-            this.labelLoginMsg.Location = new Point(253, 494);
-            this.labelLoginMsg.Name = "labelLoginMsg";
-            this.labelLoginMsg.Size = new Size(142, 15);
-            this.labelLoginMsg.TabIndex = 17;
-            this.labelLoginMsg.Text = "Already have an account?";
+            labelLoginMsg.Anchor = AnchorStyles.Bottom;
+            labelLoginMsg.AutoSize = true;
+            labelLoginMsg.Location = new Point(253, 494);
+            labelLoginMsg.Name = "labelLoginMsg";
+            labelLoginMsg.Size = new Size(142, 15);
+            labelLoginMsg.TabIndex = 17;
+            labelLoginMsg.Text = "Already have an account?";
             // 
             // linkLogin
             // 
-            this.linkLogin.Anchor = AnchorStyles.Bottom;
-            this.linkLogin.AutoSize = true;
-            this.linkLogin.Location = new Point(414, 494);
-            this.linkLogin.Name = "linkLogin";
-            this.linkLogin.Size = new Size(40, 15);
-            this.linkLogin.TabIndex = 10;
-            this.linkLogin.TabStop = true;
-            this.linkLogin.Text = "Log in";
-            this.linkLogin.LinkClicked += this.linkLogin_LinkClicked;
+            linkLogin.Anchor = AnchorStyles.Bottom;
+            linkLogin.AutoSize = true;
+            linkLogin.Location = new Point(401, 494);
+            linkLogin.Name = "linkLogin";
+            linkLogin.Size = new Size(40, 15);
+            linkLogin.TabIndex = 10;
+            linkLogin.TabStop = true;
+            linkLogin.Text = "Log in";
+            linkLogin.LinkClicked += linkLogin_LinkClicked;
             // 
             // gboxUserType
             // 
-            this.gboxUserType.Location = new Point(215, 404);
-            this.gboxUserType.Name = "gboxUserType";
-            this.gboxUserType.Size = new Size(264, 41);
-            this.gboxUserType.TabIndex = 18;
-            this.gboxUserType.TabStop = false;
-            this.gboxUserType.Text = "User Type";
+            gboxUserType.Location = new Point(215, 404);
+            gboxUserType.Name = "gboxUserType";
+            gboxUserType.Size = new Size(264, 41);
+            gboxUserType.TabIndex = 18;
+            gboxUserType.TabStop = false;
+            gboxUserType.Text = "User Type";
             // 
             // frmSignup
             // 
-            this.AutoScaleDimensions = new SizeF(7F, 15F);
-            this.AutoScaleMode = AutoScaleMode.Font;
-            this.ClientSize = new Size(700, 530);
-            this.Controls.Add(this.linkLogin);
-            this.Controls.Add(this.labelLoginMsg);
-            this.Controls.Add(this.radioBtnEmployer);
-            this.Controls.Add(this.radioBtnJobseeker);
-            this.Controls.Add(this.btnSignup);
-            this.Controls.Add(this.birthDate);
-            this.Controls.Add(this.labelConfPassword);
-            this.Controls.Add(this.labelBirthDate);
-            this.Controls.Add(this.labelPhoneNumber);
-            this.Controls.Add(this.labelEmail);
-            this.Controls.Add(this.labelPassword);
-            this.Controls.Add(this.labelFullName);
-            this.Controls.Add(this.txtPhoneNumber);
-            this.Controls.Add(this.txtConfirmPassword);
-            this.Controls.Add(this.txtPassword);
-            this.Controls.Add(this.txtEmail);
-            this.Controls.Add(this.txtFullName);
-            this.Controls.Add(this.labelCreateAccMsg);
-            this.Controls.Add(this.gboxUserType);
-            this.Margin = new Padding(3, 2, 3, 2);
-            this.Name = "frmSignup";
-            this.StartPosition = FormStartPosition.CenterScreen;
-            this.Text = "Sign up";
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(700, 530);
+            Controls.Add(linkLogin);
+            Controls.Add(labelLoginMsg);
+            Controls.Add(radioBtnEmployer);
+            Controls.Add(radioBtnJobseeker);
+            Controls.Add(btnSignup);
+            Controls.Add(birthDate);
+            Controls.Add(labelConfPassword);
+            Controls.Add(labelBirthDate);
+            Controls.Add(labelPhoneNumber);
+            Controls.Add(labelEmail);
+            Controls.Add(labelPassword);
+            Controls.Add(labelFullName);
+            Controls.Add(txtPhoneNumber);
+            Controls.Add(txtConfirmPassword);
+            Controls.Add(txtPassword);
+            Controls.Add(txtEmail);
+            Controls.Add(txtFullName);
+            Controls.Add(labelCreateAccMsg);
+            Controls.Add(gboxUserType);
+            Margin = new Padding(3, 2, 3, 2);
+            Name = "frmSignup";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Sign up";
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion

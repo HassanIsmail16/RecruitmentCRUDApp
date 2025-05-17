@@ -28,404 +28,419 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.labelUserName = new Label();
-            this.linkEditPhoto = new LinkLabel();
-            this.profilePictureBox = new PictureBox();
-            this.tabControlProfileInfo = new TabControl();
-            this.tabPersonalInfo = new TabPage();
-            this.birthDatePicker = new DateTimePicker();
-            this.txtEmail = new TextBox();
-            this.textBox4 = new TextBox();
-            this.txtPhoneNumber = new TextBox();
-            this.txtPassword = new TextBox();
-            this.txtFullName = new TextBox();
-            this.labelSignupDate = new Label();
-            this.labelBirthDate = new Label();
-            this.labelPhone = new Label();
-            this.labelPassword = new Label();
-            this.labelEmail = new Label();
-            this.labelFullName = new Label();
-            this.labelPersonalInfo = new Label();
-            this.tabSkillsAndInterests = new TabPage();
-            this.richTextInterests = new RichTextBox();
-            this.labelInterests = new Label();
-            this.labelSkills = new Label();
-            this.checkedListBox1 = new CheckedListBox();
-            this.labelSkillAndInterests = new Label();
-            this.tabResume = new TabPage();
-            this.labelResumeStatus = new Label();
-            this.labelCurrentResume = new Label();
-            this.btnPreview = new Button();
-            this.btnRemove = new Button();
-            this.btnUpload = new Button();
-            this.labelResume = new Label();
-            this.panelHeader = new Panel();
-            this.btnSaveChanges = new Button();
-            ((System.ComponentModel.ISupportInitialize) this.profilePictureBox).BeginInit();
-            this.tabControlProfileInfo.SuspendLayout();
-            this.tabPersonalInfo.SuspendLayout();
-            this.tabSkillsAndInterests.SuspendLayout();
-            this.tabResume.SuspendLayout();
-            this.panelHeader.SuspendLayout();
-            this.SuspendLayout();
+            labelUserName = new Label();
+            linkEditPhoto = new LinkLabel();
+            profilePictureBox = new PictureBox();
+            tabControlProfileInfo = new TabControl();
+            tabPersonalInfo = new TabPage();
+            birthDatePicker = new DateTimePicker();
+            txtEmail = new TextBox();
+            textBox4 = new TextBox();
+            txtPhoneNumber = new TextBox();
+            txtPassword = new TextBox();
+            txtFullName = new TextBox();
+            label1 = new Label();
+            labelSignupDate = new Label();
+            labelBirthDate = new Label();
+            labelPhone = new Label();
+            labelPassword = new Label();
+            labelEmail = new Label();
+            labelFullName = new Label();
+            labelPersonalInfo = new Label();
+            tabSkillsAndInterests = new TabPage();
+            richTextInterests = new RichTextBox();
+            labelInterests = new Label();
+            labelSkills = new Label();
+            checkedListBox1 = new CheckedListBox();
+            labelSkillAndInterests = new Label();
+            tabResume = new TabPage();
+            labelResumeStatus = new Label();
+            labelCurrentResume = new Label();
+            btnPreview = new Button();
+            btnRemove = new Button();
+            btnUpload = new Button();
+            labelResume = new Label();
+            panelHeader = new Panel();
+            btnSaveChanges = new Button();
+            ((System.ComponentModel.ISupportInitialize)profilePictureBox).BeginInit();
+            tabControlProfileInfo.SuspendLayout();
+            tabPersonalInfo.SuspendLayout();
+            tabSkillsAndInterests.SuspendLayout();
+            tabResume.SuspendLayout();
+            panelHeader.SuspendLayout();
+            SuspendLayout();
             // 
             // labelUserName
             // 
-            this.labelUserName.AutoSize = true;
-            this.labelUserName.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point,  0);
-            this.labelUserName.Location = new Point(114, 19);
-            this.labelUserName.Name = "labelUserName";
-            this.labelUserName.Size = new Size(144, 25);
-            this.labelUserName.TabIndex = 2;
-            this.labelUserName.Text = "Adham Hamdy";
+            labelUserName.AutoSize = true;
+            labelUserName.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            labelUserName.Location = new Point(114, 19);
+            labelUserName.Name = "labelUserName";
+            labelUserName.Size = new Size(144, 25);
+            labelUserName.TabIndex = 2;
+            labelUserName.Text = "Adham Hamdy";
             // 
             // linkEditPhoto
             // 
-            this.linkEditPhoto.AutoSize = true;
-            this.linkEditPhoto.Location = new Point(27, 151);
-            this.linkEditPhoto.Name = "linkEditPhoto";
-            this.linkEditPhoto.Size = new Size(62, 15);
-            this.linkEditPhoto.TabIndex = 1;
-            this.linkEditPhoto.TabStop = true;
-            this.linkEditPhoto.Text = "Edit Photo";
+            linkEditPhoto.AutoSize = true;
+            linkEditPhoto.Location = new Point(27, 151);
+            linkEditPhoto.Name = "linkEditPhoto";
+            linkEditPhoto.Size = new Size(62, 15);
+            linkEditPhoto.TabIndex = 1;
+            linkEditPhoto.TabStop = true;
+            linkEditPhoto.Text = "Edit Photo";
             // 
             // profilePictureBox
             // 
-            this.profilePictureBox.Location = new Point(8, 8);
-            this.profilePictureBox.Name = "profilePictureBox";
-            this.profilePictureBox.Size = new Size(100, 140);
-            this.profilePictureBox.TabIndex = 0;
-            this.profilePictureBox.TabStop = false;
+            profilePictureBox.BorderStyle = BorderStyle.FixedSingle;
+            profilePictureBox.Location = new Point(8, 8);
+            profilePictureBox.Name = "profilePictureBox";
+            profilePictureBox.Size = new Size(100, 140);
+            profilePictureBox.TabIndex = 0;
+            profilePictureBox.TabStop = false;
             // 
             // tabControlProfileInfo
             // 
-            this.tabControlProfileInfo.Controls.Add(this.tabPersonalInfo);
-            this.tabControlProfileInfo.Controls.Add(this.tabSkillsAndInterests);
-            this.tabControlProfileInfo.Controls.Add(this.tabResume);
-            this.tabControlProfileInfo.Location = new Point(3, 182);
-            this.tabControlProfileInfo.Name = "tabControlProfileInfo";
-            this.tabControlProfileInfo.SelectedIndex = 0;
-            this.tabControlProfileInfo.Size = new Size(595, 385);
-            this.tabControlProfileInfo.TabIndex = 21;
-            this.tabControlProfileInfo.Tag = "";
+            tabControlProfileInfo.Controls.Add(tabPersonalInfo);
+            tabControlProfileInfo.Controls.Add(tabSkillsAndInterests);
+            tabControlProfileInfo.Controls.Add(tabResume);
+            tabControlProfileInfo.Location = new Point(3, 182);
+            tabControlProfileInfo.Name = "tabControlProfileInfo";
+            tabControlProfileInfo.SelectedIndex = 0;
+            tabControlProfileInfo.Size = new Size(595, 385);
+            tabControlProfileInfo.TabIndex = 21;
+            tabControlProfileInfo.Tag = "";
             // 
             // tabPersonalInfo
             // 
-            this.tabPersonalInfo.AutoScroll = true;
-            this.tabPersonalInfo.Controls.Add(this.birthDatePicker);
-            this.tabPersonalInfo.Controls.Add(this.txtEmail);
-            this.tabPersonalInfo.Controls.Add(this.textBox4);
-            this.tabPersonalInfo.Controls.Add(this.txtPhoneNumber);
-            this.tabPersonalInfo.Controls.Add(this.txtPassword);
-            this.tabPersonalInfo.Controls.Add(this.txtFullName);
-            this.tabPersonalInfo.Controls.Add(this.labelSignupDate);
-            this.tabPersonalInfo.Controls.Add(this.labelBirthDate);
-            this.tabPersonalInfo.Controls.Add(this.labelPhone);
-            this.tabPersonalInfo.Controls.Add(this.labelPassword);
-            this.tabPersonalInfo.Controls.Add(this.labelEmail);
-            this.tabPersonalInfo.Controls.Add(this.labelFullName);
-            this.tabPersonalInfo.Controls.Add(this.labelPersonalInfo);
-            this.tabPersonalInfo.Location = new Point(4, 24);
-            this.tabPersonalInfo.Name = "tabPersonalInfo";
-            this.tabPersonalInfo.Padding = new Padding(3);
-            this.tabPersonalInfo.Size = new Size(587, 357);
-            this.tabPersonalInfo.TabIndex = 0;
-            this.tabPersonalInfo.Text = "Personal Information";
-            this.tabPersonalInfo.UseVisualStyleBackColor = true;
+            tabPersonalInfo.AutoScroll = true;
+            tabPersonalInfo.BorderStyle = BorderStyle.FixedSingle;
+            tabPersonalInfo.Controls.Add(birthDatePicker);
+            tabPersonalInfo.Controls.Add(txtEmail);
+            tabPersonalInfo.Controls.Add(textBox4);
+            tabPersonalInfo.Controls.Add(txtPhoneNumber);
+            tabPersonalInfo.Controls.Add(txtPassword);
+            tabPersonalInfo.Controls.Add(txtFullName);
+            tabPersonalInfo.Controls.Add(label1);
+            tabPersonalInfo.Controls.Add(labelSignupDate);
+            tabPersonalInfo.Controls.Add(labelBirthDate);
+            tabPersonalInfo.Controls.Add(labelPhone);
+            tabPersonalInfo.Controls.Add(labelPassword);
+            tabPersonalInfo.Controls.Add(labelEmail);
+            tabPersonalInfo.Controls.Add(labelFullName);
+            tabPersonalInfo.Controls.Add(labelPersonalInfo);
+            tabPersonalInfo.Location = new Point(4, 24);
+            tabPersonalInfo.Name = "tabPersonalInfo";
+            tabPersonalInfo.Padding = new Padding(3);
+            tabPersonalInfo.Size = new Size(587, 357);
+            tabPersonalInfo.TabIndex = 0;
+            tabPersonalInfo.Text = "Personal Information";
+            tabPersonalInfo.UseVisualStyleBackColor = true;
             // 
             // birthDatePicker
             // 
-            this.birthDatePicker.Location = new Point(127, 271);
-            this.birthDatePicker.Name = "birthDatePicker";
-            this.birthDatePicker.Size = new Size(248, 23);
-            this.birthDatePicker.TabIndex = 12;
+            birthDatePicker.Location = new Point(127, 271);
+            birthDatePicker.Name = "birthDatePicker";
+            birthDatePicker.Size = new Size(248, 23);
+            birthDatePicker.TabIndex = 12;
             // 
             // txtEmail
             // 
-            this.txtEmail.Location = new Point(127, 124);
-            this.txtEmail.MaxLength = 100;
-            this.txtEmail.Name = "txtEmail";
-            this.txtEmail.Size = new Size(248, 23);
-            this.txtEmail.TabIndex = 11;
-            this.txtEmail.Text = "ez_peacy@hotdog.com";
+            txtEmail.Location = new Point(127, 124);
+            txtEmail.MaxLength = 100;
+            txtEmail.Name = "txtEmail";
+            txtEmail.Size = new Size(248, 23);
+            txtEmail.TabIndex = 11;
+            txtEmail.Text = "ez_peasy@hotdog.com";
             // 
             // textBox4
             // 
-            this.textBox4.Location = new Point(127, 320);
-            this.textBox4.MaxLength = 15;
-            this.textBox4.Name = "textBox4";
-            this.textBox4.ReadOnly = true;
-            this.textBox4.Size = new Size(248, 23);
-            this.textBox4.TabIndex = 10;
-            this.textBox4.Text = "16/05/2025";
+            textBox4.Location = new Point(127, 320);
+            textBox4.MaxLength = 15;
+            textBox4.Name = "textBox4";
+            textBox4.ReadOnly = true;
+            textBox4.Size = new Size(248, 23);
+            textBox4.TabIndex = 10;
+            textBox4.Text = "16/05/2025";
             // 
             // txtPhoneNumber
             // 
-            this.txtPhoneNumber.Location = new Point(127, 222);
-            this.txtPhoneNumber.MaxLength = 20;
-            this.txtPhoneNumber.Name = "txtPhoneNumber";
-            this.txtPhoneNumber.Size = new Size(248, 23);
-            this.txtPhoneNumber.TabIndex = 9;
-            this.txtPhoneNumber.Text = "01100123456";
+            txtPhoneNumber.Location = new Point(127, 222);
+            txtPhoneNumber.MaxLength = 20;
+            txtPhoneNumber.Name = "txtPhoneNumber";
+            txtPhoneNumber.Size = new Size(248, 23);
+            txtPhoneNumber.TabIndex = 9;
+            txtPhoneNumber.Text = "01100123456";
             // 
             // txtPassword
             // 
-            this.txtPassword.Location = new Point(127, 173);
-            this.txtPassword.MaxLength = 255;
-            this.txtPassword.Name = "txtPassword";
-            this.txtPassword.PasswordChar = '*';
-            this.txtPassword.Size = new Size(248, 23);
-            this.txtPassword.TabIndex = 8;
-            this.txtPassword.Text = "12345678910";
-            this.txtPassword.UseSystemPasswordChar = true;
+            txtPassword.Location = new Point(127, 173);
+            txtPassword.MaxLength = 255;
+            txtPassword.Name = "txtPassword";
+            txtPassword.PasswordChar = '*';
+            txtPassword.Size = new Size(248, 23);
+            txtPassword.TabIndex = 8;
+            txtPassword.Text = "12345678910";
+            txtPassword.UseSystemPasswordChar = true;
             // 
             // txtFullName
             // 
-            this.txtFullName.Location = new Point(127, 75);
-            this.txtFullName.MaxLength = 100;
-            this.txtFullName.Name = "txtFullName";
-            this.txtFullName.Size = new Size(248, 23);
-            this.txtFullName.TabIndex = 7;
-            this.txtFullName.Text = "Adham Hamdy Hamed Abdulhameid";
+            txtFullName.Location = new Point(127, 75);
+            txtFullName.MaxLength = 100;
+            txtFullName.Name = "txtFullName";
+            txtFullName.Size = new Size(248, 23);
+            txtFullName.TabIndex = 7;
+            txtFullName.Text = "Adham Hamdy Hamed Abdulhameid";
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(33, 328);
+            label1.Name = "label1";
+            label1.Size = new Size(74, 15);
+            label1.TabIndex = 6;
+            label1.Text = "Signup Date:";
             // 
             // labelSignupDate
             // 
-            this.labelSignupDate.AutoSize = true;
-            this.labelSignupDate.Location = new Point(33, 331);
-            this.labelSignupDate.Name = "labelSignupDate";
-            this.labelSignupDate.Size = new Size(74, 15);
-            this.labelSignupDate.TabIndex = 6;
-            this.labelSignupDate.Text = "Signup Date:";
+            labelSignupDate.AutoSize = true;
+            labelSignupDate.Location = new Point(33, 328);
+            labelSignupDate.Name = "labelSignupDate";
+            labelSignupDate.Size = new Size(74, 15);
+            labelSignupDate.TabIndex = 6;
+            labelSignupDate.Text = "Signup Date:";
             // 
             // labelBirthDate
             // 
-            this.labelBirthDate.AutoSize = true;
-            this.labelBirthDate.Location = new Point(33, 282);
-            this.labelBirthDate.Name = "labelBirthDate";
-            this.labelBirthDate.Size = new Size(62, 15);
-            this.labelBirthDate.TabIndex = 5;
-            this.labelBirthDate.Text = "Birth Date:";
+            labelBirthDate.AutoSize = true;
+            labelBirthDate.Location = new Point(33, 279);
+            labelBirthDate.Name = "labelBirthDate";
+            labelBirthDate.Size = new Size(62, 15);
+            labelBirthDate.TabIndex = 5;
+            labelBirthDate.Text = "Birth Date:";
             // 
             // labelPhone
             // 
-            this.labelPhone.AutoSize = true;
-            this.labelPhone.Location = new Point(33, 233);
-            this.labelPhone.Name = "labelPhone";
-            this.labelPhone.Size = new Size(91, 15);
-            this.labelPhone.TabIndex = 4;
-            this.labelPhone.Text = "Phone Number:";
+            labelPhone.AutoSize = true;
+            labelPhone.Location = new Point(33, 230);
+            labelPhone.Name = "labelPhone";
+            labelPhone.Size = new Size(91, 15);
+            labelPhone.TabIndex = 4;
+            labelPhone.Text = "Phone Number:";
             // 
             // labelPassword
             // 
-            this.labelPassword.AutoSize = true;
-            this.labelPassword.Location = new Point(33, 184);
-            this.labelPassword.Name = "labelPassword";
-            this.labelPassword.Size = new Size(60, 15);
-            this.labelPassword.TabIndex = 3;
-            this.labelPassword.Text = "Password:";
+            labelPassword.AutoSize = true;
+            labelPassword.Location = new Point(33, 181);
+            labelPassword.Name = "labelPassword";
+            labelPassword.Size = new Size(60, 15);
+            labelPassword.TabIndex = 3;
+            labelPassword.Text = "Password:";
             // 
             // labelEmail
             // 
-            this.labelEmail.AutoSize = true;
-            this.labelEmail.Location = new Point(33, 135);
-            this.labelEmail.Name = "labelEmail";
-            this.labelEmail.Size = new Size(39, 15);
-            this.labelEmail.TabIndex = 2;
-            this.labelEmail.Text = "Email:";
+            labelEmail.AutoSize = true;
+            labelEmail.Location = new Point(33, 132);
+            labelEmail.Name = "labelEmail";
+            labelEmail.Size = new Size(39, 15);
+            labelEmail.TabIndex = 2;
+            labelEmail.Text = "Email:";
             // 
             // labelFullName
             // 
-            this.labelFullName.AutoSize = true;
-            this.labelFullName.Location = new Point(33, 86);
-            this.labelFullName.Name = "labelFullName";
-            this.labelFullName.Size = new Size(64, 15);
-            this.labelFullName.TabIndex = 1;
-            this.labelFullName.Text = "Full Name:";
+            labelFullName.AutoSize = true;
+            labelFullName.Location = new Point(33, 83);
+            labelFullName.Name = "labelFullName";
+            labelFullName.Size = new Size(64, 15);
+            labelFullName.TabIndex = 1;
+            labelFullName.Text = "Full Name:";
             // 
             // labelPersonalInfo
             // 
-            this.labelPersonalInfo.AutoSize = true;
-            this.labelPersonalInfo.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point,  0);
-            this.labelPersonalInfo.Location = new Point(27, 27);
-            this.labelPersonalInfo.Name = "labelPersonalInfo";
-            this.labelPersonalInfo.Size = new Size(257, 32);
-            this.labelPersonalInfo.TabIndex = 0;
-            this.labelPersonalInfo.Text = "Personal Information";
+            labelPersonalInfo.AutoSize = true;
+            labelPersonalInfo.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            labelPersonalInfo.Location = new Point(27, 27);
+            labelPersonalInfo.Name = "labelPersonalInfo";
+            labelPersonalInfo.Size = new Size(257, 32);
+            labelPersonalInfo.TabIndex = 0;
+            labelPersonalInfo.Text = "Personal Information";
             // 
             // tabSkillsAndInterests
             // 
-            this.tabSkillsAndInterests.Controls.Add(this.richTextInterests);
-            this.tabSkillsAndInterests.Controls.Add(this.labelInterests);
-            this.tabSkillsAndInterests.Controls.Add(this.labelSkills);
-            this.tabSkillsAndInterests.Controls.Add(this.checkedListBox1);
-            this.tabSkillsAndInterests.Controls.Add(this.labelSkillAndInterests);
-            this.tabSkillsAndInterests.Location = new Point(4, 24);
-            this.tabSkillsAndInterests.Name = "tabSkillsAndInterests";
-            this.tabSkillsAndInterests.Padding = new Padding(3);
-            this.tabSkillsAndInterests.Size = new Size(587, 357);
-            this.tabSkillsAndInterests.TabIndex = 1;
-            this.tabSkillsAndInterests.Text = "Skills and Interests";
-            this.tabSkillsAndInterests.UseVisualStyleBackColor = true;
+            tabSkillsAndInterests.BorderStyle = BorderStyle.FixedSingle;
+            tabSkillsAndInterests.Controls.Add(richTextInterests);
+            tabSkillsAndInterests.Controls.Add(labelInterests);
+            tabSkillsAndInterests.Controls.Add(labelSkills);
+            tabSkillsAndInterests.Controls.Add(checkedListBox1);
+            tabSkillsAndInterests.Controls.Add(labelSkillAndInterests);
+            tabSkillsAndInterests.Location = new Point(4, 24);
+            tabSkillsAndInterests.Name = "tabSkillsAndInterests";
+            tabSkillsAndInterests.Padding = new Padding(3);
+            tabSkillsAndInterests.Size = new Size(587, 357);
+            tabSkillsAndInterests.TabIndex = 1;
+            tabSkillsAndInterests.Text = "Skills and Interests";
+            tabSkillsAndInterests.UseVisualStyleBackColor = true;
             // 
             // richTextInterests
             // 
-            this.richTextInterests.Location = new Point(234, 89);
-            this.richTextInterests.Name = "richTextInterests";
-            this.richTextInterests.Size = new Size(332, 96);
-            this.richTextInterests.TabIndex = 6;
-            this.richTextInterests.Text = "";
+            richTextInterests.Location = new Point(234, 89);
+            richTextInterests.Name = "richTextInterests";
+            richTextInterests.Size = new Size(332, 96);
+            richTextInterests.TabIndex = 6;
+            richTextInterests.Text = "";
             // 
             // labelInterests
             // 
-            this.labelInterests.AutoSize = true;
-            this.labelInterests.Location = new Point(237, 74);
-            this.labelInterests.Name = "labelInterests";
-            this.labelInterests.Size = new Size(51, 15);
-            this.labelInterests.TabIndex = 5;
-            this.labelInterests.Text = "Interests";
+            labelInterests.AutoSize = true;
+            labelInterests.Location = new Point(234, 74);
+            labelInterests.Name = "labelInterests";
+            labelInterests.Size = new Size(51, 15);
+            labelInterests.TabIndex = 5;
+            labelInterests.Text = "Interests";
             // 
             // labelSkills
             // 
-            this.labelSkills.AutoSize = true;
-            this.labelSkills.Location = new Point(26, 74);
-            this.labelSkills.Name = "labelSkills";
-            this.labelSkills.Size = new Size(33, 15);
-            this.labelSkills.TabIndex = 4;
-            this.labelSkills.Text = "Skills";
+            labelSkills.AutoSize = true;
+            labelSkills.Location = new Point(23, 74);
+            labelSkills.Name = "labelSkills";
+            labelSkills.Size = new Size(33, 15);
+            labelSkills.TabIndex = 4;
+            labelSkills.Text = "Skills";
             // 
             // checkedListBox1
             // 
-            this.checkedListBox1.FormattingEnabled = true;
-            this.checkedListBox1.Items.AddRange(new object[] { "Communication", "Teamwork", "Problem-solving", "Analytical skills", "Leadership", "Sales", "Management", "Data analysis", "Team leadership", "Organizational skills", "AI literacy", "Adaptability", "Process optimization", "Innovative thinking", "Conflict mitigation", "Data skills", "Coaching skills", "Strategic thinking", "Social media management", "E-commerce optimization", "Curiosity" });
-            this.checkedListBox1.Location = new Point(23, 89);
-            this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new Size(181, 238);
-            this.checkedListBox1.TabIndex = 3;
+            checkedListBox1.FormattingEnabled = true;
+            checkedListBox1.Items.AddRange(new object[] { "Communication", "Teamwork", "Problem-solving", "Analytical skills", "Leadership", "Sales", "Management", "Data analysis", "Team leadership", "Organizational skills", "AI literacy", "Adaptability", "Process optimization", "Innovative thinking", "Conflict mitigation", "Data skills", "Coaching skills", "Strategic thinking", "Social media management", "E-commerce optimization", "Curiosity" });
+            checkedListBox1.Location = new Point(23, 89);
+            checkedListBox1.Name = "checkedListBox1";
+            checkedListBox1.Size = new Size(181, 238);
+            checkedListBox1.TabIndex = 3;
             // 
             // labelSkillAndInterests
             // 
-            this.labelSkillAndInterests.AutoSize = true;
-            this.labelSkillAndInterests.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point,  0);
-            this.labelSkillAndInterests.Location = new Point(27, 27);
-            this.labelSkillAndInterests.Name = "labelSkillAndInterests";
-            this.labelSkillAndInterests.Size = new Size(228, 32);
-            this.labelSkillAndInterests.TabIndex = 1;
-            this.labelSkillAndInterests.Text = "Skills and Interests";
+            labelSkillAndInterests.AutoSize = true;
+            labelSkillAndInterests.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            labelSkillAndInterests.Location = new Point(27, 27);
+            labelSkillAndInterests.Name = "labelSkillAndInterests";
+            labelSkillAndInterests.Size = new Size(228, 32);
+            labelSkillAndInterests.TabIndex = 1;
+            labelSkillAndInterests.Text = "Skills and Interests";
             // 
             // tabResume
             // 
-            this.tabResume.Controls.Add(this.labelResumeStatus);
-            this.tabResume.Controls.Add(this.labelCurrentResume);
-            this.tabResume.Controls.Add(this.btnPreview);
-            this.tabResume.Controls.Add(this.btnRemove);
-            this.tabResume.Controls.Add(this.btnUpload);
-            this.tabResume.Controls.Add(this.labelResume);
-            this.tabResume.Location = new Point(4, 24);
-            this.tabResume.Name = "tabResume";
-            this.tabResume.Padding = new Padding(3);
-            this.tabResume.Size = new Size(587, 357);
-            this.tabResume.TabIndex = 2;
-            this.tabResume.Text = "Resume";
-            this.tabResume.UseVisualStyleBackColor = true;
+            tabResume.BorderStyle = BorderStyle.FixedSingle;
+            tabResume.Controls.Add(labelResumeStatus);
+            tabResume.Controls.Add(labelCurrentResume);
+            tabResume.Controls.Add(btnPreview);
+            tabResume.Controls.Add(btnRemove);
+            tabResume.Controls.Add(btnUpload);
+            tabResume.Controls.Add(labelResume);
+            tabResume.Location = new Point(4, 24);
+            tabResume.Name = "tabResume";
+            tabResume.Padding = new Padding(3);
+            tabResume.Size = new Size(587, 357);
+            tabResume.TabIndex = 2;
+            tabResume.Text = "Resume";
+            tabResume.UseVisualStyleBackColor = true;
             // 
             // labelResumeStatus
             // 
-            this.labelResumeStatus.AutoSize = true;
-            this.labelResumeStatus.Location = new Point(291, 164);
-            this.labelResumeStatus.Name = "labelResumeStatus";
-            this.labelResumeStatus.Size = new Size(104, 15);
-            this.labelResumeStatus.TabIndex = 7;
-            this.labelResumeStatus.Text = "No file uploaded...";
+            labelResumeStatus.AutoSize = true;
+            labelResumeStatus.Location = new Point(288, 151);
+            labelResumeStatus.Name = "labelResumeStatus";
+            labelResumeStatus.Size = new Size(104, 15);
+            labelResumeStatus.TabIndex = 7;
+            labelResumeStatus.Text = "No file uploaded...";
             // 
             // labelCurrentResume
             // 
-            this.labelCurrentResume.AutoSize = true;
-            this.labelCurrentResume.Location = new Point(190, 164);
-            this.labelCurrentResume.Name = "labelCurrentResume";
-            this.labelCurrentResume.Size = new Size(95, 15);
-            this.labelCurrentResume.TabIndex = 6;
-            this.labelCurrentResume.Text = "Current Resume:";
+            labelCurrentResume.AutoSize = true;
+            labelCurrentResume.Location = new Point(187, 151);
+            labelCurrentResume.Name = "labelCurrentResume";
+            labelCurrentResume.Size = new Size(95, 15);
+            labelCurrentResume.TabIndex = 6;
+            labelCurrentResume.Text = "Current Resume:";
             // 
             // btnPreview
             // 
-            this.btnPreview.Location = new Point(29, 140);
-            this.btnPreview.Name = "btnPreview";
-            this.btnPreview.Size = new Size(152, 36);
-            this.btnPreview.TabIndex = 5;
-            this.btnPreview.Text = "Preview";
-            this.btnPreview.UseVisualStyleBackColor = true;
+            btnPreview.Location = new Point(29, 140);
+            btnPreview.Name = "btnPreview";
+            btnPreview.Size = new Size(152, 36);
+            btnPreview.TabIndex = 5;
+            btnPreview.Text = "Preview";
+            btnPreview.UseVisualStyleBackColor = true;
             // 
             // btnRemove
             // 
-            this.btnRemove.Location = new Point(29, 182);
-            this.btnRemove.Name = "btnRemove";
-            this.btnRemove.Size = new Size(152, 36);
-            this.btnRemove.TabIndex = 4;
-            this.btnRemove.Text = "Remove";
-            this.btnRemove.UseVisualStyleBackColor = true;
+            btnRemove.Location = new Point(29, 182);
+            btnRemove.Name = "btnRemove";
+            btnRemove.Size = new Size(152, 36);
+            btnRemove.TabIndex = 4;
+            btnRemove.Text = "Remove";
+            btnRemove.UseVisualStyleBackColor = true;
             // 
             // btnUpload
             // 
-            this.btnUpload.Location = new Point(29, 98);
-            this.btnUpload.Name = "btnUpload";
-            this.btnUpload.Size = new Size(152, 36);
-            this.btnUpload.TabIndex = 3;
-            this.btnUpload.Text = "Upload";
-            this.btnUpload.UseVisualStyleBackColor = true;
+            btnUpload.Location = new Point(29, 98);
+            btnUpload.Name = "btnUpload";
+            btnUpload.Size = new Size(152, 36);
+            btnUpload.TabIndex = 3;
+            btnUpload.Text = "Upload";
+            btnUpload.UseVisualStyleBackColor = true;
             // 
             // labelResume
             // 
-            this.labelResume.AutoSize = true;
-            this.labelResume.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point,  0);
-            this.labelResume.Location = new Point(27, 27);
-            this.labelResume.Name = "labelResume";
-            this.labelResume.Size = new Size(103, 32);
-            this.labelResume.TabIndex = 2;
-            this.labelResume.Text = "Resume";
+            labelResume.AutoSize = true;
+            labelResume.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            labelResume.Location = new Point(27, 27);
+            labelResume.Name = "labelResume";
+            labelResume.Size = new Size(103, 32);
+            labelResume.TabIndex = 2;
+            labelResume.Text = "Resume";
             // 
             // panelHeader
             // 
-            this.panelHeader.BackColor = Color.GhostWhite;
-            this.panelHeader.BorderStyle = BorderStyle.Fixed3D;
-            this.panelHeader.Controls.Add(this.labelUserName);
-            this.panelHeader.Controls.Add(this.linkEditPhoto);
-            this.panelHeader.Controls.Add(this.profilePictureBox);
-            this.panelHeader.Location = new Point(3, 3);
-            this.panelHeader.Name = "panelHeader";
-            this.panelHeader.Size = new Size(595, 176);
-            this.panelHeader.TabIndex = 20;
+            panelHeader.BackColor = Color.GhostWhite;
+            panelHeader.BorderStyle = BorderStyle.FixedSingle;
+            panelHeader.Controls.Add(labelUserName);
+            panelHeader.Controls.Add(linkEditPhoto);
+            panelHeader.Controls.Add(profilePictureBox);
+            panelHeader.Location = new Point(3, 3);
+            panelHeader.Name = "panelHeader";
+            panelHeader.Size = new Size(595, 176);
+            panelHeader.TabIndex = 20;
             // 
             // btnSaveChanges
             // 
-            this.btnSaveChanges.Location = new Point(482, 570);
-            this.btnSaveChanges.Name = "btnSaveChanges";
-            this.btnSaveChanges.Size = new Size(112, 37);
-            this.btnSaveChanges.TabIndex = 23;
-            this.btnSaveChanges.Text = "Save Changes";
-            this.btnSaveChanges.UseVisualStyleBackColor = true;
-            this.btnSaveChanges.Click += this.btnSaveChanges_Click;
+            btnSaveChanges.Location = new Point(482, 570);
+            btnSaveChanges.Name = "btnSaveChanges";
+            btnSaveChanges.Size = new Size(112, 37);
+            btnSaveChanges.TabIndex = 23;
+            btnSaveChanges.Text = "Save Changes";
+            btnSaveChanges.UseVisualStyleBackColor = true;
+            btnSaveChanges.Click += btnSaveChanges_Click;
             // 
             // JobSeekerProfileControl
             // 
-            this.AutoScaleDimensions = new SizeF(7F, 15F);
-            this.AutoScaleMode = AutoScaleMode.Font;
-            this.Controls.Add(this.tabControlProfileInfo);
-            this.Controls.Add(this.panelHeader);
-            this.Controls.Add(this.btnSaveChanges);
-            this.Name = "JobSeekerProfileControl";
-            this.Size = new Size(602, 610);
-            this.Load += this.JobSeekerProfileControl_Load;
-            ((System.ComponentModel.ISupportInitialize) this.profilePictureBox).EndInit();
-            this.tabControlProfileInfo.ResumeLayout(false);
-            this.tabPersonalInfo.ResumeLayout(false);
-            this.tabPersonalInfo.PerformLayout();
-            this.tabSkillsAndInterests.ResumeLayout(false);
-            this.tabSkillsAndInterests.PerformLayout();
-            this.tabResume.ResumeLayout(false);
-            this.tabResume.PerformLayout();
-            this.panelHeader.ResumeLayout(false);
-            this.panelHeader.PerformLayout();
-            this.ResumeLayout(false);
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(tabControlProfileInfo);
+            Controls.Add(panelHeader);
+            Controls.Add(btnSaveChanges);
+            Name = "JobSeekerProfileControl";
+            Size = new Size(602, 610);
+            Load += JobSeekerProfileControl_Load;
+            ((System.ComponentModel.ISupportInitialize)profilePictureBox).EndInit();
+            tabControlProfileInfo.ResumeLayout(false);
+            tabPersonalInfo.ResumeLayout(false);
+            tabPersonalInfo.PerformLayout();
+            tabSkillsAndInterests.ResumeLayout(false);
+            tabSkillsAndInterests.PerformLayout();
+            tabResume.ResumeLayout(false);
+            tabResume.PerformLayout();
+            panelHeader.ResumeLayout(false);
+            panelHeader.PerformLayout();
+            ResumeLayout(false);
         }
 
         #endregion
@@ -463,5 +478,6 @@
         private Button btnSaveChanges;
         private TextBox textBox4;
         private Label labelSignupDate;
+        private Label label1;
     }
 }

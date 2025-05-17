@@ -1,6 +1,6 @@
 ﻿namespace RecruitmentApplication.Views
 {
-    partial class frmListOfPostedJobs
+    partial class frmPostedJobs
     {
         /// <summary>
         /// Required designer variable.
@@ -117,6 +117,7 @@
             // panelHeader
             // 
             panelHeader.BackColor = Color.WhiteSmoke;
+            panelHeader.BorderStyle = BorderStyle.FixedSingle;
             panelHeader.Controls.Add(btnRefresh);
             panelHeader.Controls.Add(labelPostedJobs);
             panelHeader.Location = new Point(12, 7);
@@ -144,14 +145,14 @@
             labelPostedJobs.TabIndex = 3;
             labelPostedJobs.Text = "Posted Jobs";
             // 
-            // frmListOfPostedJobs
+            // frmPostedJobs
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1068, 450);
             Controls.Add(panelHeader);
             Controls.Add(dataGridPostedJobs);
-            Name = "frmListOfPostedJobs";
+            Name = "frmPostedJobs";
             Text = "Posted Jobs";
             ((System.ComponentModel.ISupportInitialize)dataGridPostedJobs).EndInit();
             panelHeader.ResumeLayout(false);

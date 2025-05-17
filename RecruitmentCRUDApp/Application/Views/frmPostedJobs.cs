@@ -12,9 +12,9 @@ using System.Windows.Forms;
 
 namespace RecruitmentApplication.Views
 {
-    public partial class frmListOfPostedJobs : Form
+    public partial class frmPostedJobs : Form
     {
-        public frmListOfPostedJobs()
+        public frmPostedJobs()
         {
             InitializeComponent();
             InitializeControlButtons();

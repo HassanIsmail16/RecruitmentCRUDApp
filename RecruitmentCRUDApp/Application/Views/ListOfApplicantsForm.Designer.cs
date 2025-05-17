@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             panelHeader = new Panel();
+            labelLOA = new Label();
             btnSaveChanges = new Button();
             btnCancel = new Button();
             btnRefresh = new Button();
-            labelLOA = new Label();
             colPostDate = new DataGridViewTextBoxColumn();
             colStatus = new DataGridViewComboBoxColumn();
             colAppDate = new DataGridViewTextBoxColumn();
@@ -45,6 +45,7 @@
             // panelHeader
             // 
             panelHeader.BackColor = Color.WhiteSmoke;
+            panelHeader.BorderStyle = BorderStyle.FixedSingle;
             panelHeader.Controls.Add(labelLOA);
             panelHeader.Controls.Add(btnSaveChanges);
             panelHeader.Controls.Add(btnCancel);
@@ -53,6 +54,16 @@
             panelHeader.Name = "panelHeader";
             panelHeader.Size = new Size(643, 75);
             panelHeader.TabIndex = 3;
+            // 
+            // labelLOA
+            // 
+            labelLOA.AutoSize = true;
+            labelLOA.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            labelLOA.Location = new Point(3, 15);
+            labelLOA.Name = "labelLOA";
+            labelLOA.Size = new Size(212, 32);
+            labelLOA.TabIndex = 9;
+            labelLOA.Text = "List of Applicants";
             // 
             // btnSaveChanges
             // 
@@ -80,16 +91,6 @@
             btnRefresh.TabIndex = 6;
             btnRefresh.Text = "Refresh";
             btnRefresh.UseVisualStyleBackColor = true;
-            // 
-            // labelLOA
-            // 
-            labelLOA.AutoSize = true;
-            labelLOA.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            labelLOA.Location = new Point(3, 15);
-            labelLOA.Name = "labelLOA";
-            labelLOA.Size = new Size(212, 32);
-            labelLOA.TabIndex = 9;
-            labelLOA.Text = "List of Applicants";
             // 
             // colPostDate
             // 
