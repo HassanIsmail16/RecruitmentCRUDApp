@@ -132,6 +132,7 @@
             btnRefresh.TabIndex = 4;
             btnRefresh.Text = "Refresh";
             btnRefresh.UseVisualStyleBackColor = true;
+            btnRefresh.Click += btnRefresh_Click;
             // 
             // labelPostedJobs
             // 
@@ -151,7 +152,7 @@
             Controls.Add(panelHeader);
             Controls.Add(dataGridPostedJobs);
             Name = "frmListOfPostedJobs";
-            Text = "frmListOfPostedJobs";
+            Text = "Posted Jobs";
             ((System.ComponentModel.ISupportInitialize)dataGridPostedJobs).EndInit();
             panelHeader.ResumeLayout(false);
             panelHeader.PerformLayout();
