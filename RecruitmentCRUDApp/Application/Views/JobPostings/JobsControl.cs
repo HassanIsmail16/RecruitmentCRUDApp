@@ -116,6 +116,12 @@ namespace RecruitmentApplication.Views
             {
                 connection.Open();
 
+                if (IsJobAlreadySaved(jobId, connection))
+                {
+                    MessageBox.Show("Job is already saved.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
                 string saveJobQuery =
                     "INSERT INTO [SavedJob] " +
                     "(jobseeker_id, vacancy_id) " +
@@ -134,6 +140,18 @@ namespace RecruitmentApplication.Views
                     MessageBox.Show("Failed to save job.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }
+
+        private bool IsJobAlreadySaved(int jobId, SqlConnection connection)
+        {
+            string isJobSavedQuery = "SELECT * FROM [SavedJob] WHERE vacancy_id = @jobId AND jobseeker_id = @userId";
+            SqlCommand isJobSavedCmd = new SqlCommand(isJobSavedQuery, connection);
+            isJobSavedCmd.Parameters.AddWithValue("@jobId", jobId);
+            isJobSavedCmd.Parameters.AddWithValue("@userId", Session.CurrentUserId);
+            SqlDataReader reader = isJobSavedCmd.ExecuteReader();
+            bool saved = reader.HasRows;
+            reader.Close();
+            return saved;
         }
     }
 }
