@@ -1,5 +1,3 @@
-using DAL.Repositories;
-
 namespace RecruitmentApplication
 {
     internal static class Program
