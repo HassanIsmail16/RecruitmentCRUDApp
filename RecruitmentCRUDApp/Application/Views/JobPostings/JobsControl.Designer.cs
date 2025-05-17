@@ -38,7 +38,7 @@
             this.cboxWorkModeRemote = new CheckBox();
             this.cboxWorkModeOnSite = new CheckBox();
             this.gboxExperienceLevel = new GroupBox();
-            this.cboxExperienceLevelIntern = new CheckBox();
+            this.cboxExperienceLevelStudent = new CheckBox();
             this.cboxExperienceLevelFreshGrad = new CheckBox();
             this.cboxExperienceLevelJunior = new CheckBox();
             this.cboxExperienceLevelMidLevel = new CheckBox();
@@ -150,7 +150,7 @@
             // 
             // gboxExperienceLevel
             // 
-            this.gboxExperienceLevel.Controls.Add(this.cboxExperienceLevelIntern);
+            this.gboxExperienceLevel.Controls.Add(this.cboxExperienceLevelStudent);
             this.gboxExperienceLevel.Controls.Add(this.cboxExperienceLevelFreshGrad);
             this.gboxExperienceLevel.Controls.Add(this.cboxExperienceLevelJunior);
             this.gboxExperienceLevel.Controls.Add(this.cboxExperienceLevelMidLevel);
@@ -162,15 +162,15 @@
             this.gboxExperienceLevel.TabStop = false;
             this.gboxExperienceLevel.Text = "Experience Level";
             // 
-            // cboxExperienceLevelIntern
+            // cboxExperienceLevelStudent
             // 
-            this.cboxExperienceLevelIntern.AutoSize = true;
-            this.cboxExperienceLevelIntern.Location = new Point(12, 119);
-            this.cboxExperienceLevelIntern.Name = "cboxExperienceLevelIntern";
-            this.cboxExperienceLevelIntern.Size = new Size(57, 19);
-            this.cboxExperienceLevelIntern.TabIndex = 0;
-            this.cboxExperienceLevelIntern.Text = "Intern";
-            this.cboxExperienceLevelIntern.UseVisualStyleBackColor = true;
+            this.cboxExperienceLevelStudent.AutoSize = true;
+            this.cboxExperienceLevelStudent.Location = new Point(12, 119);
+            this.cboxExperienceLevelStudent.Name = "cboxExperienceLevelStudent";
+            this.cboxExperienceLevelStudent.Size = new Size(67, 19);
+            this.cboxExperienceLevelStudent.TabIndex = 0;
+            this.cboxExperienceLevelStudent.Text = "Student";
+            this.cboxExperienceLevelStudent.UseVisualStyleBackColor = true;
             // 
             // cboxExperienceLevelFreshGrad
             // 
@@ -222,7 +222,7 @@
             this.btnApplyFilters.TabIndex = 1;
             this.btnApplyFilters.Text = "Apply Filters";
             this.btnApplyFilters.UseVisualStyleBackColor = true;
-            this.btnApplyFilters.Click += this.refreshBtn_Click;
+            this.btnApplyFilters.Click += this.btnApplyFilters_Click;
             // 
             // tboxSearchInput
             // 
@@ -292,7 +292,7 @@
         private CheckBox cboxExperienceLevelSenior;
         private Button btnApplyFilters;
         private CheckBox cboxExperienceLevelFreshGrad;
-        private CheckBox cboxExperienceLevelIntern;
+        private CheckBox cboxExperienceLevelStudent;
         private TextBox tboxSearchInput;
         private Button btnSearch;
         private DataGridView dataGridPostings;

@@ -56,14 +56,14 @@ namespace RecruitmentApplication.Views
 
         }
 
-        private void RefreshDataGridView()
+        private void RefreshDataGridView(string filterString = "")
         {
             string connectionString = "Data Source=.;Initial Catalog=Recruitment;Integrated Security=True;TrustServerCertificate=True;";
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
 
-                string getJobDataQuery = "SELECT * FROM [Vacancy]";
+                string getJobDataQuery = "SELECT * FROM [Vacancy]" + filterString;
                 SqlCommand getJobDataCmd = new SqlCommand(getJobDataQuery, connection);
                 SqlDataAdapter adapter = new SqlDataAdapter(getJobDataCmd);
                 DataTable table = new DataTable();
@@ -134,7 +134,7 @@ namespace RecruitmentApplication.Views
                 if (result > 0)
                 {
                     MessageBox.Show("Job has been saved successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                } 
+                }
                 else
                 {
                     MessageBox.Show("Failed to save job.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -152,6 +152,57 @@ namespace RecruitmentApplication.Views
             bool saved = reader.HasRows;
             reader.Close();
             return saved;
+        }
+
+        private void btnApplyFilters_Click(object sender, EventArgs e)
+        {
+            ApplyFilters();
+        }
+
+        private void ApplyFilters()
+        {
+            List<string> filters = new List<string>();
+
+            List<string> jobTypeFilters = new List<string>();
+            if (cbxJobTypeFullTime.Checked)
+                jobTypeFilters.Add("job_type = 'Full-Time'");
+            if (cbxJobTypePartTime.Checked)
+                jobTypeFilters.Add("job_type = 'Part-Time'");
+            if (cbxJobTypeContract.Checked)
+                jobTypeFilters.Add("job_type = 'Contract'");
+
+            if (jobTypeFilters.Count > 0)
+                filters.Add("(" + string.Join(" OR ", jobTypeFilters) + ")");
+
+            List<string> workModeFilters = new List<string>();
+            if (cboxWorkModeOnSite.Checked)
+                workModeFilters.Add("work_mode = 'On-Site'");
+            if (cboxWorkModeRemote.Checked)
+                workModeFilters.Add("work_mode = 'Remote'");
+            if (cboxWorkModeHybrid.Checked)
+                workModeFilters.Add("work_mode = 'Hybrid'");
+
+            if (workModeFilters.Count > 0)
+                filters.Add("(" + string.Join(" OR ", workModeFilters) + ")");
+
+            List<string> experienceLevelFilters = new List<string>();
+            if (cboxExperienceLevelSenior.Checked)
+                experienceLevelFilters.Add("experience_level = 'Senior'");
+            if (cboxExperienceLevelMidLevel.Checked)
+                experienceLevelFilters.Add("experience_level = 'Mid-Level'");
+            if (cboxExperienceLevelJunior.Checked)
+                experienceLevelFilters.Add("experience_level = 'Junior'");
+            if (cboxExperienceLevelFreshGrad.Checked)
+                experienceLevelFilters.Add("experience_level = 'Fresh Graduate'");
+            if (cboxExperienceLevelStudent.Checked)
+                experienceLevelFilters.Add("experience_level = 'Student'");
+
+            if (experienceLevelFilters.Count > 0)
+                filters.Add("(" + string.Join(" OR ", experienceLevelFilters) + ")");
+
+            string filterString = filters.Count > 0 ? "WHERE " + string.Join(" AND ", filters) : "";
+
+            RefreshDataGridView(filterString);
         }
     }
 }
