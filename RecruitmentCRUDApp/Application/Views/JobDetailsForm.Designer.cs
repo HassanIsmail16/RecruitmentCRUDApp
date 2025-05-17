@@ -1,7 +1,27 @@
-﻿namespace RecruitmentApplication.Views
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Configuration;
+using System.Data;
+using System.Diagnostics;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using Microsoft.Data.SqlClient;
+using RecruitmentApplication.Views;
+
+namespace RecruitmentApplication.Views
 {
     partial class JobDetailsForm
     {
+        private int jobId;
+        public JobDetailsForm(int jobId)
+        {
+            this.jobId = jobId;
+        }
+
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -28,279 +48,252 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.picboxCompanyLogo = new PictureBox();
-            this.lblCompanyName = new Label();
-            this.tboxSkills = new TextBox();
-            this.tboxDescription = new TextBox();
-            this.dateDeadline = new DateTimePicker();
-            this.cmboxJobType = new ComboBox();
-            this.cmboxWorkMode = new ComboBox();
-            this.cmboxExpLevel = new ComboBox();
-            this.lblJobType = new Label();
-            this.cmboxStatus = new ComboBox();
-            this.lblSkills = new Label();
-            this.lblWorkMode = new Label();
-            this.lblDescription = new Label();
-            this.lblExpLevel = new Label();
-            this.lblDeadline = new Label();
-            this.lblStatus = new Label();
-            this.tboxTitle = new TextBox();
-            this.lblTitle = new Label();
-            this.btnApply = new Button();
-            this.btnCancel = new Button();
-            this.lblHeader = new Label();
-            ((System.ComponentModel.ISupportInitialize) this.picboxCompanyLogo).BeginInit();
-            this.SuspendLayout();
-            // 
-            // picboxCompanyLogo
-            // 
-            this.picboxCompanyLogo.Location = new Point(12, 12);
-            this.picboxCompanyLogo.Name = "picboxCompanyLogo";
-            this.picboxCompanyLogo.Size = new Size(64, 62);
-            this.picboxCompanyLogo.TabIndex = 0;
-            this.picboxCompanyLogo.TabStop = false;
+            lblCompanyName = new Label();
+            tboxSkills = new TextBox();
+            tboxDescription = new TextBox();
+            dateDeadline = new DateTimePicker();
+            lblJobType = new Label();
+            lblSkills = new Label();
+            lblWorkMode = new Label();
+            lblDescription = new Label();
+            lblExpLevel = new Label();
+            lblDeadline = new Label();
+            lblStatus = new Label();
+            lblTitle = new Label();
+            btnApply = new Button();
+            btnCancel = new Button();
+            lblHeader = new Label();
+            tboxStatus = new TextBox();
+            tboxExpLevel = new TextBox();
+            tboxWorkMode = new TextBox();
+            tboxJobType = new TextBox();
+            tboxTitle = new TextBox();
+            SuspendLayout();
             // 
             // lblCompanyName
             // 
-            this.lblCompanyName.AutoSize = true;
-            this.lblCompanyName.Location = new Point(94, 33);
-            this.lblCompanyName.Name = "lblCompanyName";
-            this.lblCompanyName.Size = new Size(38, 15);
-            this.lblCompanyName.TabIndex = 1;
-            this.lblCompanyName.Text = "label1";
+            lblCompanyName.AutoSize = true;
+            lblCompanyName.Location = new Point(46, 36);
+            lblCompanyName.Name = "lblCompanyName";
+            lblCompanyName.Size = new Size(38, 15);
+            lblCompanyName.TabIndex = 1;
+            lblCompanyName.Text = "label1";
+            lblCompanyName.Click += lblCompanyName_Click;
             // 
             // tboxSkills
             // 
-            this.tboxSkills.Anchor =  AnchorStyles.Bottom | AnchorStyles.Right;
-            this.tboxSkills.Location = new Point(118, 270);
-            this.tboxSkills.Multiline = true;
-            this.tboxSkills.Name = "tboxSkills";
-            this.tboxSkills.ReadOnly = true;
-            this.tboxSkills.Size = new Size(209, 58);
-            this.tboxSkills.TabIndex = 19;
+            tboxSkills.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            tboxSkills.Location = new Point(118, 270);
+            tboxSkills.Multiline = true;
+            tboxSkills.Name = "tboxSkills";
+            tboxSkills.ReadOnly = true;
+            tboxSkills.Size = new Size(209, 58);
+            tboxSkills.TabIndex = 19;
             // 
             // tboxDescription
             // 
-            this.tboxDescription.Anchor =  AnchorStyles.Bottom | AnchorStyles.Right;
-            this.tboxDescription.Location = new Point(118, 334);
-            this.tboxDescription.Multiline = true;
-            this.tboxDescription.Name = "tboxDescription";
-            this.tboxDescription.ReadOnly = true;
-            this.tboxDescription.Size = new Size(209, 126);
-            this.tboxDescription.TabIndex = 20;
+            tboxDescription.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            tboxDescription.Location = new Point(118, 334);
+            tboxDescription.Multiline = true;
+            tboxDescription.Name = "tboxDescription";
+            tboxDescription.ReadOnly = true;
+            tboxDescription.Size = new Size(209, 126);
+            tboxDescription.TabIndex = 20;
             // 
             // dateDeadline
             // 
-            this.dateDeadline.Anchor = AnchorStyles.Right;
-            this.dateDeadline.Location = new Point(118, 236);
-            this.dateDeadline.Name = "dateDeadline";
-            this.dateDeadline.Size = new Size(209, 23);
-            this.dateDeadline.TabIndex = 18;
-            // 
-            // cmboxJobType
-            // 
-            this.cmboxJobType.Anchor = AnchorStyles.Right;
-            this.cmboxJobType.Enabled = false;
-            this.cmboxJobType.FormattingEnabled = true;
-            this.cmboxJobType.Location = new Point(118, 202);
-            this.cmboxJobType.Name = "cmboxJobType";
-            this.cmboxJobType.Size = new Size(209, 23);
-            this.cmboxJobType.TabIndex = 14;
-            // 
-            // cmboxWorkMode
-            // 
-            this.cmboxWorkMode.Anchor = AnchorStyles.Right;
-            this.cmboxWorkMode.Enabled = false;
-            this.cmboxWorkMode.FormattingEnabled = true;
-            this.cmboxWorkMode.Location = new Point(118, 173);
-            this.cmboxWorkMode.Name = "cmboxWorkMode";
-            this.cmboxWorkMode.Size = new Size(209, 23);
-            this.cmboxWorkMode.TabIndex = 15;
-            // 
-            // cmboxExpLevel
-            // 
-            this.cmboxExpLevel.Anchor = AnchorStyles.Right;
-            this.cmboxExpLevel.Enabled = false;
-            this.cmboxExpLevel.FormattingEnabled = true;
-            this.cmboxExpLevel.Location = new Point(118, 144);
-            this.cmboxExpLevel.Name = "cmboxExpLevel";
-            this.cmboxExpLevel.Size = new Size(209, 23);
-            this.cmboxExpLevel.TabIndex = 16;
+            dateDeadline.Anchor = AnchorStyles.Right;
+            dateDeadline.Location = new Point(118, 236);
+            dateDeadline.Name = "dateDeadline";
+            dateDeadline.Size = new Size(209, 23);
+            dateDeadline.TabIndex = 18;
             // 
             // lblJobType
             // 
-            this.lblJobType.AutoSize = true;
-            this.lblJobType.Location = new Point(46, 202);
-            this.lblJobType.Name = "lblJobType";
-            this.lblJobType.Size = new Size(52, 15);
-            this.lblJobType.TabIndex = 5;
-            this.lblJobType.Text = "Job Type";
-            // 
-            // cmboxStatus
-            // 
-            this.cmboxStatus.Anchor = AnchorStyles.Right;
-            this.cmboxStatus.Enabled = false;
-            this.cmboxStatus.FormattingEnabled = true;
-            this.cmboxStatus.Location = new Point(118, 115);
-            this.cmboxStatus.Name = "cmboxStatus";
-            this.cmboxStatus.Size = new Size(209, 23);
-            this.cmboxStatus.TabIndex = 17;
+            lblJobType.AutoSize = true;
+            lblJobType.Location = new Point(46, 202);
+            lblJobType.Name = "lblJobType";
+            lblJobType.Size = new Size(53, 15);
+            lblJobType.TabIndex = 5;
+            lblJobType.Text = "Job Type";
             // 
             // lblSkills
             // 
-            this.lblSkills.AutoSize = true;
-            this.lblSkills.Location = new Point(65, 270);
-            this.lblSkills.Name = "lblSkills";
-            this.lblSkills.Size = new Size(33, 15);
-            this.lblSkills.TabIndex = 6;
-            this.lblSkills.Text = "Skills";
+            lblSkills.AutoSize = true;
+            lblSkills.Location = new Point(65, 270);
+            lblSkills.Name = "lblSkills";
+            lblSkills.Size = new Size(33, 15);
+            lblSkills.TabIndex = 6;
+            lblSkills.Text = "Skills";
             // 
             // lblWorkMode
             // 
-            this.lblWorkMode.AutoSize = true;
-            this.lblWorkMode.Location = new Point(29, 173);
-            this.lblWorkMode.Name = "lblWorkMode";
-            this.lblWorkMode.Size = new Size(69, 15);
-            this.lblWorkMode.TabIndex = 7;
-            this.lblWorkMode.Text = "Work Mode";
+            lblWorkMode.AutoSize = true;
+            lblWorkMode.Location = new Point(29, 173);
+            lblWorkMode.Name = "lblWorkMode";
+            lblWorkMode.Size = new Size(69, 15);
+            lblWorkMode.TabIndex = 7;
+            lblWorkMode.Text = "Work Mode";
             // 
             // lblDescription
             // 
-            this.lblDescription.AutoSize = true;
-            this.lblDescription.Location = new Point(31, 334);
-            this.lblDescription.Name = "lblDescription";
-            this.lblDescription.Size = new Size(67, 15);
-            this.lblDescription.TabIndex = 8;
-            this.lblDescription.Text = "Description";
+            lblDescription.AutoSize = true;
+            lblDescription.Location = new Point(31, 334);
+            lblDescription.Name = "lblDescription";
+            lblDescription.Size = new Size(67, 15);
+            lblDescription.TabIndex = 8;
+            lblDescription.Text = "Description";
             // 
             // lblExpLevel
             // 
-            this.lblExpLevel.AutoSize = true;
-            this.lblExpLevel.Location = new Point(4, 144);
-            this.lblExpLevel.Name = "lblExpLevel";
-            this.lblExpLevel.Size = new Size(94, 15);
-            this.lblExpLevel.TabIndex = 9;
-            this.lblExpLevel.Text = "Experience Level";
+            lblExpLevel.AutoSize = true;
+            lblExpLevel.Location = new Point(4, 144);
+            lblExpLevel.Name = "lblExpLevel";
+            lblExpLevel.Size = new Size(93, 15);
+            lblExpLevel.TabIndex = 9;
+            lblExpLevel.Text = "Experience Level";
             // 
             // lblDeadline
             // 
-            this.lblDeadline.AutoSize = true;
-            this.lblDeadline.Location = new Point(45, 242);
-            this.lblDeadline.Name = "lblDeadline";
-            this.lblDeadline.Size = new Size(53, 15);
-            this.lblDeadline.TabIndex = 10;
-            this.lblDeadline.Text = "Deadline";
+            lblDeadline.AutoSize = true;
+            lblDeadline.Location = new Point(45, 242);
+            lblDeadline.Name = "lblDeadline";
+            lblDeadline.Size = new Size(53, 15);
+            lblDeadline.TabIndex = 10;
+            lblDeadline.Text = "Deadline";
             // 
             // lblStatus
             // 
-            this.lblStatus.AutoSize = true;
-            this.lblStatus.Location = new Point(59, 115);
-            this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new Size(39, 15);
-            this.lblStatus.TabIndex = 11;
-            this.lblStatus.Text = "Status";
-            // 
-            // tboxTitle
-            // 
-            this.tboxTitle.Anchor =  AnchorStyles.Top | AnchorStyles.Right;
-            this.tboxTitle.Location = new Point(118, 83);
-            this.tboxTitle.Name = "tboxTitle";
-            this.tboxTitle.ReadOnly = true;
-            this.tboxTitle.Size = new Size(209, 23);
-            this.tboxTitle.TabIndex = 13;
+            lblStatus.AutoSize = true;
+            lblStatus.Location = new Point(59, 115);
+            lblStatus.Name = "lblStatus";
+            lblStatus.Size = new Size(39, 15);
+            lblStatus.TabIndex = 11;
+            lblStatus.Text = "Status";
             // 
             // lblTitle
             // 
-            this.lblTitle.AutoSize = true;
-            this.lblTitle.Location = new Point(69, 86);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new Size(29, 15);
-            this.lblTitle.TabIndex = 12;
-            this.lblTitle.Text = "Title";
+            lblTitle.AutoSize = true;
+            lblTitle.Location = new Point(69, 86);
+            lblTitle.Name = "lblTitle";
+            lblTitle.Size = new Size(30, 15);
+            lblTitle.TabIndex = 12;
+            lblTitle.Text = "Title";
             // 
             // btnApply
             // 
-            this.btnApply.Location = new Point(252, 466);
-            this.btnApply.Name = "btnApply";
-            this.btnApply.Size = new Size(75, 29);
-            this.btnApply.TabIndex = 21;
-            this.btnApply.Text = "Apply";
-            this.btnApply.UseVisualStyleBackColor = true;
+            btnApply.Location = new Point(252, 466);
+            btnApply.Name = "btnApply";
+            btnApply.Size = new Size(75, 29);
+            btnApply.TabIndex = 21;
+            btnApply.Text = "Apply";
+            btnApply.UseVisualStyleBackColor = true;
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new Point(171, 466);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new Size(75, 29);
-            this.btnCancel.TabIndex = 21;
-            this.btnCancel.Text = "Cancel";
-            this.btnCancel.UseVisualStyleBackColor = true;
+            btnCancel.Location = new Point(171, 466);
+            btnCancel.Name = "btnCancel";
+            btnCancel.Size = new Size(75, 29);
+            btnCancel.TabIndex = 21;
+            btnCancel.Text = "Cancel";
+            btnCancel.UseVisualStyleBackColor = true;
             // 
             // lblHeader
             // 
-            this.lblHeader.AutoSize = true;
-            this.lblHeader.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point,  0);
-            this.lblHeader.Location = new Point(171, 19);
-            this.lblHeader.Name = "lblHeader";
-            this.lblHeader.Size = new Size(140, 32);
-            this.lblHeader.TabIndex = 22;
-            this.lblHeader.Text = "Job Details";
+            lblHeader.AutoSize = true;
+            lblHeader.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblHeader.Location = new Point(171, 19);
+            lblHeader.Name = "lblHeader";
+            lblHeader.Size = new Size(140, 32);
+            lblHeader.TabIndex = 22;
+            lblHeader.Text = "Job Details";
+            // 
+            // tboxStatus
+            // 
+            tboxStatus.Location = new Point(118, 115);
+            tboxStatus.Name = "tboxStatus";
+            tboxStatus.Size = new Size(209, 23);
+            tboxStatus.TabIndex = 23;
+            // 
+            // tboxExpLevel
+            // 
+            tboxExpLevel.Location = new Point(118, 144);
+            tboxExpLevel.Name = "tboxExpLevel";
+            tboxExpLevel.Size = new Size(209, 23);
+            tboxExpLevel.TabIndex = 24;
+            // 
+            // tboxWorkMode
+            // 
+            tboxWorkMode.Location = new Point(118, 173);
+            tboxWorkMode.Name = "tboxWorkMode";
+            tboxWorkMode.Size = new Size(209, 23);
+            tboxWorkMode.TabIndex = 25;
+            // 
+            // tboxJobType
+            // 
+            tboxJobType.Location = new Point(118, 202);
+            tboxJobType.Name = "tboxJobType";
+            tboxJobType.Size = new Size(209, 23);
+            tboxJobType.TabIndex = 26;
+            // 
+            // tboxTitle
+            // 
+            tboxTitle.Location = new Point(118, 86);
+            tboxTitle.Name = "tboxTitle";
+            tboxTitle.Size = new Size(209, 23);
+            tboxTitle.TabIndex = 27;
             // 
             // JobDetailsForm
             // 
-            this.AutoScaleDimensions = new SizeF(7F, 15F);
-            this.AutoScaleMode = AutoScaleMode.Font;
-            this.ClientSize = new Size(352, 507);
-            this.Controls.Add(this.lblHeader);
-            this.Controls.Add(this.btnCancel);
-            this.Controls.Add(this.btnApply);
-            this.Controls.Add(this.tboxSkills);
-            this.Controls.Add(this.tboxDescription);
-            this.Controls.Add(this.dateDeadline);
-            this.Controls.Add(this.cmboxJobType);
-            this.Controls.Add(this.cmboxWorkMode);
-            this.Controls.Add(this.cmboxExpLevel);
-            this.Controls.Add(this.lblJobType);
-            this.Controls.Add(this.cmboxStatus);
-            this.Controls.Add(this.lblSkills);
-            this.Controls.Add(this.lblWorkMode);
-            this.Controls.Add(this.lblDescription);
-            this.Controls.Add(this.lblExpLevel);
-            this.Controls.Add(this.lblDeadline);
-            this.Controls.Add(this.lblStatus);
-            this.Controls.Add(this.tboxTitle);
-            this.Controls.Add(this.lblTitle);
-            this.Controls.Add(this.lblCompanyName);
-            this.Controls.Add(this.picboxCompanyLogo);
-            this.Name = "JobDetailsForm";
-            this.Text = "JobDetailsForm";
-            ((System.ComponentModel.ISupportInitialize) this.picboxCompanyLogo).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(352, 507);
+            Controls.Add(tboxTitle);
+            Controls.Add(tboxJobType);
+            Controls.Add(tboxWorkMode);
+            Controls.Add(tboxExpLevel);
+            Controls.Add(tboxStatus);
+            Controls.Add(lblHeader);
+            Controls.Add(btnCancel);
+            Controls.Add(btnApply);
+            Controls.Add(tboxSkills);
+            Controls.Add(tboxDescription);
+            Controls.Add(dateDeadline);
+            Controls.Add(lblJobType);
+            Controls.Add(lblSkills);
+            Controls.Add(lblWorkMode);
+            Controls.Add(lblDescription);
+            Controls.Add(lblExpLevel);
+            Controls.Add(lblDeadline);
+            Controls.Add(lblStatus);
+            Controls.Add(lblTitle);
+            Controls.Add(lblCompanyName);
+            Name = "JobDetailsForm";
+            Text = "JobDetailsForm";
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
-
-        private PictureBox picboxCompanyLogo;
         private Label lblCompanyName;
         private TextBox tboxSkills;
         private TextBox tboxDescription;
         private DateTimePicker dateDeadline;
-        private ComboBox cmboxJobType;
-        private ComboBox cmboxWorkMode;
-        private ComboBox cmboxExpLevel;
         private Label lblJobType;
-        private ComboBox cmboxStatus;
         private Label lblSkills;
         private Label lblWorkMode;
         private Label lblDescription;
         private Label lblExpLevel;
         private Label lblDeadline;
         private Label lblStatus;
-        private TextBox tboxTitle;
         private Label lblTitle;
         private Button btnApply;
         private Button btnCancel;
         private Label lblHeader;
+        private TextBox tboxStatus;
+        private TextBox tboxExpLevel;
+        private TextBox tboxWorkMode;
+        private TextBox tboxJobType;
+        private TextBox tboxTitle;
     }
 }
