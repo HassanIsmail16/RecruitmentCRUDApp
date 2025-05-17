@@ -240,6 +240,7 @@
             this.btnSearch.TabIndex = 6;
             this.btnSearch.Text = "Search";
             this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += this.btnSearch_Click;
             // 
             // dataGridPostings
             // 

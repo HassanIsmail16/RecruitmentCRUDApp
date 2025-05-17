@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
+using Microsoft.IdentityModel.Tokens;
 using Models;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,12 @@ namespace RecruitmentApplication.Views
         {
             InitializeComponent();
             InitializeGrid();
+
+            tboxSearchInput.KeyPress += (s, e) =>
+            {
+                if (e.KeyChar == (char) Keys.Enter)
+                    Search();
+            };
         }
 
         private void InitializeGrid()
@@ -56,14 +63,23 @@ namespace RecruitmentApplication.Views
 
         }
 
-        private void RefreshDataGridView(string filterString = "")
+        private void RefreshDataGridView(string whereClause = "")
         {
+            if (string.IsNullOrEmpty(whereClause))
+            {
+                tboxSearchInput.Text = "";
+                ClearFilters();
+            }
+
             string connectionString = "Data Source=.;Initial Catalog=Recruitment;Integrated Security=True;TrustServerCertificate=True;";
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
 
-                string getJobDataQuery = "SELECT * FROM [Vacancy]" + filterString;
+                string getJobDataQuery = "SELECT * FROM [Vacancy]";
+                if (!string.IsNullOrWhiteSpace(whereClause))
+                    getJobDataQuery += " WHERE " + whereClause;
+
                 SqlCommand getJobDataCmd = new SqlCommand(getJobDataQuery, connection);
                 SqlDataAdapter adapter = new SqlDataAdapter(getJobDataCmd);
                 DataTable table = new DataTable();
@@ -72,6 +88,23 @@ namespace RecruitmentApplication.Views
 
                 dataGridPostings.DataSource = table;
             }
+        }
+
+        private void ClearFilters()
+        {
+            cbxJobTypeFullTime.Checked = false;
+            cbxJobTypePartTime.Checked = false;
+            cbxJobTypeContract.Checked = false;
+
+            cboxWorkModeOnSite.Checked = false;
+            cboxWorkModeRemote.Checked = false;
+            cboxWorkModeHybrid.Checked = false;
+
+            cboxExperienceLevelSenior.Checked = false;
+            cboxExperienceLevelMidLevel.Checked = false;
+            cboxExperienceLevelJunior.Checked = false;
+            cboxExperienceLevelFreshGrad.Checked = false;
+            cboxExperienceLevelStudent.Checked = false;
         }
 
         private void dataGridPostings_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -161,8 +194,15 @@ namespace RecruitmentApplication.Views
 
         private void ApplyFilters()
         {
+            string filters = GetFilterCondition();
+            RefreshDataGridView(filters);
+        }
+
+        private string GetFilterCondition()
+        {
             List<string> filters = new List<string>();
 
+            // Job Type
             List<string> jobTypeFilters = new List<string>();
             if (cbxJobTypeFullTime.Checked)
                 jobTypeFilters.Add("job_type = 'Full-Time'");
@@ -170,10 +210,10 @@ namespace RecruitmentApplication.Views
                 jobTypeFilters.Add("job_type = 'Part-Time'");
             if (cbxJobTypeContract.Checked)
                 jobTypeFilters.Add("job_type = 'Contract'");
-
             if (jobTypeFilters.Count > 0)
                 filters.Add("(" + string.Join(" OR ", jobTypeFilters) + ")");
 
+            // Work Mode
             List<string> workModeFilters = new List<string>();
             if (cboxWorkModeOnSite.Checked)
                 workModeFilters.Add("work_mode = 'On-Site'");
@@ -181,10 +221,10 @@ namespace RecruitmentApplication.Views
                 workModeFilters.Add("work_mode = 'Remote'");
             if (cboxWorkModeHybrid.Checked)
                 workModeFilters.Add("work_mode = 'Hybrid'");
-
             if (workModeFilters.Count > 0)
                 filters.Add("(" + string.Join(" OR ", workModeFilters) + ")");
 
+            // Experience Level
             List<string> experienceLevelFilters = new List<string>();
             if (cboxExperienceLevelSenior.Checked)
                 experienceLevelFilters.Add("experience_level = 'Senior'");
@@ -196,13 +236,37 @@ namespace RecruitmentApplication.Views
                 experienceLevelFilters.Add("experience_level = 'Fresh Graduate'");
             if (cboxExperienceLevelStudent.Checked)
                 experienceLevelFilters.Add("experience_level = 'Student'");
-
             if (experienceLevelFilters.Count > 0)
                 filters.Add("(" + string.Join(" OR ", experienceLevelFilters) + ")");
 
-            string filterString = filters.Count > 0 ? "WHERE " + string.Join(" AND ", filters) : "";
+            return string.Join(" AND ", filters);
+        }
 
-            RefreshDataGridView(filterString);
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            Search();
+        }
+
+        private void Search()
+        {
+            string searchTerm = tboxSearchInput.Text.Trim();
+
+            string searchCondition =
+                "(title LIKE '%" + searchTerm + "%' OR " +
+                "description LIKE '%" + searchTerm + "%' OR " +
+                "skills LIKE '%" + searchTerm + "%')";
+
+            string filterCondition = GetFilterCondition();
+            List<string> allConditions = new List<string> { "status = 'Open'" };
+
+            if (!string.IsNullOrWhiteSpace(filterCondition))
+                allConditions.Add(filterCondition);
+
+            allConditions.Add(searchCondition);
+
+            string finalWhereClause = string.Join(" AND ", allConditions);
+
+            RefreshDataGridView(finalWhereClause);
         }
     }
 }
