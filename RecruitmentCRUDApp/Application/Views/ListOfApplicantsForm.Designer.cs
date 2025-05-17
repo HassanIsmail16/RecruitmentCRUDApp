@@ -85,7 +85,7 @@
             // 
             // btnRefresh
             // 
-            this.btnRefresh.Location = new Point(347, 15);
+            this.btnRefresh.Location = new Point(375, 15);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new Size(75, 32);
             this.btnRefresh.TabIndex = 6;
