@@ -1,3 +1,5 @@
+using Models;
+
 namespace RecruitmentApplication
 {
     internal static class Program

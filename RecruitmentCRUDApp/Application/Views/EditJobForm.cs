@@ -140,5 +140,38 @@ namespace RecruitmentApplication.Views
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void EditJobForm_Load(object sender, EventArgs e)
+        {
+            string connectionString = "Data Source=.;Initial Catalog=Recruitment;Integrated Security=True;TrustServerCertificate=True;";
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                string getJobDataQuery = "SELECT * FROM [Vacancy] WHERE vacancy_id = @jobId";
+                SqlCommand cmd = new SqlCommand(getJobDataQuery, connection);
+                cmd.Parameters.AddWithValue("@jobId", jobId);
+
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    tboxTitle.Text = reader["title"].ToString();
+                    cmboxStatus.Text = reader["status"].ToString();
+                    cmboxExpLevel.Text = reader["experience_level"].ToString();
+                    cmboxWorkMode.Text = reader["work_mode"].ToString();
+                    cmboxJobType.Text = reader["job_type"].ToString();
+                    if (reader["deadline"] != DBNull.Value)
+                        dateDeadline.Value = Convert.ToDateTime(reader["deadline"]);
+                    else
+                        dateDeadline.Value = DateTime.Now;
+                    tboxSkills.Text = reader["skills"].ToString();
+                    tboxDescription.Text = reader["description"].ToString();
+                } 
+                else
+                {
+                    MessageBox.Show("Failed to fetch job data from the database.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+            }
+        }
     }
 }
