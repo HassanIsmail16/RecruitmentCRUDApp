@@ -49,6 +49,17 @@ namespace RecruitmentApplication.Views
             saveButtonColumn.Text = "Save";
             saveButtonColumn.UseColumnTextForButtonValue = true;
             dataGridPostings.Columns.Add(saveButtonColumn);
+
+            dataGridPostings.AllowUserToAddRows = false;
+
+            foreach (DataGridViewColumn column in dataGridPostings.Columns)
+            {
+                if (!(column is DataGridViewButtonColumn))
+                {
+                    column.SortMode = DataGridViewColumnSortMode.Programmatic;
+                }
+            }
+
             // TODO: make columns read only
         }
 

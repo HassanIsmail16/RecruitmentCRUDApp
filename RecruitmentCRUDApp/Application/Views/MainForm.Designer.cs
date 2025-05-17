@@ -35,9 +35,11 @@
             this.navSavedJobsBtn = new ToolStripButton();
             this.navProfileBtn = new ToolStripButton();
             this.navLogoutBtn = new ToolStripButton();
+            this.tableLayoutPanel1 = new TableLayoutPanel();
             this.centralPanel = new Panel();
             this.navPanel.SuspendLayout();
             this.toolStrip1.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // navPanel
@@ -45,9 +47,9 @@
             this.navPanel.Anchor =  AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             this.navPanel.BackgroundImageLayout = ImageLayout.Center;
             this.navPanel.Controls.Add(this.toolStrip1);
-            this.navPanel.Location = new Point(0, 0);
+            this.navPanel.Location = new Point(3, 3);
             this.navPanel.Name = "navPanel";
-            this.navPanel.Size = new Size(178, 545);
+            this.navPanel.Size = new Size(163, 539);
             this.navPanel.TabIndex = 0;
             // 
             // toolStrip1
@@ -58,7 +60,7 @@
             this.toolStrip1.Location = new Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.RenderMode = ToolStripRenderMode.Professional;
-            this.toolStrip1.Size = new Size(171, 545);
+            this.toolStrip1.Size = new Size(171, 539);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -110,13 +112,27 @@
             this.navLogoutBtn.Text = "Log Out";
             this.navLogoutBtn.Click += this.navLogoutBtn_Click;
             // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 169F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Controls.Add(this.navPanel, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.centralPanel, 1, 0);
+            this.tableLayoutPanel1.Dock = DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new Point(0, 0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Size = new Size(800, 545);
+            this.tableLayoutPanel1.TabIndex = 2;
+            // 
             // centralPanel
             // 
-            this.centralPanel.Anchor =  AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            this.centralPanel.AutoScroll = true;
-            this.centralPanel.Location = new Point(174, 0);
+            this.centralPanel.Dock = DockStyle.Fill;
+            this.centralPanel.Location = new Point(172, 3);
             this.centralPanel.Name = "centralPanel";
-            this.centralPanel.Size = new Size(626, 545);
+            this.centralPanel.Size = new Size(625, 539);
             this.centralPanel.TabIndex = 1;
             // 
             // MainForm
@@ -124,14 +140,14 @@
             this.AutoScaleDimensions = new SizeF(7F, 15F);
             this.AutoScaleMode = AutoScaleMode.Font;
             this.ClientSize = new Size(800, 545);
-            this.Controls.Add(this.centralPanel);
-            this.Controls.Add(this.navPanel);
+            this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "MainForm";
             this.Text = "MainForm";
             this.navPanel.ResumeLayout(false);
             this.navPanel.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
         }
 
@@ -142,7 +158,8 @@
         private ToolStripButton navJobsBtn;
         private ToolStripButton navLogoutBtn;
         private ToolStripButton navProfileBtn;
-        private Panel centralPanel;
         private ToolStripButton navSavedJobsBtn;
+        private TableLayoutPanel tableLayoutPanel1;
+        private Panel centralPanel;
     }
 }

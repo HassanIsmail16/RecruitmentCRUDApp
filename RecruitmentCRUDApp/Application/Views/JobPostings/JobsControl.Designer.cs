@@ -47,18 +47,24 @@
             this.tboxSearchInput = new TextBox();
             this.btnSearch = new Button();
             this.dataGridPostings = new DataGridView();
+            this.layout = new TableLayoutPanel();
+            this.searchPanel = new Panel();
+            this.filtersPanel = new Panel();
             this.groupJobType.SuspendLayout();
             this.gboxWorkMode.SuspendLayout();
             this.gboxExperienceLevel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize) this.dataGridPostings).BeginInit();
+            this.layout.SuspendLayout();
+            this.searchPanel.SuspendLayout();
+            this.filtersPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // refreshBtn
             // 
             this.refreshBtn.Anchor = AnchorStyles.Left;
-            this.refreshBtn.Location = new Point(22, 300);
+            this.refreshBtn.Location = new Point(6, 15);
             this.refreshBtn.Name = "refreshBtn";
-            this.refreshBtn.Size = new Size(98, 23);
+            this.refreshBtn.Size = new Size(98, 38);
             this.refreshBtn.TabIndex = 1;
             this.refreshBtn.Text = "Refresh";
             this.refreshBtn.UseVisualStyleBackColor = true;
@@ -69,7 +75,7 @@
             this.groupJobType.Controls.Add(this.cbxJobTypeContract);
             this.groupJobType.Controls.Add(this.cbxJobTypePartTime);
             this.groupJobType.Controls.Add(this.cbxJobTypeFullTime);
-            this.groupJobType.Location = new Point(126, 300);
+            this.groupJobType.Location = new Point(122, 15);
             this.groupJobType.Name = "groupJobType";
             this.groupJobType.Size = new Size(103, 152);
             this.groupJobType.TabIndex = 2;
@@ -111,7 +117,7 @@
             this.gboxWorkMode.Controls.Add(this.cboxWorkModeHybrid);
             this.gboxWorkMode.Controls.Add(this.cboxWorkModeRemote);
             this.gboxWorkMode.Controls.Add(this.cboxWorkModeOnSite);
-            this.gboxWorkMode.Location = new Point(235, 300);
+            this.gboxWorkMode.Location = new Point(231, 15);
             this.gboxWorkMode.Name = "gboxWorkMode";
             this.gboxWorkMode.Size = new Size(94, 152);
             this.gboxWorkMode.TabIndex = 2;
@@ -155,7 +161,7 @@
             this.gboxExperienceLevel.Controls.Add(this.cboxExperienceLevelJunior);
             this.gboxExperienceLevel.Controls.Add(this.cboxExperienceLevelMidLevel);
             this.gboxExperienceLevel.Controls.Add(this.cboxExperienceLevelSenior);
-            this.gboxExperienceLevel.Location = new Point(335, 300);
+            this.gboxExperienceLevel.Location = new Point(331, 15);
             this.gboxExperienceLevel.Name = "gboxExperienceLevel";
             this.gboxExperienceLevel.Size = new Size(124, 152);
             this.gboxExperienceLevel.TabIndex = 2;
@@ -216,9 +222,9 @@
             // btnApplyFilters
             // 
             this.btnApplyFilters.Anchor = AnchorStyles.Left;
-            this.btnApplyFilters.Location = new Point(22, 329);
+            this.btnApplyFilters.Location = new Point(6, 59);
             this.btnApplyFilters.Name = "btnApplyFilters";
-            this.btnApplyFilters.Size = new Size(98, 23);
+            this.btnApplyFilters.Size = new Size(98, 38);
             this.btnApplyFilters.TabIndex = 1;
             this.btnApplyFilters.Text = "Apply Filters";
             this.btnApplyFilters.UseVisualStyleBackColor = true;
@@ -226,17 +232,20 @@
             // 
             // tboxSearchInput
             // 
-            this.tboxSearchInput.Location = new Point(22, 16);
+            this.tboxSearchInput.Anchor =  AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            this.tboxSearchInput.Location = new Point(6, 7);
+            this.tboxSearchInput.Multiline = true;
             this.tboxSearchInput.Name = "tboxSearchInput";
             this.tboxSearchInput.PlaceholderText = "Search for available vacancies";
-            this.tboxSearchInput.Size = new Size(523, 23);
+            this.tboxSearchInput.Size = new Size(532, 31);
             this.tboxSearchInput.TabIndex = 5;
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new Point(551, 16);
+            this.btnSearch.Anchor = AnchorStyles.Right;
+            this.btnSearch.Location = new Point(541, 7);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new Size(78, 23);
+            this.btnSearch.Size = new Size(96, 31);
             this.btnSearch.TabIndex = 6;
             this.btnSearch.Text = "Search";
             this.btnSearch.UseVisualStyleBackColor = true;
@@ -244,25 +253,62 @@
             // 
             // dataGridPostings
             // 
+            this.dataGridPostings.AllowUserToAddRows = false;
+            this.dataGridPostings.AllowUserToDeleteRows = false;
+            this.dataGridPostings.Anchor =  AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             this.dataGridPostings.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridPostings.Location = new Point(22, 45);
+            this.dataGridPostings.Location = new Point(3, 53);
             this.dataGridPostings.Name = "dataGridPostings";
-            this.dataGridPostings.Size = new Size(607, 235);
+            this.dataGridPostings.Size = new Size(643, 245);
             this.dataGridPostings.TabIndex = 7;
             this.dataGridPostings.CellContentClick += this.dataGridPostings_CellContentClick;
+            // 
+            // layout
+            // 
+            this.layout.ColumnCount = 1;
+            this.layout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            this.layout.Controls.Add(this.dataGridPostings, 0, 1);
+            this.layout.Controls.Add(this.searchPanel, 0, 0);
+            this.layout.Controls.Add(this.filtersPanel, 0, 2);
+            this.layout.Dock = DockStyle.Fill;
+            this.layout.Location = new Point(0, 0);
+            this.layout.Name = "layout";
+            this.layout.RowCount = 3;
+            this.layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
+            this.layout.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            this.layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 200F));
+            this.layout.Size = new Size(649, 501);
+            this.layout.TabIndex = 8;
+            // 
+            // searchPanel
+            // 
+            this.searchPanel.Controls.Add(this.btnSearch);
+            this.searchPanel.Controls.Add(this.tboxSearchInput);
+            this.searchPanel.Dock = DockStyle.Fill;
+            this.searchPanel.Location = new Point(3, 3);
+            this.searchPanel.Name = "searchPanel";
+            this.searchPanel.Size = new Size(643, 44);
+            this.searchPanel.TabIndex = 8;
+            // 
+            // filtersPanel
+            // 
+            this.filtersPanel.Controls.Add(this.gboxExperienceLevel);
+            this.filtersPanel.Controls.Add(this.refreshBtn);
+            this.filtersPanel.Controls.Add(this.gboxWorkMode);
+            this.filtersPanel.Controls.Add(this.btnApplyFilters);
+            this.filtersPanel.Controls.Add(this.groupJobType);
+            this.filtersPanel.Dock = DockStyle.Fill;
+            this.filtersPanel.Location = new Point(3, 304);
+            this.filtersPanel.Name = "filtersPanel";
+            this.filtersPanel.Size = new Size(643, 194);
+            this.filtersPanel.TabIndex = 9;
             // 
             // JobsControl
             // 
             this.AutoScaleDimensions = new SizeF(7F, 15F);
             this.AutoScaleMode = AutoScaleMode.Font;
-            this.Controls.Add(this.dataGridPostings);
-            this.Controls.Add(this.btnSearch);
-            this.Controls.Add(this.tboxSearchInput);
-            this.Controls.Add(this.gboxExperienceLevel);
-            this.Controls.Add(this.gboxWorkMode);
-            this.Controls.Add(this.groupJobType);
-            this.Controls.Add(this.btnApplyFilters);
-            this.Controls.Add(this.refreshBtn);
+            this.AutoScroll = true;
+            this.Controls.Add(this.layout);
             this.Name = "JobsControl";
             this.Size = new Size(649, 501);
             this.Load += this.JobsControl_Load;
@@ -273,8 +319,11 @@
             this.gboxExperienceLevel.ResumeLayout(false);
             this.gboxExperienceLevel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize) this.dataGridPostings).EndInit();
+            this.layout.ResumeLayout(false);
+            this.searchPanel.ResumeLayout(false);
+            this.searchPanel.PerformLayout();
+            this.filtersPanel.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
         }
 
         #endregion
@@ -297,5 +346,8 @@
         private TextBox tboxSearchInput;
         private Button btnSearch;
         private DataGridView dataGridPostings;
+        private TableLayoutPanel layout;
+        private Panel searchPanel;
+        private Panel filtersPanel;
     }
 }
