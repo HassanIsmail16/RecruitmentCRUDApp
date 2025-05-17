@@ -44,7 +44,7 @@ namespace RecruitmentApplication.Utilities
         public static class DatabaseConstants
         {
             // Connection String
-            public static const string ConnectionString = "Data Source=.;Initial Catalog=Recruitment;Integrated Security=True;TrustServerCertificate=True;";
+            public const string ConnectionString = "Data Source=.;Initial Catalog=Recruitment;Integrated Security=True;TrustServerCertificate=True;";
 
             // User Types
             public static class UserTypes
