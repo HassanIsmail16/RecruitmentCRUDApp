@@ -35,8 +35,9 @@ namespace RecruitmentApplication.Views
             {
                 connection.Open();
 
-                string getCompanyIdQuery = "SELECT company_id FROM [Employer] WHERE user_id = @user_id";
+                string getCompanyIdQuery = "SELECT company_id FROM [Employer] WHERE user_id = @userId";
                 SqlCommand getCompanyIdCmd = new SqlCommand(getCompanyIdQuery, connection);
+                getCompanyIdCmd.Parameters.AddWithValue("@userId", Session.CurrentUserId);
                 SqlDataReader reader = getCompanyIdCmd.ExecuteReader();
                 int companyId;
                 if (reader.Read())
@@ -96,7 +97,7 @@ namespace RecruitmentApplication.Views
             cmboxExpLevel.Items.Add("Student");
             cmboxExpLevel.Items.Add("Fresh Graduate");
             cmboxExpLevel.Items.Add("Junior");
-            cmboxExpLevel.Items.Add("Mid-Leve");
+            cmboxExpLevel.Items.Add("Mid-Level");
             cmboxExpLevel.Items.Add("Senior");
             cmboxExpLevel.SelectedIndex = 0;
             cmboxExpLevel.DropDownStyle = ComboBoxStyle.DropDownList;
