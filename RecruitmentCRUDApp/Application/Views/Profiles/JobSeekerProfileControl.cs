@@ -22,37 +22,53 @@ namespace RecruitmentApplication.Views.Profiles
 
         private void btnSaveChangesSkills_Click(object sender, EventArgs e)
         {
-            string skills = textBoxSkills.Text;
-            string interests = textBoxInterests.Text;
 
+        }
+
+        private void btnSaveChanges_Click(object sender, EventArgs e)
+        {
             string connectionString = "Data Source=.;Initial Catalog=Recruitment;Integrated Security=True;TrustServerCertificate=True;";
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                string saveUserChangesQuery =
-                    "UPDATE [User] " +
-                    "SET skills = @skills, interests = @interests" +
-                    "WHERE user_id = @userId;";
-                SqlCommand saveUserChangesCmd = new SqlCommand(saveUserChangesQuery, connection);
-                saveUserChangesCmd.Parameters.AddWithValue("@skills", skills);
-                saveUserChangesCmd.Parameters.AddWithValue("@interests", interests);
-                saveUserChangesCmd.Parameters.AddWithValue("@userId", Session.CurrentUserId);
-
-                var result = saveUserChangesCmd.ExecuteNonQuery();
-                if (result > 0)
+                int userChanges = SaveUserChanges(connection);
+                int skillsChanges = SaveSkillsChanges(connection);
+                if (userChanges > 0 && skillsChanges > 0)
                 {
-                    MessageBox.Show("Saved changes successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Saved changes successfully", "Saved Successfully", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
-                else
+
+                if (skillsChanges <= 0)
                 {
-                    MessageBox.Show("Failed to save changes.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    MessageBox.Show("Couldn't save skills and interests changes.", "Save Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+                if (userChanges <= 0)
+                {
+                    MessageBox.Show("Couldn't user information skills changes.", "Save Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
 
-        private void btnSaveChanges_Click(object sender, EventArgs e)
+        private int SaveSkillsChanges(SqlConnection connection)
+        {
+            string skills = textBoxSkills.Text;
+            string interests = textBoxInterests.Text;
+
+            string saveUserChangesQuery =
+                "UPDATE [JobSeeker] " +
+                "SET skills = @skills, interests = @interests " +
+                "WHERE user_id = @userId;";
+            SqlCommand saveUserChangesCmd = new SqlCommand(saveUserChangesQuery, connection);
+            saveUserChangesCmd.Parameters.AddWithValue("@skills", skills);
+            saveUserChangesCmd.Parameters.AddWithValue("@interests", interests);
+            saveUserChangesCmd.Parameters.AddWithValue("@userId", Session.CurrentUserId);
+
+            return saveUserChangesCmd.ExecuteNonQuery();
+        }
+
+        private int SaveUserChanges(SqlConnection connection)
         {
             string fullname = txtFullName.Text;
             string email = txtEmail.Text;
@@ -60,34 +76,19 @@ namespace RecruitmentApplication.Views.Profiles
             string phoneNumber = txtPhoneNumber.Text;
             DateTime? birthDate = birthDatePicker.Value;
 
-            string connectionString = "Data Source=.;Initial Catalog=Recruitment;Integrated Security=True;TrustServerCertificate=True;";
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                connection.Open();
-                string saveUserChangesQuery =
-                    "UPDATE [User] " +
-                    "SET name = @name, email = @email, password = @password, phone = @phoneNumber, birth_date = @birthDate " +
-                    "WHERE user_id = @userId;";
-                SqlCommand saveUserChangesCmd = new SqlCommand(saveUserChangesQuery, connection);
-                saveUserChangesCmd.Parameters.AddWithValue("@name", fullname);
-                saveUserChangesCmd.Parameters.AddWithValue("@email", email);
-                saveUserChangesCmd.Parameters.AddWithValue("@password", password);
-                saveUserChangesCmd.Parameters.AddWithValue("@phoneNumber", phoneNumber);
-                saveUserChangesCmd.Parameters.AddWithValue("@birthDate", birthDate);
-                saveUserChangesCmd.Parameters.AddWithValue("@userId", Session.CurrentUserId);
+            string saveUserChangesQuery =
+                "UPDATE [User] " +
+                "SET name = @name, email = @email, password = @password, phone = @phoneNumber, birth_date = @birthDate " +
+                "WHERE user_id = @userId;";
+            SqlCommand saveUserChangesCmd = new SqlCommand(saveUserChangesQuery, connection);
+            saveUserChangesCmd.Parameters.AddWithValue("@name", fullname);
+            saveUserChangesCmd.Parameters.AddWithValue("@email", email);
+            saveUserChangesCmd.Parameters.AddWithValue("@password", password);
+            saveUserChangesCmd.Parameters.AddWithValue("@phoneNumber", phoneNumber);
+            saveUserChangesCmd.Parameters.AddWithValue("@birthDate", birthDate);
+            saveUserChangesCmd.Parameters.AddWithValue("@userId", Session.CurrentUserId);
 
-                var result = saveUserChangesCmd.ExecuteNonQuery();
-                if (result > 0)
-                {
-                    MessageBox.Show("Saved changes successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return;
-                }
-                else
-                {
-                    MessageBox.Show("Failed to save changes.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-            }
+            return saveUserChangesCmd.ExecuteNonQuery();
         }
 
         private void JobSeekerProfileControl_Load(object sender, EventArgs e)
@@ -96,7 +97,18 @@ namespace RecruitmentApplication.Views.Profiles
             {
                 int id = Session.CurrentUserId.Value;
                 using (SqlConnection conn = new SqlConnection("Data Source=.;Initial Catalog=Recruitment;Integrated Security=True;TrustServerCertificate=True;"))
-                using (SqlCommand cmd = new SqlCommand("SELECT name, email, phone, password, birth_date, signup_date FROM [User] WHERE user_id = @Id", conn))
+                using (SqlCommand cmd = new SqlCommand(@"SELECT 
+                                                            U.name, 
+                                                            U.email, 
+                                                            U.phone, 
+                                                            U.password, 
+                                                            U.birth_date, 
+                                                            U.signup_date, 
+                                                            J.skills, 
+                                                            J.resume, 
+                                                            J.interests 
+                                                        FROM [User] U INNER JOIN [JobSeeker] J ON U.user_id = J.user_id 
+                                                        WHERE U.user_id = @Id", conn))
                 {
                     cmd.Parameters.AddWithValue("@Id", id);
                     conn.Open();
@@ -114,6 +126,8 @@ namespace RecruitmentApplication.Views.Profiles
                             else
                                 birthDatePicker.Value = DateTime.Now;
                             textBox4.Text = reader["signup_date"]?.ToString() ?? "";
+                            textBoxSkills.Text = reader["skills"]?.ToString() ?? "";
+                            textBoxInterests.Text = reader["interests"]?.ToString() ?? "";
                         }
                         else
                         {
@@ -155,20 +169,21 @@ namespace RecruitmentApplication.Views.Profiles
             {
                 connection.Open();
                 string removeResumeQuery =
-                    "UPDATE[JobSeeker]" +
-                    "SET resume = NULL" +
+                    "UPDATE[JobSeeker] " +
+                    "SET resume = NULL " +
                     "WHERE user_id = @userId";
                 SqlCommand removeResumeCmd = new SqlCommand(removeResumeQuery, connection);
+                removeResumeCmd.Parameters.AddWithValue("@userId", Session.CurrentUserId);
 
                 var result = removeResumeCmd.ExecuteNonQuery();
                 if (result > 0)
                 {
-                    MessageBox.Show("Saved changes successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Removed resume successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
                 else
                 {
-                    MessageBox.Show("Failed to save changes.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Failed to remove resume.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
             }
