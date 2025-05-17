@@ -14,7 +14,7 @@ namespace RecruitmentApplication.Views
     public partial class EditJobForm : Form
     {
         private int jobId;
-        public EditJobForm(int jobId)
+        public EditJobForm(int jobId )
         {
             InitializeComponent();
             this.jobId = jobId;

@@ -14,10 +14,10 @@ namespace RecruitmentApplication.Views
     public partial class JobDetailsForm : Form
     {
         private int jobId;
-        public JobDetailsForm(int jobId)
+        public JobDetailsForm(int jobId )
         {
             InitializeComponent();
-            this.jobId = jobId;
+            this.jobId = jobId ; 
 
             readOnlyFields();
             loadJobDetails();
@@ -56,7 +56,7 @@ namespace RecruitmentApplication.Views
                         tboxJobType.Text = reader["job_type"]?.ToString() ?? "";
                         tboxSkills.Text = reader["skills"]?.ToString() ?? "";
                         tboxDescription.Text = reader["description"]?.ToString() ?? "";
-                        lblCompanyName.Text = reader["name"]?.ToString() ?? "";
+                        lblCompanyName.Text = reader["name"]?.ToString() ??  "";
                         if (reader["deadline"] != DBNull.Value)
                             dateDeadline.Value = Convert.ToDateTime(reader["deadline"]);
                         else
