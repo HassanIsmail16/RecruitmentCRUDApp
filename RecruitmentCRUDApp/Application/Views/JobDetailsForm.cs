@@ -12,9 +12,11 @@ namespace RecruitmentApplication.Views
 {
     public partial class JobDetailsForm : Form
     {
-        public JobDetailsForm()
+        private int jobId;
+        public JobDetailsForm(int jobId)
         {
             InitializeComponent();
+            this.jobId = jobId;
         }
     }
 }

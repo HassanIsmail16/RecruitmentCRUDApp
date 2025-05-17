@@ -41,6 +41,17 @@ namespace RecruitmentApplication.Views
 
         private void refreshBtn_Click(object sender, EventArgs e)
         {
+            RefreshDataGridView();
+        }
+
+        private void JobsControl_Load(object sender, EventArgs e)
+        {
+            RefreshDataGridView();
+
+        }
+
+        private void RefreshDataGridView()
+        {
             string connectionString = "Data Source=.;Initial Catalog=Recruitment;Integrated Security=True;TrustServerCertificate=True;";
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -57,9 +68,26 @@ namespace RecruitmentApplication.Views
             }
         }
 
-        private void JobsControl_Load(object sender, EventArgs e)
+        private void dataGridPostings_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.RowIndex == 0)
+            {
+                return;
+            }
 
+            if (dataGridPostings.Columns[e.ColumnIndex].Name == "Details")
+            {
+                var jobIdObj = dataGridPostings.Rows[e.RowIndex].Cells["vacancy_id"].Value;
+                if (jobIdObj != null && int.TryParse(jobIdObj.ToString(), out int jobId))
+                {
+                    var detailsForm = new JobDetailsForm(jobId);
+                    detailsForm.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("Failed to show job details.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
     }
 }
