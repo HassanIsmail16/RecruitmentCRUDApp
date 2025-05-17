@@ -2,6 +2,7 @@
 using DAL.Repositories;
 using Models;
 using RecruitmentApplication.Views.Auth;
+using RecruitmentApplication.Views.Profiles;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -32,16 +33,24 @@ namespace RecruitmentApplication.Views
             }
         }
 
-        public void RegisterViews()
-        {
-        }
-
         private void navJobsBtn_Click(object sender, EventArgs e)
         {
+            centralPanel.SuspendLayout();
+            centralPanel.Controls.Clear();
+            var jobsControl = new JobsControl();
+            jobsControl.Dock = DockStyle.Fill;
+            centralPanel.Controls.Add(jobsControl);
+            centralPanel.ResumeLayout();
         }
 
         private void navSavedJobsBtn_Click(object sender, EventArgs e)
         {
+            centralPanel.SuspendLayout();
+            centralPanel.Controls.Clear();
+            var savedJobsControl = new SavedJobsControl();
+            savedJobsControl.Dock = DockStyle.Fill;
+            centralPanel.Controls.Add(savedJobsControl);
+            centralPanel.ResumeLayout();
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
@@ -60,6 +69,21 @@ namespace RecruitmentApplication.Views
 
         private void Form_FormClosing(object sender, FormClosingEventArgs e)
         {
+        }
+
+        private void navLogoutBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void navProfileBtn_Click(object sender, EventArgs e)
+        {
+            centralPanel.SuspendLayout();
+            centralPanel.Controls.Clear();
+            var jobSeekerProfileControl = new JobSeekerProfileControl();
+            jobSeekerProfileControl.Dock = DockStyle.Fill;
+            centralPanel.Controls.Add(jobSeekerProfileControl);
+            centralPanel.ResumeLayout();
         }
     }
 }

@@ -47,7 +47,7 @@
             this.navPanel.Controls.Add(this.toolStrip1);
             this.navPanel.Location = new Point(0, 0);
             this.navPanel.Name = "navPanel";
-            this.navPanel.Size = new Size(178, 450);
+            this.navPanel.Size = new Size(178, 545);
             this.navPanel.TabIndex = 0;
             // 
             // toolStrip1
@@ -58,7 +58,7 @@
             this.toolStrip1.Location = new Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.RenderMode = ToolStripRenderMode.Professional;
-            this.toolStrip1.Size = new Size(171, 450);
+            this.toolStrip1.Size = new Size(171, 545);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -96,6 +96,7 @@
             this.navProfileBtn.Padding = new Padding(10);
             this.navProfileBtn.Size = new Size(170, 45);
             this.navProfileBtn.Text = "Profile";
+            this.navProfileBtn.Click += this.navProfileBtn_Click;
             // 
             // navLogoutBtn
             // 
@@ -107,20 +108,22 @@
             this.navLogoutBtn.Padding = new Padding(10);
             this.navLogoutBtn.Size = new Size(170, 45);
             this.navLogoutBtn.Text = "Log Out";
+            this.navLogoutBtn.Click += this.navLogoutBtn_Click;
             // 
             // centralPanel
             // 
             this.centralPanel.Anchor =  AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            this.centralPanel.AutoScroll = true;
             this.centralPanel.Location = new Point(174, 0);
             this.centralPanel.Name = "centralPanel";
-            this.centralPanel.Size = new Size(626, 450);
+            this.centralPanel.Size = new Size(626, 545);
             this.centralPanel.TabIndex = 1;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new SizeF(7F, 15F);
             this.AutoScaleMode = AutoScaleMode.Font;
-            this.ClientSize = new Size(800, 450);
+            this.ClientSize = new Size(800, 545);
             this.Controls.Add(this.centralPanel);
             this.Controls.Add(this.navPanel);
             this.Name = "MainForm";
