@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +16,16 @@ namespace RecruitmentApplication.Views.Profiles
         public JobSeekerProfileControl()
         {
             InitializeComponent();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void JobSeekerProfileControl_Load(object sender, EventArgs e)
+        {
+            // Session.CurrentUserId;
         }
     }
 }

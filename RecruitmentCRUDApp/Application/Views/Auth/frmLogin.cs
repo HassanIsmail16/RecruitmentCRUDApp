@@ -50,7 +50,7 @@ namespace RecruitmentApplication.Views
                         if (reader.HasRows)
                         {
                             MessageBox.Show("Login successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
+                            Session.Login(reader.GetInt32(0)); 
                             MainForm mainform = new MainForm();
                             mainform.Show();
                             this.Hide();

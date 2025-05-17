@@ -8,19 +8,19 @@ namespace Models
 {
     public static class Session
     {
-        public static User CurrentUser { get; set; }
+        public static int? CurrentUserId { get; set; }
 
-        public static void Login(User user)
+        public static void Login(int userId)
         {
-            CurrentUser = user;
+            CurrentUserId = userId;
         }
 
         public static void Logout()
         {
-            CurrentUser = null;
+            CurrentUserId = null;
         }
         
-        public static bool IsAuthenticated => CurrentUser != null;
+        public static bool IsAuthenticated => CurrentUserId != null;
 
     }
 }
