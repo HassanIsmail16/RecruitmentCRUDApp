@@ -1,12 +1,12 @@
 ﻿using DAL.Interfaces;
 using DAL.Repositories;
 using Models;
-using RecruitmentApplication.Controllers;
 using RecruitmentApplication.Views.Auth;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -17,54 +17,15 @@ namespace RecruitmentApplication.Views
 {
     public partial class frmLogin : Form
     {
-        public class LoginEventArgs : EventArgs
-        {
-            public string Email { get; }
-            public string Password { get; }
-
-            public LoginEventArgs(string email, string password)
-            {
-                Email = email;
-                Password = password;
-            }
-        }
-
-        public event EventHandler<LoginEventArgs> OnLogin;
-
-        private static frmSignup signupForm;
-        private static RecruitmentContext context;
-
         public frmLogin()
         {
             InitializeComponent();
-            // Controller is now created in Program.cs
         }
 
         private void linkSignup_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            // create the signup form if it doesnt exist yet
-            if (signupForm == null || signupForm.IsDisposed)
-            {
-                // Create shared context if not available
-                if (context == null)
-                {
-                    context = new RecruitmentContext();
-                }
-
-                signupForm = new frmSignup();
-
-                // Initialize the signup controller
-                var userRepo = new UserRepository(context);
-                var jobSeekerRepo = new JobSeekerRepository(context);
-                var employerRepo = new EmployerRepository(context);
-                var signupController = new SignUpController(userRepo, jobSeekerRepo, employerRepo, signupForm);
-                signupController.BindView(signupForm);
-            }
-
-            // show the signup form
+            frmSignup signupForm = new frmSignup();
             signupForm.Show();
-
-            // hide this form
             this.Hide();
         }
 
@@ -72,7 +33,35 @@ namespace RecruitmentApplication.Views
         {
             string email = txtEmail.Text;
             string password = txtPassword.Text;
-            OnLogin?.Invoke(this, new LoginEventArgs(email, password));
+
+            string connectionString = "Data Source=.;Initial Catalog=Recruitment;Integrated Security=True;";
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                string query = "SELECT * FROM [User] WHERE email = @email AND password = @password";
+                using (SqlCommand cmd = new SqlCommand(query, connection))
+                {
+                    cmd.Parameters.AddWithValue("@email", email);
+                    cmd.Parameters.AddWithValue("@password", password);
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            MessageBox.Show("Login successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                            MainForm mainform = new MainForm();
+                            mainform.Show();
+                            this.Hide();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Invalid email or password.", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+            }
         }
     }
 }
