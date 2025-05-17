@@ -28,123 +28,123 @@
         /// </summary>
         private void InitializeComponent()
         {
-            panelHeader = new Panel();
-            labelLOA = new Label();
-            btnSaveChanges = new Button();
-            btnCancel = new Button();
-            btnRefresh = new Button();
-            colPostDate = new DataGridViewTextBoxColumn();
-            colStatus = new DataGridViewComboBoxColumn();
-            colAppDate = new DataGridViewTextBoxColumn();
-            colApplicantName = new DataGridViewTextBoxColumn();
-            dataGridJobApplicants = new DataGridView();
-            panelHeader.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridJobApplicants).BeginInit();
-            SuspendLayout();
+            this.panelHeader = new Panel();
+            this.labelLOA = new Label();
+            this.btnSaveChanges = new Button();
+            this.btnCancel = new Button();
+            this.btnRefresh = new Button();
+            this.colPostDate = new DataGridViewTextBoxColumn();
+            this.colStatus = new DataGridViewComboBoxColumn();
+            this.colAppDate = new DataGridViewTextBoxColumn();
+            this.colApplicantName = new DataGridViewTextBoxColumn();
+            this.dataGridJobApplicants = new DataGridView();
+            this.panelHeader.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize) this.dataGridJobApplicants).BeginInit();
+            this.SuspendLayout();
             // 
             // panelHeader
             // 
-            panelHeader.BackColor = Color.WhiteSmoke;
-            panelHeader.BorderStyle = BorderStyle.FixedSingle;
-            panelHeader.Controls.Add(labelLOA);
-            panelHeader.Controls.Add(btnSaveChanges);
-            panelHeader.Controls.Add(btnCancel);
-            panelHeader.Controls.Add(btnRefresh);
-            panelHeader.Location = new Point(12, 12);
-            panelHeader.Name = "panelHeader";
-            panelHeader.Size = new Size(643, 75);
-            panelHeader.TabIndex = 3;
+            this.panelHeader.BackColor = Color.WhiteSmoke;
+            this.panelHeader.BorderStyle = BorderStyle.FixedSingle;
+            this.panelHeader.Controls.Add(this.labelLOA);
+            this.panelHeader.Controls.Add(this.btnSaveChanges);
+            this.panelHeader.Controls.Add(this.btnCancel);
+            this.panelHeader.Controls.Add(this.btnRefresh);
+            this.panelHeader.Location = new Point(12, 12);
+            this.panelHeader.Name = "panelHeader";
+            this.panelHeader.Size = new Size(643, 64);
+            this.panelHeader.TabIndex = 3;
             // 
             // labelLOA
             // 
-            labelLOA.AutoSize = true;
-            labelLOA.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            labelLOA.Location = new Point(3, 15);
-            labelLOA.Name = "labelLOA";
-            labelLOA.Size = new Size(212, 32);
-            labelLOA.TabIndex = 9;
-            labelLOA.Text = "List of Applicants";
+            this.labelLOA.AutoSize = true;
+            this.labelLOA.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point,  0);
+            this.labelLOA.Location = new Point(3, 15);
+            this.labelLOA.Name = "labelLOA";
+            this.labelLOA.Size = new Size(212, 32);
+            this.labelLOA.TabIndex = 9;
+            this.labelLOA.Text = "List of Applicants";
             // 
             // btnSaveChanges
             // 
-            btnSaveChanges.Location = new Point(456, 15);
-            btnSaveChanges.Name = "btnSaveChanges";
-            btnSaveChanges.Size = new Size(94, 32);
-            btnSaveChanges.TabIndex = 8;
-            btnSaveChanges.Text = "Save Changes";
-            btnSaveChanges.UseVisualStyleBackColor = true;
+            this.btnSaveChanges.Location = new Point(456, 15);
+            this.btnSaveChanges.Name = "btnSaveChanges";
+            this.btnSaveChanges.Size = new Size(94, 32);
+            this.btnSaveChanges.TabIndex = 8;
+            this.btnSaveChanges.Text = "Save Changes";
+            this.btnSaveChanges.UseVisualStyleBackColor = true;
             // 
             // btnCancel
             // 
-            btnCancel.Location = new Point(556, 15);
-            btnCancel.Name = "btnCancel";
-            btnCancel.Size = new Size(75, 32);
-            btnCancel.TabIndex = 7;
-            btnCancel.Text = "Cancel";
-            btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Location = new Point(556, 15);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new Size(75, 32);
+            this.btnCancel.TabIndex = 7;
+            this.btnCancel.Text = "Cancel";
+            this.btnCancel.UseVisualStyleBackColor = true;
             // 
             // btnRefresh
             // 
-            btnRefresh.Location = new Point(347, 15);
-            btnRefresh.Name = "btnRefresh";
-            btnRefresh.Size = new Size(75, 32);
-            btnRefresh.TabIndex = 6;
-            btnRefresh.Text = "Refresh";
-            btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Location = new Point(347, 15);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new Size(75, 32);
+            this.btnRefresh.TabIndex = 6;
+            this.btnRefresh.Text = "Refresh";
+            this.btnRefresh.UseVisualStyleBackColor = true;
             // 
             // colPostDate
             // 
-            colPostDate.HeaderText = "Post Date";
-            colPostDate.Name = "colPostDate";
-            colPostDate.ReadOnly = true;
-            colPostDate.Width = 150;
+            this.colPostDate.HeaderText = "Post Date";
+            this.colPostDate.Name = "colPostDate";
+            this.colPostDate.ReadOnly = true;
+            this.colPostDate.Width = 150;
             // 
             // colStatus
             // 
-            colStatus.HeaderText = "Status";
-            colStatus.Items.AddRange(new object[] { "Pending", "Under Review", "Interviewed", "Accepted", "Rejected" });
-            colStatus.Name = "colStatus";
+            this.colStatus.HeaderText = "Status";
+            this.colStatus.Items.AddRange(new object[] { "Pending", "Under Review", "Interviewed", "Accepted", "Rejected" });
+            this.colStatus.Name = "colStatus";
             // 
             // colAppDate
             // 
-            colAppDate.HeaderText = "Application Date";
-            colAppDate.Name = "colAppDate";
-            colAppDate.ReadOnly = true;
-            colAppDate.Width = 150;
+            this.colAppDate.HeaderText = "Application Date";
+            this.colAppDate.Name = "colAppDate";
+            this.colAppDate.ReadOnly = true;
+            this.colAppDate.Width = 150;
             // 
             // colApplicantName
             // 
-            colApplicantName.HeaderText = "Applicant Name";
-            colApplicantName.MaxInputLength = 100;
-            colApplicantName.Name = "colApplicantName";
-            colApplicantName.ReadOnly = true;
-            colApplicantName.Width = 200;
+            this.colApplicantName.HeaderText = "Applicant Name";
+            this.colApplicantName.MaxInputLength = 100;
+            this.colApplicantName.Name = "colApplicantName";
+            this.colApplicantName.ReadOnly = true;
+            this.colApplicantName.Width = 200;
             // 
             // dataGridJobApplicants
             // 
-            dataGridJobApplicants.AllowUserToAddRows = false;
-            dataGridJobApplicants.AllowUserToDeleteRows = false;
-            dataGridJobApplicants.AllowUserToResizeRows = false;
-            dataGridJobApplicants.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridJobApplicants.Columns.AddRange(new DataGridViewColumn[] { colApplicantName, colAppDate, colStatus, colPostDate });
-            dataGridJobApplicants.Location = new Point(12, 93);
-            dataGridJobApplicants.Name = "dataGridJobApplicants";
-            dataGridJobApplicants.Size = new Size(643, 419);
-            dataGridJobApplicants.TabIndex = 2;
+            this.dataGridJobApplicants.AllowUserToAddRows = false;
+            this.dataGridJobApplicants.AllowUserToDeleteRows = false;
+            this.dataGridJobApplicants.AllowUserToResizeRows = false;
+            this.dataGridJobApplicants.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridJobApplicants.Columns.AddRange(new DataGridViewColumn[] { this.colApplicantName, this.colAppDate, this.colStatus, this.colPostDate });
+            this.dataGridJobApplicants.Location = new Point(12, 93);
+            this.dataGridJobApplicants.Name = "dataGridJobApplicants";
+            this.dataGridJobApplicants.Size = new Size(643, 419);
+            this.dataGridJobApplicants.TabIndex = 2;
             // 
             // ListOfApplicantsForm
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(667, 524);
-            Controls.Add(panelHeader);
-            Controls.Add(dataGridJobApplicants);
-            Name = "ListOfApplicantsForm";
-            Text = "List of Applicants";
-            panelHeader.ResumeLayout(false);
-            panelHeader.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridJobApplicants).EndInit();
-            ResumeLayout(false);
+            this.AutoScaleDimensions = new SizeF(7F, 15F);
+            this.AutoScaleMode = AutoScaleMode.Font;
+            this.ClientSize = new Size(667, 524);
+            this.Controls.Add(this.panelHeader);
+            this.Controls.Add(this.dataGridJobApplicants);
+            this.Name = "ListOfApplicantsForm";
+            this.Text = "List of Applicants";
+            this.panelHeader.ResumeLayout(false);
+            this.panelHeader.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize) this.dataGridJobApplicants).EndInit();
+            this.ResumeLayout(false);
         }
 
         #endregion

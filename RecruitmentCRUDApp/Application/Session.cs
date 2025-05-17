@@ -9,10 +9,11 @@ namespace Models
     public static class Session
     {
         public static int? CurrentUserId { get; set; }
-
-        public static void Login(int userId)
+        public static string UserType { get; set; }
+        public static void Login(int userId, string userType)
         {
             CurrentUserId = userId;
+            UserType = userType;
         }
 
         public static void Logout()

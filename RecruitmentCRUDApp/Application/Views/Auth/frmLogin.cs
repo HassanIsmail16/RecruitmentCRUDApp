@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -49,8 +50,9 @@ namespace RecruitmentApplication.Views
                         {
                             if (reader.Read())
                             {
-                                Session.Login(reader.GetInt32(0));
-                            } else
+                                Session.Login(reader.GetInt32(0), reader["user_type"].ToString());
+                            } 
+                            else
                             {
                                 MessageBox.Show("Invalid email or password.", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 return;
