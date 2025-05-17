@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Data.SqlClient;
 using RecruitmentApplication.Views;
+using RecruitmentApplication.Utilities;
 
 namespace RecruitmentApplication.Views.Auth
 {
@@ -30,74 +31,114 @@ namespace RecruitmentApplication.Views.Auth
 
         private void btnSignup_Click(object sender, EventArgs e)
         {
-            string fullName = txtFullName.Text;
-            string email = txtEmail.Text;
+            string fullName = txtFullName.Text.Trim();
+            string email = txtEmail.Text.Trim();
             string password = txtPassword.Text;
             string confirmPassword = txtConfirmPassword.Text;
-            string phoneNumber = txtPhoneNumber.Text;
+            string phoneNumber = txtPhoneNumber.Text.Trim();
             DateTime? birthDate = this.birthDate.Value;
             
-            string userType;
-            if (radioBtnEmployer.Checked)
+            // Validate full name
+            if (string.IsNullOrWhiteSpace(fullName))
             {
-                userType = "Employer";
-            } else
-            {
-                userType = "JobSeeker";
+                AppUtilities.ShowError("Please enter your full name.");
+                return;
             }
 
-            string connectionString = "Data Source=.;Initial Catalog=Recruitment;Integrated Security=True;TrustServerCertificate=True;";
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            // Validate email
+            if (!AppUtilities.IsValidEmail(email))
             {
-                connection.Open();
+                AppUtilities.ShowError("Please enter a valid email address.");
+                return;
+            }
 
-                string isEmailDuplicateQuery = "SELECT * FROM [User] WHERE email = @email";
-                SqlCommand isEmailDuplicateCmd = new SqlCommand(isEmailDuplicateQuery, connection);
-                isEmailDuplicateCmd.Parameters.Add(new SqlParameter("@email", email));
+            // Validate password
+            if (!AppUtilities.IsValidPassword(password))
+            {
+                AppUtilities.ShowError($"Password must be between {AppUtilities.ValidationRules.MinPasswordLength} and {AppUtilities.ValidationRules.MaxPasswordLength} characters long, " +
+                    "and contain at least one uppercase letter, one lowercase letter, one number, and one special character.");
+                return;
+            }
 
-                using (SqlDataReader reader = isEmailDuplicateCmd.ExecuteReader())
+            // Validate password confirmation
+            if (password != confirmPassword)
+            {
+                AppUtilities.ShowError("Passwords do not match.");
+                return;
+            }
+
+            // Validate phone number
+            if (!AppUtilities.IsValidPhoneNumber(phoneNumber))
+            {
+                AppUtilities.ShowError("Please enter a valid phone number.");
+                return;
+            }
+
+            // Validate birth date
+            if (birthDate.HasValue && !AppUtilities.IsValidBirthDate(birthDate.Value))
+            {
+                AppUtilities.ShowError("Please enter a valid birth date. You must be at least 16 years old.");
+                return;
+            }
+
+            string userType = radioBtnEmployer.Checked ? AppUtilities.DatabaseConstants.UserTypes.Employer : AppUtilities.DatabaseConstants.UserTypes.JobSeeker;
+
+            // Validate user type
+            if (!AppUtilities.IsValidUserType(userType))
+            {
+                AppUtilities.ShowError("Invalid user type selected.");
+                return;
+            }
+
+            using (SqlConnection connection = new SqlConnection(AppUtilities.DatabaseConstants.ConnectionString))
+            {
+                try
                 {
-                    if (reader.HasRows)
+                    connection.Open();
+
+                    string isEmailDuplicateQuery = "SELECT * FROM [User] WHERE email = @email";
+                    SqlCommand isEmailDuplicateCmd = new SqlCommand(isEmailDuplicateQuery, connection);
+                    isEmailDuplicateCmd.Parameters.Add(new SqlParameter("@email", email));
+
+                    using (SqlDataReader reader = isEmailDuplicateCmd.ExecuteReader())
                     {
-                        MessageBox.Show("An account already exists with this email.", "Account Creation Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
+                        if (reader.HasRows)
+                        {
+                            AppUtilities.ShowError("An account already exists with this email.");
+                            return;
+                        }
+                    }
+
+                    string signupQuery = 
+                        "INSERT INTO [User] " +
+                        "(name, email, password, phone, birth_date, user_type) " +
+                        "VALUES (@name, @email, @password, @phone, @birthDate, @userType)";
+                    SqlCommand signupCmd = new SqlCommand(signupQuery, connection);
+                    signupCmd.Parameters.AddWithValue("@name", fullName);
+                    signupCmd.Parameters.AddWithValue("@email", email);
+                    signupCmd.Parameters.AddWithValue("@password", password);
+                    signupCmd.Parameters.AddWithValue("@phone", phoneNumber);
+                    signupCmd.Parameters.AddWithValue("@birthDate", birthDate ?? (object) DBNull.Value);
+                    signupCmd.Parameters.AddWithValue("@userType", userType); 
+                    var result = signupCmd.ExecuteNonQuery();
+                    
+                    if (result > 0)
+                    {
+                        AppUtilities.ShowInfo("Account created successfully!");
+
+                        var loginForm = new frmLogin();
+                        loginForm.Show();
+                        this.Hide();
+                    } 
+                    else
+                    {
+                        AppUtilities.ShowError("Account creation failed. Please try again.");
                     }
                 }
-
-                bool passwordsMatch = password == confirmPassword;
-                if (!passwordsMatch)
+                catch (Exception ex)
                 {
-                    MessageBox.Show("Passwords do not match.", "Account Creation Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    AppUtilities.ShowError($"An error occurred: {ex.Message}");
                 }
-
-                string signupQuery = 
-                    "INSERT INTO [User] " +
-                    "(name, email, password, phone, birth_date, user_type) " +
-                    "VALUES (@name, @email, @password, @phone, @birthDate, @userType)";
-                SqlCommand signupCmd = new SqlCommand(signupQuery, connection);
-                signupCmd.Parameters.AddWithValue("@name", fullName);
-                signupCmd.Parameters.AddWithValue("@email", email);
-                signupCmd.Parameters.AddWithValue("@password", password);
-                signupCmd.Parameters.AddWithValue("@phone", phoneNumber);
-                signupCmd.Parameters.AddWithValue("@birthDate", birthDate ?? (object) DBNull.Value);
-                signupCmd.Parameters.AddWithValue("@userType", userType); 
-                var result = signupCmd.ExecuteNonQuery();
-                
-                if (result > 0)
-                {
-                    MessageBox.Show("Account created successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    var loginForm = new frmLogin();
-                    loginForm.Show();
-                    this.Hide();
-
-                } 
-                else
-                {
-                    MessageBox.Show("Account creation failed. Please try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-
             }
         }
     }
