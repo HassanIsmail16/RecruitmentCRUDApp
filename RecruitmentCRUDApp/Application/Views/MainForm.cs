@@ -73,7 +73,10 @@ namespace RecruitmentApplication.Views
 
         private void navLogoutBtn_Click(object sender, EventArgs e)
         {
-
+            Session.Logout();
+            frmLogin loginForm = new frmLogin();
+            this.Hide();
+            loginForm.Show();
         }
 
         private void navProfileBtn_Click(object sender, EventArgs e)

@@ -49,8 +49,16 @@ namespace RecruitmentApplication.Views
                     {
                         if (reader.HasRows)
                         {
+                            if (reader.Read())
+                            {
+                                Session.Login(reader.GetInt32(0));
+                            } else
+                            {
+                                MessageBox.Show("Invalid email or password.", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
+
                             MessageBox.Show("Login successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            Session.Login(reader.GetInt32(0)); 
                             MainForm mainform = new MainForm();
                             mainform.Show();
                             this.Hide();
