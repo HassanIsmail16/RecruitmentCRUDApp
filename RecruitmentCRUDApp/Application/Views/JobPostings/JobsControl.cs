@@ -49,6 +49,17 @@ namespace RecruitmentApplication.Views
             saveButtonColumn.Text = "Save";
             saveButtonColumn.UseColumnTextForButtonValue = true;
             dataGridPostings.Columns.Add(saveButtonColumn);
+
+            dataGridPostings.AllowUserToAddRows = false;
+
+            foreach (DataGridViewColumn column in dataGridPostings.Columns)
+            {
+                if (!(column is DataGridViewButtonColumn))
+                {
+                    column.SortMode = DataGridViewColumnSortMode.Programmatic;
+                }
+            }
+
             // TODO: make columns read only
         }
 
@@ -140,6 +151,42 @@ namespace RecruitmentApplication.Views
                     MessageBox.Show("Failed to show job details.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+
+            if (dataGridPostings.Columns[e.ColumnIndex].Name == "Apply")
+            {
+                var jobIdObj = dataGridPostings.Rows[e.RowIndex].Cells["vacancy_id"].Value;
+                var emplIdObj = dataGridPostings.Rows[e.RowIndex].Cells["employer_id"].Value;
+                var jobTitleObj = dataGridPostings.Rows[e.RowIndex].Cells["title"].Value;
+
+                if ((jobIdObj != null && int.TryParse(jobIdObj.ToString(), out int jobId))
+                    && (emplIdObj != null && int.TryParse(emplIdObj.ToString(), out int empId)))
+                {
+                    string jobTitle = jobTitleObj?.ToString() ?? "this job";
+
+                    if (HasUserAlreadAppliedToJob(jobId))
+                    {
+                        MessageBox.Show("You have already applied to this job.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
+                    DialogResult result = MessageBox.Show(
+                        $"Are you sure you want to apply to \"{jobTitle}\"?",
+                        "Confirm Application",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Question
+                    );
+
+                    if (result == DialogResult.Yes)
+                    {
+                        ApplyToJob(jobId, empId);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Failed to apply to the job.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+
         }
 
         private void SaveJob(int jobId)
@@ -172,6 +219,53 @@ namespace RecruitmentApplication.Views
                 {
                     MessageBox.Show("Failed to save job.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+            }
+        }
+
+        private void ApplyToJob(int jobId, int employerId)
+        {
+            string connectionString = "Data Source=.;Initial Catalog=Recruitment;Integrated Security=True;TrustServerCertificate=True;";
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                string applyToJobQuery =
+                    @"INSERT INTO [JobApplication]
+                      (jobseeker_id, vacancy_id, employer_id)
+                      VALUES (@userId, @jobId, @empId);";
+                SqlCommand applyToJobCommand = new SqlCommand(applyToJobQuery, connection);
+                applyToJobCommand.Parameters.AddWithValue("@userId", Session.CurrentUserId);
+                applyToJobCommand.Parameters.AddWithValue("@jobId", jobId);
+                applyToJobCommand.Parameters.AddWithValue("@empId", employerId);
+
+                var result = applyToJobCommand.ExecuteNonQuery();
+
+                if (result > 0)
+                {
+                    MessageBox.Show("Successfully applied to job.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Failed to apply to the job.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private bool HasUserAlreadAppliedToJob(int jobId)
+        {
+            string connectionString = "Data Source=.;Initial Catalog=Recruitment;Integrated Security=True;TrustServerCertificate=True;";
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                string hasUserAppliedQuery = "SELECT * FROM [JobApplication] WHERE vacancy_id = @jobId AND jobseeker_id = @userId";
+                SqlCommand hasUserAppliedCmd = new SqlCommand(hasUserAppliedQuery, connection);
+                hasUserAppliedCmd.Parameters.AddWithValue("@jobId", jobId);
+                hasUserAppliedCmd.Parameters.AddWithValue("@userId", Session.CurrentUserId);
+                SqlDataReader reader = hasUserAppliedCmd.ExecuteReader();
+                bool applied = reader.HasRows;
+                reader.Close();
+                return applied;
             }
         }
 
