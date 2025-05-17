@@ -70,7 +70,7 @@ namespace RecruitmentApplication.Views
 
         private void dataGridPostings_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex == 0)
+            if (e.RowIndex < 0)
             {
                 return;
             }
