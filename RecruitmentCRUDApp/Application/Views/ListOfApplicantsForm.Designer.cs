@@ -38,8 +38,10 @@
             this.colAppDate = new DataGridViewTextBoxColumn();
             this.colApplicantName = new DataGridViewTextBoxColumn();
             this.dataGridJobApplicants = new DataGridView();
+            this.tableLayoutPanel1 = new TableLayoutPanel();
             this.panelHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize) this.dataGridJobApplicants).BeginInit();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelHeader
@@ -50,16 +52,17 @@
             this.panelHeader.Controls.Add(this.btnSaveChanges);
             this.panelHeader.Controls.Add(this.btnCancel);
             this.panelHeader.Controls.Add(this.btnRefresh);
-            this.panelHeader.Location = new Point(12, 12);
+            this.panelHeader.Dock = DockStyle.Fill;
+            this.panelHeader.Location = new Point(3, 3);
             this.panelHeader.Name = "panelHeader";
-            this.panelHeader.Size = new Size(643, 64);
+            this.panelHeader.Size = new Size(661, 74);
             this.panelHeader.TabIndex = 3;
             // 
             // labelLOA
             // 
             this.labelLOA.AutoSize = true;
             this.labelLOA.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point,  0);
-            this.labelLOA.Location = new Point(3, 15);
+            this.labelLOA.Location = new Point(20, 18);
             this.labelLOA.Name = "labelLOA";
             this.labelLOA.Size = new Size(212, 32);
             this.labelLOA.TabIndex = 9;
@@ -67,7 +70,7 @@
             // 
             // btnSaveChanges
             // 
-            this.btnSaveChanges.Location = new Point(456, 15);
+            this.btnSaveChanges.Location = new Point(474, 20);
             this.btnSaveChanges.Name = "btnSaveChanges";
             this.btnSaveChanges.Size = new Size(94, 32);
             this.btnSaveChanges.TabIndex = 8;
@@ -76,7 +79,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new Point(556, 15);
+            this.btnCancel.Location = new Point(573, 20);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new Size(75, 32);
             this.btnCancel.TabIndex = 7;
@@ -85,7 +88,7 @@
             // 
             // btnRefresh
             // 
-            this.btnRefresh.Location = new Point(375, 15);
+            this.btnRefresh.Location = new Point(395, 20);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new Size(75, 32);
             this.btnRefresh.TabIndex = 6;
@@ -127,23 +130,39 @@
             this.dataGridJobApplicants.AllowUserToResizeRows = false;
             this.dataGridJobApplicants.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridJobApplicants.Columns.AddRange(new DataGridViewColumn[] { this.colApplicantName, this.colAppDate, this.colStatus, this.colPostDate });
-            this.dataGridJobApplicants.Location = new Point(12, 93);
+            this.dataGridJobApplicants.Dock = DockStyle.Fill;
+            this.dataGridJobApplicants.Location = new Point(3, 83);
             this.dataGridJobApplicants.Name = "dataGridJobApplicants";
-            this.dataGridJobApplicants.Size = new Size(643, 419);
+            this.dataGridJobApplicants.Size = new Size(661, 438);
             this.dataGridJobApplicants.TabIndex = 2;
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 1;
+            this.tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Controls.Add(this.panelHeader, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.dataGridJobApplicants, 0, 1);
+            this.tableLayoutPanel1.Dock = DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new Point(0, 0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 15.2671757F));
+            this.tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 84.73283F));
+            this.tableLayoutPanel1.Size = new Size(667, 524);
+            this.tableLayoutPanel1.TabIndex = 4;
             // 
             // ListOfApplicantsForm
             // 
             this.AutoScaleDimensions = new SizeF(7F, 15F);
             this.AutoScaleMode = AutoScaleMode.Font;
             this.ClientSize = new Size(667, 524);
-            this.Controls.Add(this.panelHeader);
-            this.Controls.Add(this.dataGridJobApplicants);
+            this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "ListOfApplicantsForm";
             this.Text = "List of Applicants";
             this.panelHeader.ResumeLayout(false);
             this.panelHeader.PerformLayout();
             ((System.ComponentModel.ISupportInitialize) this.dataGridJobApplicants).EndInit();
+            this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
         }
 
@@ -158,5 +177,6 @@
         private DataGridViewTextBoxColumn colAppDate;
         private DataGridViewTextBoxColumn colApplicantName;
         private DataGridView dataGridJobApplicants;
+        private TableLayoutPanel tableLayoutPanel1;
     }
 }
