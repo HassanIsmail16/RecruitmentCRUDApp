@@ -56,10 +56,12 @@ namespace RecruitmentApplication.Views
                 toolStrip1.Items.Add(CreateNavButton("Posted Jobs", null,
                     () => ShowControl(new PostedJobsControl())));
 
+                bool isUserPartofACompany = IsUserPartOfACompany();
+
                 toolStrip1.Items.Add(CreateNavButton("Post a Job", null,
                     () =>
                     {
-                        if (IsUserPartOfACompany())
+                        if (isUserPartofACompany)
                         {
                             var postJobForm = new PostJobForm();
                             postJobForm.ShowDialog();
@@ -67,6 +69,19 @@ namespace RecruitmentApplication.Views
                         else
                         {
                             MessageBox.Show("You have to be part of a company to post a job!", "Cannot Post a Job", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }));
+
+                toolStrip1.Items.Add(CreateNavButton("Company Profile", null,
+                    () =>
+                    {
+                        if (isUserPartofACompany)
+                        {
+                            ShowControl(new CompanyControl(GetUserCompanyId().Value));
+                        }
+                        else
+                        {
+                            MessageBox.Show("You have to be part of a company!", "Cannot View Company Profile", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }));
             }
@@ -77,6 +92,11 @@ namespace RecruitmentApplication.Views
         }
 
         private bool IsUserPartOfACompany()
+        {
+            return GetUserCompanyId().HasValue;
+        }
+        
+        private int? GetUserCompanyId()
         {
             string connectionString = "Data Source=.;Initial Catalog=Recruitment;Integrated Security=True;TrustServerCertificate=True;";
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -92,16 +112,16 @@ namespace RecruitmentApplication.Views
                     bool hasCompany = !reader.IsDBNull(reader.GetOrdinal("company_id"));
                     if (hasCompany)
                     {
-                        return true;
+                        return Int32.Parse(reader["company_id"].ToString());
                     }
                     else
                     {
-                        return false;
+                        return null;
                     }
                 }
                 else
                 {
-                    return false;
+                    return null;
                 }
             }
         }

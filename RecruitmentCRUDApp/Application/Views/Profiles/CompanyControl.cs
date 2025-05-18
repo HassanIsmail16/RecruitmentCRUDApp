@@ -16,9 +16,11 @@ namespace RecruitmentApplication.Views.Profiles
 {
     public partial class CompanyControl : UserControl
     {
-        public CompanyControl()
+        private int companyId;
+        public CompanyControl(int companyId)
         {
             InitializeComponent();
+            this.companyId = companyId;
         }
 
         private void btnSaveChanges_Click(object sender, EventArgs e)
@@ -36,7 +38,7 @@ namespace RecruitmentApplication.Views.Profiles
 
                 if (userChanges <= 0)
                 {
-                    MessageBox.Show("Couldn't user information skills changes.", "Save Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Couldn't user information changes.", "Save Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -46,18 +48,18 @@ namespace RecruitmentApplication.Views.Profiles
             string fullname = txtName.Text;
             string email = txtEmail.Text;
             string phoneNumber = txtPhoneNumber.Text;
-            string descryption = textBoxDescryption.Text;
+            string description = textBoxDescryption.Text;
 
             string saveUserChangesQuery =
-                "UPDATE [User] " +
-                "SET name = @name, email = @email,phone = @phoneNumber, descryption = @descryption " +
-                "WHERE user_id = @userId;";
+                "UPDATE [Company] " +
+                "SET name = @name, email = @email,phone = @phoneNumber, description = @desc " +
+                "WHERE company_id = @companyId;";
             SqlCommand saveUserChangesCmd = new SqlCommand(saveUserChangesQuery, connection);
             saveUserChangesCmd.Parameters.AddWithValue("@name", fullname);
             saveUserChangesCmd.Parameters.AddWithValue("@email", email);
             saveUserChangesCmd.Parameters.AddWithValue("@phoneNumber", phoneNumber);
-            saveUserChangesCmd.Parameters.AddWithValue("@descryption", descryption);
-            saveUserChangesCmd.Parameters.AddWithValue("@userId", Session.CurrentUserId);
+            saveUserChangesCmd.Parameters.AddWithValue("@desc", description);
+            saveUserChangesCmd.Parameters.AddWithValue("@companyId", companyId);
 
             return saveUserChangesCmd.ExecuteNonQuery();
         }
@@ -66,11 +68,10 @@ namespace RecruitmentApplication.Views.Profiles
         {
             if (Session.CurrentUserId.HasValue)
             {
-                int id = Session.CurrentUserId.Value;
                 using (SqlConnection conn = new SqlConnection("Data Source=.;Initial Catalog=Recruitment;Integrated Security=True;TrustServerCertificate=True;"))
-                using (SqlCommand cmd = new SqlCommand("SELECT name, email, phone, password, birth_date, signup_date FROM [User] WHERE user_id = @Id", conn))
+                using (SqlCommand cmd = new SqlCommand("SELECT name, email, phone, description FROM [Company] WHERE company_id = @companyId", conn))
                 {
-                    cmd.Parameters.AddWithValue("@Id", id);
+                    cmd.Parameters.AddWithValue("@companyId", companyId);
                     conn.Open();
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
