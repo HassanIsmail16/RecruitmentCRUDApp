@@ -37,7 +37,6 @@
             comboBoxCompany = new ComboBox();
             labelCompany = new Label();
             tabPersonalInfo = new TabPage();
-            birthDatePicker = new DateTimePicker();
             txtEmail = new TextBox();
             textBox4 = new TextBox();
             txtPhoneNumber = new TextBox();
@@ -52,6 +51,7 @@
             labelPersonalInfo = new Label();
             tabControlProfileInfo = new TabControl();
             layout = new TableLayoutPanel();
+            birthDatePicker = new DateTimePicker();
             panelHeader.SuspendLayout();
             tabCompany.SuspendLayout();
             tabPersonalInfo.SuspendLayout();
@@ -87,7 +87,7 @@
             btnSaveChanges.Location = new Point(502, 577);
             btnSaveChanges.Name = "btnSaveChanges";
             btnSaveChanges.Size = new Size(112, 38);
-            btnSaveChanges.TabIndex = 26;
+            btnSaveChanges.TabIndex = 9;
             btnSaveChanges.Text = "Save Changes";
             btnSaveChanges.UseVisualStyleBackColor = true;
             btnSaveChanges.Click += btnSaveChanges_Click;
@@ -117,9 +117,9 @@
             // 
             // buttonCreateCompany
             // 
-            buttonCreateCompany.Location = new Point(331, 91);
+            buttonCreateCompany.Location = new Point(203, 30);
             buttonCreateCompany.Name = "buttonCreateCompany";
-            buttonCreateCompany.Size = new Size(106, 23);
+            buttonCreateCompany.Size = new Size(106, 32);
             buttonCreateCompany.TabIndex = 3;
             buttonCreateCompany.Text = "Create Company";
             buttonCreateCompany.UseVisualStyleBackColor = true;
@@ -131,7 +131,7 @@
             comboBoxCompany.Location = new Point(130, 91);
             comboBoxCompany.Name = "comboBoxCompany";
             comboBoxCompany.Size = new Size(179, 23);
-            comboBoxCompany.TabIndex = 2;
+            comboBoxCompany.TabIndex = 4;
             comboBoxCompany.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             // 
             // labelCompany
@@ -168,21 +168,14 @@
             tabPersonalInfo.Text = "Personal Information";
             tabPersonalInfo.UseVisualStyleBackColor = true;
             // 
-            // birthDatePicker
-            // 
-            birthDatePicker.Location = new Point(127, 281);
-            birthDatePicker.Name = "birthDatePicker";
-            birthDatePicker.Size = new Size(248, 23);
-            birthDatePicker.TabIndex = 12;
-            // 
             // txtEmail
             // 
             txtEmail.Location = new Point(127, 133);
             txtEmail.MaxLength = 100;
             txtEmail.Name = "txtEmail";
             txtEmail.Size = new Size(248, 23);
-            txtEmail.TabIndex = 11;
-            txtEmail.Text = "ez_peacy@hotdog.com";
+            txtEmail.TabIndex = 4;
+            txtEmail.Text = "ez_peasy@hotdog.com";
             // 
             // textBox4
             // 
@@ -191,7 +184,7 @@
             textBox4.Name = "textBox4";
             textBox4.ReadOnly = true;
             textBox4.Size = new Size(248, 23);
-            textBox4.TabIndex = 10;
+            textBox4.TabIndex = 8;
             textBox4.Text = "16/05/2025";
             // 
             // txtPhoneNumber
@@ -200,7 +193,7 @@
             txtPhoneNumber.MaxLength = 20;
             txtPhoneNumber.Name = "txtPhoneNumber";
             txtPhoneNumber.Size = new Size(248, 23);
-            txtPhoneNumber.TabIndex = 9;
+            txtPhoneNumber.TabIndex = 6;
             txtPhoneNumber.Text = "01100123456";
             // 
             // txtPassword
@@ -210,7 +203,7 @@
             txtPassword.Name = "txtPassword";
             txtPassword.PasswordChar = '*';
             txtPassword.Size = new Size(248, 23);
-            txtPassword.TabIndex = 8;
+            txtPassword.TabIndex = 5;
             txtPassword.Text = "12345678910";
             txtPassword.UseSystemPasswordChar = true;
             // 
@@ -220,7 +213,7 @@
             txtFullName.MaxLength = 100;
             txtFullName.Name = "txtFullName";
             txtFullName.Size = new Size(248, 23);
-            txtFullName.TabIndex = 7;
+            txtFullName.TabIndex = 3;
             txtFullName.Text = "Adham Hamdy Hamed Abdulhameid";
             // 
             // labelSignupDate
@@ -235,7 +228,7 @@
             // labelBirthDate
             // 
             labelBirthDate.AutoSize = true;
-            labelBirthDate.Location = new Point(36, 285);
+            labelBirthDate.Location = new Point(48, 287);
             labelBirthDate.Name = "labelBirthDate";
             labelBirthDate.Size = new Size(62, 15);
             labelBirthDate.TabIndex = 5;
@@ -244,7 +237,7 @@
             // labelPhone
             // 
             labelPhone.AutoSize = true;
-            labelPhone.Location = new Point(36, 236);
+            labelPhone.Location = new Point(19, 235);
             labelPhone.Name = "labelPhone";
             labelPhone.Size = new Size(91, 15);
             labelPhone.TabIndex = 4;
@@ -253,7 +246,7 @@
             // labelPassword
             // 
             labelPassword.AutoSize = true;
-            labelPassword.Location = new Point(36, 187);
+            labelPassword.Location = new Point(50, 187);
             labelPassword.Name = "labelPassword";
             labelPassword.Size = new Size(60, 15);
             labelPassword.TabIndex = 3;
@@ -262,7 +255,7 @@
             // labelEmail
             // 
             labelEmail.AutoSize = true;
-            labelEmail.Location = new Point(36, 138);
+            labelEmail.Location = new Point(71, 136);
             labelEmail.Name = "labelEmail";
             labelEmail.Size = new Size(39, 15);
             labelEmail.TabIndex = 2;
@@ -271,7 +264,7 @@
             // labelFullName
             // 
             labelFullName.AutoSize = true;
-            labelFullName.Location = new Point(36, 89);
+            labelFullName.Location = new Point(46, 89);
             labelFullName.Name = "labelFullName";
             labelFullName.Size = new Size(64, 15);
             labelFullName.TabIndex = 1;
@@ -296,7 +289,7 @@
             tabControlProfileInfo.Name = "tabControlProfileInfo";
             tabControlProfileInfo.SelectedIndex = 0;
             tabControlProfileInfo.Size = new Size(611, 474);
-            tabControlProfileInfo.TabIndex = 25;
+            tabControlProfileInfo.TabIndex = 1;
             tabControlProfileInfo.Tag = "";
             // 
             // layout
@@ -315,6 +308,13 @@
             layout.RowStyles.Add(new RowStyle(SizeType.Percent, 8.396947F));
             layout.Size = new Size(617, 618);
             layout.TabIndex = 27;
+            // 
+            // birthDatePicker
+            // 
+            birthDatePicker.Location = new Point(127, 281);
+            birthDatePicker.Name = "birthDatePicker";
+            birthDatePicker.Size = new Size(248, 23);
+            birthDatePicker.TabIndex = 7;
             // 
             // EmployerControl
             // 
@@ -342,7 +342,6 @@
         private TabPage tabCompany;
         private Label labelCompany;
         private TabPage tabPersonalInfo;
-        private DateTimePicker birthDatePicker;
         private TextBox txtEmail;
         private TextBox textBox4;
         private TextBox txtPhoneNumber;
@@ -360,5 +359,6 @@
         private Button buttonCreateCompany;
         private TableLayoutPanel layout;
         private Label labelSelectCompany;
+        private DateTimePicker birthDatePicker;
     }
 }
