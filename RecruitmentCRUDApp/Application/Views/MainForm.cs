@@ -56,12 +56,11 @@ namespace RecruitmentApplication.Views
                 toolStrip1.Items.Add(CreateNavButton("Posted Jobs", null,
                     () => ShowControl(new PostedJobsControl())));
 
-                bool isUserPartofACompany = IsUserPartOfACompany();
 
                 toolStrip1.Items.Add(CreateNavButton("Post a Job", null,
                     () =>
                     {
-                        if (isUserPartofACompany)
+                        if (IsUserPartOfACompany())
                         {
                             var postJobForm = new PostJobForm();
                             postJobForm.ShowDialog();
@@ -75,7 +74,7 @@ namespace RecruitmentApplication.Views
                 toolStrip1.Items.Add(CreateNavButton("Company Profile", null,
                     () =>
                     {
-                        if (isUserPartofACompany)
+                        if (IsUserPartOfACompany())
                         {
                             ShowControl(new CompanyControl(GetUserCompanyId().Value));
                         }

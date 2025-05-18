@@ -243,6 +243,7 @@ namespace RecruitmentApplication.Views.Profiles
 
 
             createCompanyForm.ShowDialog();
+            LoadCompanyDataIntoComboBox();
         }
     }
 }
