@@ -48,7 +48,7 @@ namespace RecruitmentApplication.Views.Profiles
             string fullname = txtName.Text;
             string email = txtEmail.Text;
             string phoneNumber = txtPhoneNumber.Text;
-            string description = textBoxDescryption.Text;
+            string description = textBoxDescription.Text;
 
             string saveUserChangesQuery =
                 "UPDATE [Company] " +
@@ -81,7 +81,7 @@ namespace RecruitmentApplication.Views.Profiles
                             txtName.Text = reader["name"]?.ToString() ?? "";
                             txtEmail.Text = reader["email"]?.ToString() ?? "";
                             txtPhoneNumber.Text = reader["phone"]?.ToString() ?? "";
-                            textBoxDescryption.Text = reader["description"]?.ToString() ?? "";
+                            textBoxDescription.Text = reader["description"]?.ToString() ?? "";
                         }
                         else
                         {
@@ -102,7 +102,7 @@ namespace RecruitmentApplication.Views.Profiles
             txtName.Text = "";
             txtEmail.Text = "";
             txtPhoneNumber.Text = "";
-            textBoxDescryption.Text = "";
+            textBoxDescription.Text = "";
         }
         private void txtFullName_TextChanged(object sender, EventArgs e)
         {

@@ -28,315 +28,315 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.refreshBtn = new Button();
-            this.groupJobType = new GroupBox();
-            this.cbxJobTypeContract = new CheckBox();
-            this.cbxJobTypePartTime = new CheckBox();
-            this.cbxJobTypeFullTime = new CheckBox();
-            this.gboxWorkMode = new GroupBox();
-            this.cboxWorkModeHybrid = new CheckBox();
-            this.cboxWorkModeRemote = new CheckBox();
-            this.cboxWorkModeOnSite = new CheckBox();
-            this.gboxExperienceLevel = new GroupBox();
-            this.cboxExperienceLevelStudent = new CheckBox();
-            this.cboxExperienceLevelFreshGrad = new CheckBox();
-            this.cboxExperienceLevelJunior = new CheckBox();
-            this.cboxExperienceLevelMidLevel = new CheckBox();
-            this.cboxExperienceLevelSenior = new CheckBox();
-            this.btnApplyFilters = new Button();
-            this.tboxSearchInput = new TextBox();
-            this.btnSearch = new Button();
-            this.dataGridPostings = new DataGridView();
-            this.layout = new TableLayoutPanel();
-            this.searchPanel = new Panel();
-            this.filtersPanel = new Panel();
-            this.btnClearFilters = new Button();
-            this.groupJobType.SuspendLayout();
-            this.gboxWorkMode.SuspendLayout();
-            this.gboxExperienceLevel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize) this.dataGridPostings).BeginInit();
-            this.layout.SuspendLayout();
-            this.searchPanel.SuspendLayout();
-            this.filtersPanel.SuspendLayout();
-            this.SuspendLayout();
+            refreshBtn = new Button();
+            groupJobType = new GroupBox();
+            cbxJobTypeContract = new CheckBox();
+            cbxJobTypePartTime = new CheckBox();
+            cbxJobTypeFullTime = new CheckBox();
+            gboxWorkMode = new GroupBox();
+            cboxWorkModeHybrid = new CheckBox();
+            cboxWorkModeRemote = new CheckBox();
+            cboxWorkModeOnSite = new CheckBox();
+            gboxExperienceLevel = new GroupBox();
+            cboxExperienceLevelStudent = new CheckBox();
+            cboxExperienceLevelFreshGrad = new CheckBox();
+            cboxExperienceLevelJunior = new CheckBox();
+            cboxExperienceLevelMidLevel = new CheckBox();
+            cboxExperienceLevelSenior = new CheckBox();
+            btnApplyFilters = new Button();
+            tboxSearchInput = new TextBox();
+            btnSearch = new Button();
+            dataGridPostings = new DataGridView();
+            layout = new TableLayoutPanel();
+            searchPanel = new Panel();
+            filtersPanel = new Panel();
+            btnClearFilters = new Button();
+            groupJobType.SuspendLayout();
+            gboxWorkMode.SuspendLayout();
+            gboxExperienceLevel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridPostings).BeginInit();
+            layout.SuspendLayout();
+            searchPanel.SuspendLayout();
+            filtersPanel.SuspendLayout();
+            SuspendLayout();
             // 
             // refreshBtn
             // 
-            this.refreshBtn.Anchor = AnchorStyles.Left;
-            this.refreshBtn.Location = new Point(6, 15);
-            this.refreshBtn.Name = "refreshBtn";
-            this.refreshBtn.Size = new Size(98, 38);
-            this.refreshBtn.TabIndex = 1;
-            this.refreshBtn.Text = "Refresh";
-            this.refreshBtn.UseVisualStyleBackColor = true;
-            this.refreshBtn.Click += this.refreshBtn_Click;
+            refreshBtn.Anchor = AnchorStyles.Left;
+            refreshBtn.Location = new Point(6, 15);
+            refreshBtn.Name = "refreshBtn";
+            refreshBtn.Size = new Size(98, 38);
+            refreshBtn.TabIndex = 4;
+            refreshBtn.Text = "Refresh";
+            refreshBtn.UseVisualStyleBackColor = true;
+            refreshBtn.Click += refreshBtn_Click;
             // 
             // groupJobType
             // 
-            this.groupJobType.Controls.Add(this.cbxJobTypeContract);
-            this.groupJobType.Controls.Add(this.cbxJobTypePartTime);
-            this.groupJobType.Controls.Add(this.cbxJobTypeFullTime);
-            this.groupJobType.Location = new Point(122, 15);
-            this.groupJobType.Name = "groupJobType";
-            this.groupJobType.Size = new Size(103, 152);
-            this.groupJobType.TabIndex = 2;
-            this.groupJobType.TabStop = false;
-            this.groupJobType.Text = "Job Type";
+            groupJobType.Controls.Add(cbxJobTypeContract);
+            groupJobType.Controls.Add(cbxJobTypePartTime);
+            groupJobType.Controls.Add(cbxJobTypeFullTime);
+            groupJobType.Location = new Point(122, 15);
+            groupJobType.Name = "groupJobType";
+            groupJobType.Size = new Size(103, 152);
+            groupJobType.TabIndex = 2;
+            groupJobType.TabStop = false;
+            groupJobType.Text = "Job Type";
             // 
             // cbxJobTypeContract
             // 
-            this.cbxJobTypeContract.AutoSize = true;
-            this.cbxJobTypeContract.Location = new Point(12, 69);
-            this.cbxJobTypeContract.Name = "cbxJobTypeContract";
-            this.cbxJobTypeContract.Size = new Size(72, 19);
-            this.cbxJobTypeContract.TabIndex = 0;
-            this.cbxJobTypeContract.Text = "Contract";
-            this.cbxJobTypeContract.UseVisualStyleBackColor = true;
+            cbxJobTypeContract.AutoSize = true;
+            cbxJobTypeContract.Location = new Point(12, 69);
+            cbxJobTypeContract.Name = "cbxJobTypeContract";
+            cbxJobTypeContract.Size = new Size(72, 19);
+            cbxJobTypeContract.TabIndex = 9;
+            cbxJobTypeContract.Text = "Contract";
+            cbxJobTypeContract.UseVisualStyleBackColor = true;
             // 
             // cbxJobTypePartTime
             // 
-            this.cbxJobTypePartTime.AutoSize = true;
-            this.cbxJobTypePartTime.Location = new Point(12, 44);
-            this.cbxJobTypePartTime.Name = "cbxJobTypePartTime";
-            this.cbxJobTypePartTime.Size = new Size(78, 19);
-            this.cbxJobTypePartTime.TabIndex = 0;
-            this.cbxJobTypePartTime.Text = "Part-Time";
-            this.cbxJobTypePartTime.UseVisualStyleBackColor = true;
+            cbxJobTypePartTime.AutoSize = true;
+            cbxJobTypePartTime.Location = new Point(12, 44);
+            cbxJobTypePartTime.Name = "cbxJobTypePartTime";
+            cbxJobTypePartTime.Size = new Size(79, 19);
+            cbxJobTypePartTime.TabIndex = 8;
+            cbxJobTypePartTime.Text = "Part-Time";
+            cbxJobTypePartTime.UseVisualStyleBackColor = true;
             // 
             // cbxJobTypeFullTime
             // 
-            this.cbxJobTypeFullTime.AutoSize = true;
-            this.cbxJobTypeFullTime.Location = new Point(12, 19);
-            this.cbxJobTypeFullTime.Name = "cbxJobTypeFullTime";
-            this.cbxJobTypeFullTime.Size = new Size(76, 19);
-            this.cbxJobTypeFullTime.TabIndex = 0;
-            this.cbxJobTypeFullTime.Text = "Full-Time";
-            this.cbxJobTypeFullTime.UseVisualStyleBackColor = true;
+            cbxJobTypeFullTime.AutoSize = true;
+            cbxJobTypeFullTime.Location = new Point(12, 19);
+            cbxJobTypeFullTime.Name = "cbxJobTypeFullTime";
+            cbxJobTypeFullTime.Size = new Size(77, 19);
+            cbxJobTypeFullTime.TabIndex = 7;
+            cbxJobTypeFullTime.Text = "Full-Time";
+            cbxJobTypeFullTime.UseVisualStyleBackColor = true;
             // 
             // gboxWorkMode
             // 
-            this.gboxWorkMode.Controls.Add(this.cboxWorkModeHybrid);
-            this.gboxWorkMode.Controls.Add(this.cboxWorkModeRemote);
-            this.gboxWorkMode.Controls.Add(this.cboxWorkModeOnSite);
-            this.gboxWorkMode.Location = new Point(231, 15);
-            this.gboxWorkMode.Name = "gboxWorkMode";
-            this.gboxWorkMode.Size = new Size(94, 152);
-            this.gboxWorkMode.TabIndex = 2;
-            this.gboxWorkMode.TabStop = false;
-            this.gboxWorkMode.Text = "Work Mode";
+            gboxWorkMode.Controls.Add(cboxWorkModeHybrid);
+            gboxWorkMode.Controls.Add(cboxWorkModeRemote);
+            gboxWorkMode.Controls.Add(cboxWorkModeOnSite);
+            gboxWorkMode.Location = new Point(231, 15);
+            gboxWorkMode.Name = "gboxWorkMode";
+            gboxWorkMode.Size = new Size(94, 152);
+            gboxWorkMode.TabIndex = 2;
+            gboxWorkMode.TabStop = false;
+            gboxWorkMode.Text = "Work Mode";
             // 
             // cboxWorkModeHybrid
             // 
-            this.cboxWorkModeHybrid.AutoSize = true;
-            this.cboxWorkModeHybrid.Location = new Point(12, 69);
-            this.cboxWorkModeHybrid.Name = "cboxWorkModeHybrid";
-            this.cboxWorkModeHybrid.Size = new Size(62, 19);
-            this.cboxWorkModeHybrid.TabIndex = 0;
-            this.cboxWorkModeHybrid.Text = "Hybrid";
-            this.cboxWorkModeHybrid.UseVisualStyleBackColor = true;
+            cboxWorkModeHybrid.AutoSize = true;
+            cboxWorkModeHybrid.Location = new Point(12, 69);
+            cboxWorkModeHybrid.Name = "cboxWorkModeHybrid";
+            cboxWorkModeHybrid.Size = new Size(62, 19);
+            cboxWorkModeHybrid.TabIndex = 12;
+            cboxWorkModeHybrid.Text = "Hybrid";
+            cboxWorkModeHybrid.UseVisualStyleBackColor = true;
             // 
             // cboxWorkModeRemote
             // 
-            this.cboxWorkModeRemote.AutoSize = true;
-            this.cboxWorkModeRemote.Location = new Point(12, 44);
-            this.cboxWorkModeRemote.Name = "cboxWorkModeRemote";
-            this.cboxWorkModeRemote.Size = new Size(67, 19);
-            this.cboxWorkModeRemote.TabIndex = 0;
-            this.cboxWorkModeRemote.Text = "Remote";
-            this.cboxWorkModeRemote.UseVisualStyleBackColor = true;
+            cboxWorkModeRemote.AutoSize = true;
+            cboxWorkModeRemote.Location = new Point(12, 44);
+            cboxWorkModeRemote.Name = "cboxWorkModeRemote";
+            cboxWorkModeRemote.Size = new Size(67, 19);
+            cboxWorkModeRemote.TabIndex = 11;
+            cboxWorkModeRemote.Text = "Remote";
+            cboxWorkModeRemote.UseVisualStyleBackColor = true;
             // 
             // cboxWorkModeOnSite
             // 
-            this.cboxWorkModeOnSite.AutoSize = true;
-            this.cboxWorkModeOnSite.Location = new Point(12, 19);
-            this.cboxWorkModeOnSite.Name = "cboxWorkModeOnSite";
-            this.cboxWorkModeOnSite.Size = new Size(66, 19);
-            this.cboxWorkModeOnSite.TabIndex = 0;
-            this.cboxWorkModeOnSite.Text = "On-Site";
-            this.cboxWorkModeOnSite.UseVisualStyleBackColor = true;
+            cboxWorkModeOnSite.AutoSize = true;
+            cboxWorkModeOnSite.Location = new Point(12, 19);
+            cboxWorkModeOnSite.Name = "cboxWorkModeOnSite";
+            cboxWorkModeOnSite.Size = new Size(66, 19);
+            cboxWorkModeOnSite.TabIndex = 10;
+            cboxWorkModeOnSite.Text = "On-Site";
+            cboxWorkModeOnSite.UseVisualStyleBackColor = true;
             // 
             // gboxExperienceLevel
             // 
-            this.gboxExperienceLevel.Controls.Add(this.cboxExperienceLevelStudent);
-            this.gboxExperienceLevel.Controls.Add(this.cboxExperienceLevelFreshGrad);
-            this.gboxExperienceLevel.Controls.Add(this.cboxExperienceLevelJunior);
-            this.gboxExperienceLevel.Controls.Add(this.cboxExperienceLevelMidLevel);
-            this.gboxExperienceLevel.Controls.Add(this.cboxExperienceLevelSenior);
-            this.gboxExperienceLevel.Location = new Point(331, 15);
-            this.gboxExperienceLevel.Name = "gboxExperienceLevel";
-            this.gboxExperienceLevel.Size = new Size(124, 152);
-            this.gboxExperienceLevel.TabIndex = 2;
-            this.gboxExperienceLevel.TabStop = false;
-            this.gboxExperienceLevel.Text = "Experience Level";
+            gboxExperienceLevel.Controls.Add(cboxExperienceLevelStudent);
+            gboxExperienceLevel.Controls.Add(cboxExperienceLevelFreshGrad);
+            gboxExperienceLevel.Controls.Add(cboxExperienceLevelJunior);
+            gboxExperienceLevel.Controls.Add(cboxExperienceLevelMidLevel);
+            gboxExperienceLevel.Controls.Add(cboxExperienceLevelSenior);
+            gboxExperienceLevel.Location = new Point(331, 15);
+            gboxExperienceLevel.Name = "gboxExperienceLevel";
+            gboxExperienceLevel.Size = new Size(124, 152);
+            gboxExperienceLevel.TabIndex = 2;
+            gboxExperienceLevel.TabStop = false;
+            gboxExperienceLevel.Text = "Experience Level";
             // 
             // cboxExperienceLevelStudent
             // 
-            this.cboxExperienceLevelStudent.AutoSize = true;
-            this.cboxExperienceLevelStudent.Location = new Point(12, 119);
-            this.cboxExperienceLevelStudent.Name = "cboxExperienceLevelStudent";
-            this.cboxExperienceLevelStudent.Size = new Size(67, 19);
-            this.cboxExperienceLevelStudent.TabIndex = 0;
-            this.cboxExperienceLevelStudent.Text = "Student";
-            this.cboxExperienceLevelStudent.UseVisualStyleBackColor = true;
+            cboxExperienceLevelStudent.AutoSize = true;
+            cboxExperienceLevelStudent.Location = new Point(12, 119);
+            cboxExperienceLevelStudent.Name = "cboxExperienceLevelStudent";
+            cboxExperienceLevelStudent.Size = new Size(67, 19);
+            cboxExperienceLevelStudent.TabIndex = 17;
+            cboxExperienceLevelStudent.Text = "Student";
+            cboxExperienceLevelStudent.UseVisualStyleBackColor = true;
             // 
             // cboxExperienceLevelFreshGrad
             // 
-            this.cboxExperienceLevelFreshGrad.AutoSize = true;
-            this.cboxExperienceLevelFreshGrad.Location = new Point(12, 94);
-            this.cboxExperienceLevelFreshGrad.Name = "cboxExperienceLevelFreshGrad";
-            this.cboxExperienceLevelFreshGrad.Size = new Size(105, 19);
-            this.cboxExperienceLevelFreshGrad.TabIndex = 0;
-            this.cboxExperienceLevelFreshGrad.Text = "Fresh Graduate";
-            this.cboxExperienceLevelFreshGrad.UseVisualStyleBackColor = true;
+            cboxExperienceLevelFreshGrad.AutoSize = true;
+            cboxExperienceLevelFreshGrad.Location = new Point(12, 94);
+            cboxExperienceLevelFreshGrad.Name = "cboxExperienceLevelFreshGrad";
+            cboxExperienceLevelFreshGrad.Size = new Size(105, 19);
+            cboxExperienceLevelFreshGrad.TabIndex = 16;
+            cboxExperienceLevelFreshGrad.Text = "Fresh Graduate";
+            cboxExperienceLevelFreshGrad.UseVisualStyleBackColor = true;
             // 
             // cboxExperienceLevelJunior
             // 
-            this.cboxExperienceLevelJunior.AutoSize = true;
-            this.cboxExperienceLevelJunior.Location = new Point(12, 69);
-            this.cboxExperienceLevelJunior.Name = "cboxExperienceLevelJunior";
-            this.cboxExperienceLevelJunior.Size = new Size(58, 19);
-            this.cboxExperienceLevelJunior.TabIndex = 0;
-            this.cboxExperienceLevelJunior.Text = "Junior";
-            this.cboxExperienceLevelJunior.UseVisualStyleBackColor = true;
+            cboxExperienceLevelJunior.AutoSize = true;
+            cboxExperienceLevelJunior.Location = new Point(12, 69);
+            cboxExperienceLevelJunior.Name = "cboxExperienceLevelJunior";
+            cboxExperienceLevelJunior.Size = new Size(58, 19);
+            cboxExperienceLevelJunior.TabIndex = 15;
+            cboxExperienceLevelJunior.Text = "Junior";
+            cboxExperienceLevelJunior.UseVisualStyleBackColor = true;
             // 
             // cboxExperienceLevelMidLevel
             // 
-            this.cboxExperienceLevelMidLevel.AutoSize = true;
-            this.cboxExperienceLevelMidLevel.Location = new Point(12, 44);
-            this.cboxExperienceLevelMidLevel.Name = "cboxExperienceLevelMidLevel";
-            this.cboxExperienceLevelMidLevel.Size = new Size(79, 19);
-            this.cboxExperienceLevelMidLevel.TabIndex = 0;
-            this.cboxExperienceLevelMidLevel.Text = "Mid-Level";
-            this.cboxExperienceLevelMidLevel.UseVisualStyleBackColor = true;
+            cboxExperienceLevelMidLevel.AutoSize = true;
+            cboxExperienceLevelMidLevel.Location = new Point(12, 44);
+            cboxExperienceLevelMidLevel.Name = "cboxExperienceLevelMidLevel";
+            cboxExperienceLevelMidLevel.Size = new Size(79, 19);
+            cboxExperienceLevelMidLevel.TabIndex = 14;
+            cboxExperienceLevelMidLevel.Text = "Mid-Level";
+            cboxExperienceLevelMidLevel.UseVisualStyleBackColor = true;
             // 
             // cboxExperienceLevelSenior
             // 
-            this.cboxExperienceLevelSenior.AutoSize = true;
-            this.cboxExperienceLevelSenior.Location = new Point(12, 19);
-            this.cboxExperienceLevelSenior.Name = "cboxExperienceLevelSenior";
-            this.cboxExperienceLevelSenior.Size = new Size(59, 19);
-            this.cboxExperienceLevelSenior.TabIndex = 0;
-            this.cboxExperienceLevelSenior.Text = "Senior";
-            this.cboxExperienceLevelSenior.TextAlign = ContentAlignment.MiddleCenter;
-            this.cboxExperienceLevelSenior.UseVisualStyleBackColor = true;
+            cboxExperienceLevelSenior.AutoSize = true;
+            cboxExperienceLevelSenior.Location = new Point(12, 19);
+            cboxExperienceLevelSenior.Name = "cboxExperienceLevelSenior";
+            cboxExperienceLevelSenior.Size = new Size(59, 19);
+            cboxExperienceLevelSenior.TabIndex = 13;
+            cboxExperienceLevelSenior.Text = "Senior";
+            cboxExperienceLevelSenior.TextAlign = ContentAlignment.MiddleCenter;
+            cboxExperienceLevelSenior.UseVisualStyleBackColor = true;
             // 
             // btnApplyFilters
             // 
-            this.btnApplyFilters.Anchor = AnchorStyles.Left;
-            this.btnApplyFilters.Location = new Point(6, 59);
-            this.btnApplyFilters.Name = "btnApplyFilters";
-            this.btnApplyFilters.Size = new Size(98, 38);
-            this.btnApplyFilters.TabIndex = 1;
-            this.btnApplyFilters.Text = "Apply Filters";
-            this.btnApplyFilters.UseVisualStyleBackColor = true;
-            this.btnApplyFilters.Click += this.btnApplyFilters_Click;
+            btnApplyFilters.Anchor = AnchorStyles.Left;
+            btnApplyFilters.Location = new Point(6, 59);
+            btnApplyFilters.Name = "btnApplyFilters";
+            btnApplyFilters.Size = new Size(98, 38);
+            btnApplyFilters.TabIndex = 5;
+            btnApplyFilters.Text = "Apply Filters";
+            btnApplyFilters.UseVisualStyleBackColor = true;
+            btnApplyFilters.Click += btnApplyFilters_Click;
             // 
             // tboxSearchInput
             // 
-            this.tboxSearchInput.Anchor =  AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            this.tboxSearchInput.Location = new Point(6, 9);
-            this.tboxSearchInput.MinimumSize = new Size(0, 27);
-            this.tboxSearchInput.Name = "tboxSearchInput";
-            this.tboxSearchInput.PlaceholderText = "Search for available vacancies";
-            this.tboxSearchInput.Size = new Size(532, 27);
-            this.tboxSearchInput.TabIndex = 5;
+            tboxSearchInput.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            tboxSearchInput.Location = new Point(6, 9);
+            tboxSearchInput.MinimumSize = new Size(0, 27);
+            tboxSearchInput.Name = "tboxSearchInput";
+            tboxSearchInput.PlaceholderText = "Search for available vacancies";
+            tboxSearchInput.Size = new Size(532, 27);
+            tboxSearchInput.TabIndex = 1;
             // 
             // btnSearch
             // 
-            this.btnSearch.Anchor = AnchorStyles.Right;
-            this.btnSearch.Location = new Point(541, 7);
-            this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new Size(96, 31);
-            this.btnSearch.TabIndex = 6;
-            this.btnSearch.Text = "Search";
-            this.btnSearch.UseVisualStyleBackColor = true;
-            this.btnSearch.Click += this.btnSearch_Click;
+            btnSearch.Anchor = AnchorStyles.Right;
+            btnSearch.Location = new Point(541, 7);
+            btnSearch.Name = "btnSearch";
+            btnSearch.Size = new Size(96, 31);
+            btnSearch.TabIndex = 2;
+            btnSearch.Text = "Search";
+            btnSearch.UseVisualStyleBackColor = true;
+            btnSearch.Click += btnSearch_Click;
             // 
             // dataGridPostings
             // 
-            this.dataGridPostings.AllowUserToAddRows = false;
-            this.dataGridPostings.AllowUserToDeleteRows = false;
-            this.dataGridPostings.Anchor =  AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            this.dataGridPostings.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridPostings.Location = new Point(3, 53);
-            this.dataGridPostings.Name = "dataGridPostings";
-            this.dataGridPostings.Size = new Size(643, 245);
-            this.dataGridPostings.TabIndex = 7;
-            this.dataGridPostings.CellContentClick += this.dataGridPostings_CellContentClick;
+            dataGridPostings.AllowUserToAddRows = false;
+            dataGridPostings.AllowUserToDeleteRows = false;
+            dataGridPostings.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dataGridPostings.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridPostings.Location = new Point(3, 53);
+            dataGridPostings.Name = "dataGridPostings";
+            dataGridPostings.Size = new Size(643, 245);
+            dataGridPostings.TabIndex = 3;
+            dataGridPostings.CellContentClick += dataGridPostings_CellContentClick;
             // 
             // layout
             // 
-            this.layout.ColumnCount = 1;
-            this.layout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            this.layout.Controls.Add(this.dataGridPostings, 0, 1);
-            this.layout.Controls.Add(this.searchPanel, 0, 0);
-            this.layout.Controls.Add(this.filtersPanel, 0, 2);
-            this.layout.Dock = DockStyle.Fill;
-            this.layout.Location = new Point(0, 0);
-            this.layout.Name = "layout";
-            this.layout.RowCount = 3;
-            this.layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
-            this.layout.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            this.layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 200F));
-            this.layout.Size = new Size(649, 501);
-            this.layout.TabIndex = 8;
+            layout.ColumnCount = 1;
+            layout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            layout.Controls.Add(dataGridPostings, 0, 1);
+            layout.Controls.Add(searchPanel, 0, 0);
+            layout.Controls.Add(filtersPanel, 0, 2);
+            layout.Dock = DockStyle.Fill;
+            layout.Location = new Point(0, 0);
+            layout.Name = "layout";
+            layout.RowCount = 3;
+            layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
+            layout.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 200F));
+            layout.Size = new Size(649, 501);
+            layout.TabIndex = 8;
             // 
             // searchPanel
             // 
-            this.searchPanel.Controls.Add(this.btnSearch);
-            this.searchPanel.Controls.Add(this.tboxSearchInput);
-            this.searchPanel.Dock = DockStyle.Fill;
-            this.searchPanel.Location = new Point(3, 3);
-            this.searchPanel.Name = "searchPanel";
-            this.searchPanel.Size = new Size(643, 44);
-            this.searchPanel.TabIndex = 8;
+            searchPanel.Controls.Add(btnSearch);
+            searchPanel.Controls.Add(tboxSearchInput);
+            searchPanel.Dock = DockStyle.Fill;
+            searchPanel.Location = new Point(3, 3);
+            searchPanel.Name = "searchPanel";
+            searchPanel.Size = new Size(643, 44);
+            searchPanel.TabIndex = 8;
             // 
             // filtersPanel
             // 
-            this.filtersPanel.Controls.Add(this.gboxExperienceLevel);
-            this.filtersPanel.Controls.Add(this.refreshBtn);
-            this.filtersPanel.Controls.Add(this.gboxWorkMode);
-            this.filtersPanel.Controls.Add(this.btnClearFilters);
-            this.filtersPanel.Controls.Add(this.btnApplyFilters);
-            this.filtersPanel.Controls.Add(this.groupJobType);
-            this.filtersPanel.Dock = DockStyle.Fill;
-            this.filtersPanel.Location = new Point(3, 304);
-            this.filtersPanel.Name = "filtersPanel";
-            this.filtersPanel.Size = new Size(643, 194);
-            this.filtersPanel.TabIndex = 9;
+            filtersPanel.Controls.Add(gboxExperienceLevel);
+            filtersPanel.Controls.Add(refreshBtn);
+            filtersPanel.Controls.Add(gboxWorkMode);
+            filtersPanel.Controls.Add(btnClearFilters);
+            filtersPanel.Controls.Add(btnApplyFilters);
+            filtersPanel.Controls.Add(groupJobType);
+            filtersPanel.Dock = DockStyle.Fill;
+            filtersPanel.Location = new Point(3, 304);
+            filtersPanel.Name = "filtersPanel";
+            filtersPanel.Size = new Size(643, 194);
+            filtersPanel.TabIndex = 9;
             // 
             // btnClearFilters
             // 
-            this.btnClearFilters.Anchor = AnchorStyles.Left;
-            this.btnClearFilters.Location = new Point(6, 103);
-            this.btnClearFilters.Name = "btnClearFilters";
-            this.btnClearFilters.Size = new Size(98, 38);
-            this.btnClearFilters.TabIndex = 1;
-            this.btnClearFilters.Text = "Clear Filters";
-            this.btnClearFilters.UseVisualStyleBackColor = true;
-            this.btnClearFilters.Click += this.btnClearFilters_Click;
+            btnClearFilters.Anchor = AnchorStyles.Left;
+            btnClearFilters.Location = new Point(6, 103);
+            btnClearFilters.Name = "btnClearFilters";
+            btnClearFilters.Size = new Size(98, 38);
+            btnClearFilters.TabIndex = 6;
+            btnClearFilters.Text = "Clear Filters";
+            btnClearFilters.UseVisualStyleBackColor = true;
+            btnClearFilters.Click += btnClearFilters_Click;
             // 
             // JobsControl
             // 
-            this.AutoScaleDimensions = new SizeF(7F, 15F);
-            this.AutoScaleMode = AutoScaleMode.Font;
-            this.AutoScroll = true;
-            this.Controls.Add(this.layout);
-            this.Name = "JobsControl";
-            this.Size = new Size(649, 501);
-            this.Load += this.JobsControl_Load;
-            this.groupJobType.ResumeLayout(false);
-            this.groupJobType.PerformLayout();
-            this.gboxWorkMode.ResumeLayout(false);
-            this.gboxWorkMode.PerformLayout();
-            this.gboxExperienceLevel.ResumeLayout(false);
-            this.gboxExperienceLevel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize) this.dataGridPostings).EndInit();
-            this.layout.ResumeLayout(false);
-            this.searchPanel.ResumeLayout(false);
-            this.searchPanel.PerformLayout();
-            this.filtersPanel.ResumeLayout(false);
-            this.ResumeLayout(false);
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            AutoScroll = true;
+            Controls.Add(layout);
+            Name = "JobsControl";
+            Size = new Size(649, 501);
+            Load += JobsControl_Load;
+            groupJobType.ResumeLayout(false);
+            groupJobType.PerformLayout();
+            gboxWorkMode.ResumeLayout(false);
+            gboxWorkMode.PerformLayout();
+            gboxExperienceLevel.ResumeLayout(false);
+            gboxExperienceLevel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridPostings).EndInit();
+            layout.ResumeLayout(false);
+            searchPanel.ResumeLayout(false);
+            searchPanel.PerformLayout();
+            filtersPanel.ResumeLayout(false);
+            ResumeLayout(false);
         }
 
         #endregion
