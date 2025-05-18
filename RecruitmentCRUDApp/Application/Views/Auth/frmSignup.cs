@@ -141,5 +141,13 @@ namespace RecruitmentApplication.Views.Auth
                 }
             }
         }
+
+        private void frmSignup_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                Application.Exit();
+            }
+        }
     }
 }

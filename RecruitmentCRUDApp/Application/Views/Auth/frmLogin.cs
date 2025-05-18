@@ -87,5 +87,12 @@ namespace RecruitmentApplication.Views
                 AppUtilities.ShowError($"An error occurred during login: {ex.Message}");
             }
         }
+        private void frmLogin_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                Application.Exit();
+            }
+        }
     }
 }
