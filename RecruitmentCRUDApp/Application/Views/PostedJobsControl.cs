@@ -31,25 +31,34 @@ namespace RecruitmentApplication.Views
             }
 
             var viewButtonColumn = new DataGridViewButtonColumn();
-            viewButtonColumn.Name = "colApplicants";
+            viewButtonColumn.Name = "Applicants";
             viewButtonColumn.HeaderText = "Applicants";
             viewButtonColumn.Text = "View";
             viewButtonColumn.UseColumnTextForButtonValue = true;
             dataGridPostedJobs.Columns.Add(viewButtonColumn);
 
             var editButtonColumn = new DataGridViewButtonColumn();
-            editButtonColumn.Name = "colEdit";
+            editButtonColumn.Name = "Edit";
             editButtonColumn.HeaderText = "Edit";
             editButtonColumn.Text = "Edit";
             editButtonColumn.UseColumnTextForButtonValue = true;
             dataGridPostedJobs.Columns.Add(editButtonColumn);
 
             var deleteButtonColumn = new DataGridViewButtonColumn();
-            deleteButtonColumn.Name = "colDelete";
+            deleteButtonColumn.Name = "Delete";
             deleteButtonColumn.HeaderText = "Delete";
             deleteButtonColumn.Text = "Delete";
             deleteButtonColumn.UseColumnTextForButtonValue = true;
             dataGridPostedJobs.Columns.Add(deleteButtonColumn);
+
+            foreach (DataGridViewColumn column in dataGridPostedJobs.Columns)
+            {
+                if (!(column is DataGridViewButtonColumn))
+                {
+                    column.SortMode = DataGridViewColumnSortMode.Programmatic;
+                }
+                column.ReadOnly = true;
+            }
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)
@@ -68,8 +77,8 @@ namespace RecruitmentApplication.Views
                         v.status AS Status,
                         v.work_mode AS WorkMode,
                         v.job_type AS JobType,
-                        v.post_date AS PostDate,
-                        v.deadline AS Deadline
+                        FORMAT(v.post_date, 'dd MMM yyyy') AS PostDate,
+                        FORMAT(v.deadline, 'dd MMM yyyy') AS Deadline
                     FROM 
                         Vacancy v
                         INNER JOIN Company c ON v.company_id = c.company_id
@@ -95,12 +104,12 @@ namespace RecruitmentApplication.Views
                                     string status = reader.GetString(reader.GetOrdinal("Status"));
                                     string workMode = reader.GetString(reader.GetOrdinal("WorkMode"));
                                     string jobType = reader.GetString(reader.GetOrdinal("JobType"));
-                                    DateTime postDate = reader.GetDateTime(reader.GetOrdinal("PostDate"));
+                                    string postDate = reader.GetString(reader.GetOrdinal("PostDate"));
 
-                                    DateTime? deadline = null;
+                                    string? deadline = null;
                                     if (!reader.IsDBNull(reader.GetOrdinal("Deadline")))
                                     {
-                                        deadline = reader.GetDateTime(reader.GetOrdinal("Deadline"));
+                                        deadline = reader.GetString(reader.GetOrdinal("Deadline"));
                                     }
 
                                     // add a new row
@@ -134,13 +143,13 @@ namespace RecruitmentApplication.Views
         {
             if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
 
-            if (dataGridPostedJobs.Columns[e.ColumnIndex].Name == "colApplicants")
+            if (dataGridPostedJobs.Columns[e.ColumnIndex].Name == "Applicants")
             {
                 int vacancyId = Convert.ToInt32(dataGridPostedJobs.Rows[e.RowIndex].Tag);
                 var applicantsForm = new ListOfApplicantsForm(vacancyId);
                 applicantsForm.ShowDialog();
             }
-            else if (dataGridPostedJobs.Columns[e.ColumnIndex].Name == "colEdit")
+            else if (dataGridPostedJobs.Columns[e.ColumnIndex].Name == "Edit")
             {
                 int vacancyId = Convert.ToInt32(dataGridPostedJobs.Rows[e.RowIndex].Tag);
                 var editForm = new EditJobForm(vacancyId);
@@ -150,7 +159,7 @@ namespace RecruitmentApplication.Views
                     btnRefresh_Click(this, EventArgs.Empty);
                 }
             }
-            else if (dataGridPostedJobs.Columns[e.ColumnIndex].Name == "colDelete")
+            else if (dataGridPostedJobs.Columns[e.ColumnIndex].Name == "Delete")
             {
                 int vacancyId = Convert.ToInt32(dataGridPostedJobs.Rows[e.RowIndex].Tag);
                 string jobTitle = dataGridPostedJobs.Rows[e.RowIndex].Cells[colJobTitle.Index].Value.ToString();

@@ -18,6 +18,7 @@ namespace RecruitmentApplication.Views
         public EditJobForm(int jobId)
         {
             InitializeComponent();
+            InitializeComboBoxes();
             this.jobId = jobId;
         }
 
@@ -196,6 +197,35 @@ namespace RecruitmentApplication.Views
             {
                 AppUtilities.ShowError($"Error loading job data: {ex.Message}");
             }
+        }
+
+        private void InitializeComboBoxes()
+        {
+            // Status options
+            cmboxStatus.Items.Add(AppUtilities.DatabaseConstants.VacancyStatus.Open);
+            cmboxStatus.Items.Add(AppUtilities.DatabaseConstants.VacancyStatus.Closed);
+            cmboxStatus.Items.Add(AppUtilities.DatabaseConstants.VacancyStatus.Hidden);
+            cmboxStatus.DropDownStyle = ComboBoxStyle.DropDownList;
+
+            // Experience level options
+            cmboxExpLevel.Items.Add(AppUtilities.DatabaseConstants.ExperienceLevels.Student);
+            cmboxExpLevel.Items.Add(AppUtilities.DatabaseConstants.ExperienceLevels.FreshGraduate);
+            cmboxExpLevel.Items.Add(AppUtilities.DatabaseConstants.ExperienceLevels.Junior);
+            cmboxExpLevel.Items.Add(AppUtilities.DatabaseConstants.ExperienceLevels.MidLevel);
+            cmboxExpLevel.Items.Add(AppUtilities.DatabaseConstants.ExperienceLevels.Senior);
+            cmboxExpLevel.DropDownStyle = ComboBoxStyle.DropDownList;
+
+            // Work mode options
+            cmboxWorkMode.Items.Add(AppUtilities.DatabaseConstants.WorkModes.OnSite);
+            cmboxWorkMode.Items.Add(AppUtilities.DatabaseConstants.WorkModes.Remote);
+            cmboxWorkMode.Items.Add(AppUtilities.DatabaseConstants.WorkModes.Hybrid);
+            cmboxWorkMode.DropDownStyle = ComboBoxStyle.DropDownList;
+
+            // Job type options
+            cmboxJobType.Items.Add(AppUtilities.DatabaseConstants.JobTypes.FullTime);
+            cmboxJobType.Items.Add(AppUtilities.DatabaseConstants.JobTypes.PartTime);
+            cmboxJobType.Items.Add(AppUtilities.DatabaseConstants.JobTypes.Internship);
+            cmboxJobType.DropDownStyle = ComboBoxStyle.DropDownList;
         }
     }
 }
