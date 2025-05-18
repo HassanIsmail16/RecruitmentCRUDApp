@@ -26,10 +26,10 @@ namespace RecruitmentApplication.Views
             string title = tboxTitle.Text.Trim();
             string description = tboxDescription.Text.Trim();
             string skills = tboxSkills.Text.Trim();
-            string status = cmboxStatus.SelectedItem?.ToString();
-            string expLevel = cmboxExpLevel.SelectedItem?.ToString();
-            string workMode = cmboxWorkMode.SelectedItem?.ToString();
-            string jobType = cmboxJobType.SelectedItem?.ToString();
+            string status = cmboxStatus.Text?.ToString();
+            string expLevel = cmboxExpLevel.Text?.ToString();
+            string workMode = cmboxWorkMode.Text?.ToString();
+            string jobType = cmboxJobType.Text?.ToString();
             DateTime deadline = dateDeadline.Value;
 
             // Validate title
@@ -37,22 +37,6 @@ namespace RecruitmentApplication.Views
             {
                 AppUtilities.ShowError($"Job title must be between {AppUtilities.ValidationRules.MinJobTitleLength} and {AppUtilities.ValidationRules.MaxJobTitleLength} characters.");
                 tboxTitle.Focus();
-                return false;
-            }
-
-            // Validate description
-            if (!AppUtilities.IsValidJobDescription(description))
-            {
-                AppUtilities.ShowError($"Job description must not exceed {AppUtilities.ValidationRules.MaxJobDescriptionLength} characters.");
-                tboxDescription.Focus();
-                return false;
-            }
-
-            // Validate skills
-            if (!AppUtilities.IsValidSkills(skills))
-            {
-                AppUtilities.ShowError($"Skills text must not exceed {AppUtilities.ValidationRules.MaxSkillsLength} characters.");
-                tboxSkills.Focus();
                 return false;
             }
 
@@ -122,7 +106,7 @@ namespace RecruitmentApplication.Views
                     {
                         try
                         {
-                            string updateQuery = @"UPDATE Vacancy 
+                            string updateQuery = @"UPDATE [Vacancy]
                                         SET title = @Title, 
                                             description = @Description, 
                                             skills = @Skills, 
@@ -138,10 +122,10 @@ namespace RecruitmentApplication.Views
                                 cmd.Parameters.AddWithValue("@Title", tboxTitle.Text.Trim());
                                 cmd.Parameters.AddWithValue("@Description", tboxDescription.Text.Trim());
                                 cmd.Parameters.AddWithValue("@Skills", tboxSkills.Text.Trim());
-                                cmd.Parameters.AddWithValue("@Status", cmboxStatus.SelectedItem.ToString());
-                                cmd.Parameters.AddWithValue("@ExpLevel", cmboxExpLevel.SelectedItem.ToString());
-                                cmd.Parameters.AddWithValue("@WorkMode", cmboxWorkMode.SelectedItem.ToString());
-                                cmd.Parameters.AddWithValue("@JobType", cmboxJobType.SelectedItem.ToString());
+                                cmd.Parameters.AddWithValue("@Status", cmboxStatus.Text.ToString());
+                                cmd.Parameters.AddWithValue("@ExpLevel", cmboxExpLevel.Text.ToString());
+                                cmd.Parameters.AddWithValue("@WorkMode", cmboxWorkMode.Text.ToString());
+                                cmd.Parameters.AddWithValue("@JobType", cmboxJobType.Text.ToString());
                                 cmd.Parameters.AddWithValue("@Deadline", dateDeadline.Value);
                                 cmd.Parameters.AddWithValue("@VacancyId", jobId);
 

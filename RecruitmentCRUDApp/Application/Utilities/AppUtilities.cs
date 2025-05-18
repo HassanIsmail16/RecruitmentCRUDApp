@@ -346,7 +346,7 @@ namespace RecruitmentApplication.Utilities
 
         public static bool IsValidDeadline(DateTime deadline)
         {
-            return deadline > DateTime.Now;
+            return deadline >= DateTime.Now;
         }
 
         public static bool IsValidBirthDate(DateTime birthDate)

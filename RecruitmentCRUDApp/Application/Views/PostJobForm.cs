@@ -39,22 +39,6 @@ namespace RecruitmentApplication.Views
                 return false;
             }
 
-            // Validate description
-            if (!AppUtilities.IsValidJobDescription(description))
-            {
-                AppUtilities.ShowError($"Job description must not exceed {AppUtilities.ValidationRules.MaxJobDescriptionLength} characters.");
-                tboxDescription.Focus();
-                return false;
-            }
-
-            // Validate skills
-            if (!AppUtilities.IsValidSkills(skills))
-            {
-                AppUtilities.ShowError($"Skills text must not exceed {AppUtilities.ValidationRules.MaxSkillsLength} characters.");
-                tboxSkills.Focus();
-                return false;
-            }
-
             // Validate experience level
             if (string.IsNullOrEmpty(expLevel) || !AppUtilities.IsValidExperienceLevel(expLevel))
             {
