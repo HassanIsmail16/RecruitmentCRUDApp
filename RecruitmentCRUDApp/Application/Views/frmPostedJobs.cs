@@ -111,7 +111,6 @@ namespace RecruitmentApplication.Views
                                 }
                             }
                         }
-                        dataGridPostedJobs.AutoResizeColumns();
                     }
                 }
             }
