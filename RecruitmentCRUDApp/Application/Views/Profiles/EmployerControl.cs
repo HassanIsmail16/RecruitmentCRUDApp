@@ -19,6 +19,7 @@ namespace RecruitmentApplication.Views.Profiles
         public EmployerControl()
         {
             InitializeComponent();
+            LoadCompanyDataIntoComboBox();
         }
         private void btnSaveChanges_Click(object sender, EventArgs e)
         {
@@ -90,7 +91,7 @@ namespace RecruitmentApplication.Views.Profiles
             string selectedCompany = comboBoxCompany.SelectedItem.ToString();
 
             int companyId = 0;
-            string getCompanyIdQuery = "SELECT company_id FROM Company WHERE company_name = @companyName";
+            string getCompanyIdQuery = "SELECT company_id FROM [Company] WHERE name = @companyName";
             using (SqlCommand companyIdCmd = new SqlCommand(getCompanyIdQuery, connection))
             {
                 companyIdCmd.Parameters.AddWithValue("@companyName", selectedCompany);
@@ -107,7 +108,7 @@ namespace RecruitmentApplication.Views.Profiles
             }
 
             string saveCompanyQuery =
-                "UPDATE [User] " +
+                "UPDATE [Employer] " +
                 "SET company_id = @companyId " +
                 "WHERE user_id = @userId;";
 
@@ -118,7 +119,7 @@ namespace RecruitmentApplication.Views.Profiles
             return saveCompanyCmd.ExecuteNonQuery();
         }
 
-        private void EmployerProfileControl_Load(object sender, EventArgs e)
+        private void EmployerControl_Load(object sender, EventArgs e)
         {
             if (Session.CurrentUserId.HasValue)
             {
@@ -166,42 +167,71 @@ namespace RecruitmentApplication.Views.Profiles
             textBox4.Text = "";
         }
 
-
-        private void EmployerControl_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void comboBoxCompany_Load(object sender, EventArgs e)
+        private void LoadCompanyDataIntoComboBox()
         {
             string connectionString = "Data Source=.;Initial Catalog=Recruitment;Integrated Security=True;TrustServerCertificate=True;";
+            int selectedIndex = -1;
+            string userCompanyName = GetUserCompanyName();
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                string query = "SELECT name FROM Company";
+                string query = "SELECT name FROM [Company]";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
+                using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    using (SqlDataReader reader = command.ExecuteReader())
+                    int i = 0;
+                    while (reader.Read())
                     {
-                        // Loop through the results
-                        while (reader.Read())
+                        string companyName = reader["name"].ToString();
+                        comboBoxCompany.Items.Add(companyName);
+
+                        if (companyName == userCompanyName)
                         {
-                            comboBoxCompany.Items.Add(reader["name"].ToString());
+                            selectedIndex = i;
                         }
+
+                        i++;
                     }
                 }
 
-                if (comboBoxCompany.Items.Count > 0)
+                comboBoxCompany.DropDownStyle = ComboBoxStyle.DropDownList;
+
+                if (selectedIndex != -1)
                 {
-                    comboBoxCompany.SelectedIndex = 0;
+                    comboBoxCompany.SelectedIndex = selectedIndex;
                 }
 
-                comboBoxCompany.DropDownStyle = ComboBoxStyle.DropDownList;
             }
         }
 
+        private string GetUserCompanyName()
+        {
+            string connectionString = "Data Source=.;Initial Catalog=Recruitment;Integrated Security=True;TrustServerCertificate=True;";
+            string companyName = "";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                string query = "SELECT C.name FROM [Employer] E JOIN [Company] C ON E.company_id = C.company_id WHERE E.user_id = @userId";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@userId", Session.CurrentUserId);
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            companyName = reader["name"].ToString();
+                        }
+                    }
+                }
+            }
+
+            return companyName;
+        }
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
@@ -213,11 +243,6 @@ namespace RecruitmentApplication.Views.Profiles
 
 
             createCompanyForm.ShowDialog();
-        }
-
-        private void btnSaveChangesCompany_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

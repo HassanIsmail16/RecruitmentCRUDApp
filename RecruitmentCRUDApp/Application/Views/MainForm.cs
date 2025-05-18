@@ -61,7 +61,8 @@ namespace RecruitmentApplication.Views
                     {
                         if (IsUserPartOfACompany())
                         {
-                            ShowControl(new PostedJobsControl());
+                            var postJobForm = new PostJobForm();
+                            postJobForm.ShowDialog();
                         }
                         else
                         {
