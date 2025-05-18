@@ -28,135 +28,123 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.panelHeader = new Panel();
-            this.btnRefresh = new Button();
-            this.labelPostedJobs = new Label();
-            this.dataGridPostedJobs = new DataGridView();
-            this.colCompanyName = new DataGridViewTextBoxColumn();
-            this.colJobTitle = new DataGridViewTextBoxColumn();
-            this.colStatus = new DataGridViewComboBoxColumn();
-            this.colWorkMode = new DataGridViewComboBoxColumn();
-            this.colJobType = new DataGridViewComboBoxColumn();
-            this.colPostDate = new DataGridViewTextBoxColumn();
-            this.colDeadline = new DataGridViewTextBoxColumn();
-            this.colApplicants = new DataGridViewButtonColumn();
-            this.colControl = new DataGridViewButtonColumn();
-            this.panelHeader.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize) this.dataGridPostedJobs).BeginInit();
-            this.SuspendLayout();
+            panelHeader = new Panel();
+            btnRefresh = new Button();
+            labelPostedJobs = new Label();
+            dataGridPostedJobs = new DataGridView();
+            colCompanyName = new DataGridViewTextBoxColumn();
+            colJobTitle = new DataGridViewTextBoxColumn();
+            colStatus = new DataGridViewComboBoxColumn();
+            colWorkMode = new DataGridViewComboBoxColumn();
+            colJobType = new DataGridViewComboBoxColumn();
+            colPostDate = new DataGridViewTextBoxColumn();
+            colDeadline = new DataGridViewTextBoxColumn();
+            panelHeader.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridPostedJobs).BeginInit();
+            SuspendLayout();
             // 
             // panelHeader
             // 
-            this.panelHeader.BackColor = Color.WhiteSmoke;
-            this.panelHeader.BorderStyle = BorderStyle.FixedSingle;
-            this.panelHeader.Controls.Add(this.btnRefresh);
-            this.panelHeader.Controls.Add(this.labelPostedJobs);
-            this.panelHeader.Location = new Point(15, 18);
-            this.panelHeader.Name = "panelHeader";
-            this.panelHeader.Size = new Size(1043, 56);
-            this.panelHeader.TabIndex = 4;
+            panelHeader.BackColor = Color.WhiteSmoke;
+            panelHeader.BorderStyle = BorderStyle.FixedSingle;
+            panelHeader.Controls.Add(btnRefresh);
+            panelHeader.Controls.Add(labelPostedJobs);
+            panelHeader.Location = new Point(15, 18);
+            panelHeader.Name = "panelHeader";
+            panelHeader.Size = new Size(1043, 56);
+            panelHeader.TabIndex = 4;
             // 
             // btnRefresh
             // 
-            this.btnRefresh.Location = new Point(927, 10);
-            this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new Size(103, 32);
-            this.btnRefresh.TabIndex = 4;
-            this.btnRefresh.Text = "Refresh";
-            this.btnRefresh.UseVisualStyleBackColor = true;
-            this.btnRefresh.Click += this.btnRefresh_Click;
+            btnRefresh.Location = new Point(927, 10);
+            btnRefresh.Name = "btnRefresh";
+            btnRefresh.Size = new Size(103, 32);
+            btnRefresh.TabIndex = 4;
+            btnRefresh.Text = "Refresh";
+            btnRefresh.UseVisualStyleBackColor = true;
+            btnRefresh.Click += btnRefresh_Click;
             // 
             // labelPostedJobs
             // 
-            this.labelPostedJobs.AutoSize = true;
-            this.labelPostedJobs.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point,  0);
-            this.labelPostedJobs.Location = new Point(3, 10);
-            this.labelPostedJobs.Name = "labelPostedJobs";
-            this.labelPostedJobs.Size = new Size(150, 32);
-            this.labelPostedJobs.TabIndex = 3;
-            this.labelPostedJobs.Text = "Posted Jobs";
+            labelPostedJobs.AutoSize = true;
+            labelPostedJobs.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            labelPostedJobs.Location = new Point(3, 10);
+            labelPostedJobs.Name = "labelPostedJobs";
+            labelPostedJobs.Size = new Size(150, 32);
+            labelPostedJobs.TabIndex = 3;
+            labelPostedJobs.Text = "Posted Jobs";
             // 
             // dataGridPostedJobs
             // 
-            this.dataGridPostedJobs.AllowUserToAddRows = false;
-            this.dataGridPostedJobs.AllowUserToDeleteRows = false;
-            this.dataGridPostedJobs.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridPostedJobs.Columns.AddRange(new DataGridViewColumn[] { this.colCompanyName, this.colJobTitle, this.colStatus, this.colWorkMode, this.colJobType, this.colPostDate, this.colDeadline, this.colApplicants, this.colControl });
-            this.dataGridPostedJobs.Location = new Point(15, 93);
-            this.dataGridPostedJobs.Name = "dataGridPostedJobs";
-            this.dataGridPostedJobs.Size = new Size(1043, 353);
-            this.dataGridPostedJobs.TabIndex = 3;
+            dataGridPostedJobs.AllowUserToAddRows = false;
+            dataGridPostedJobs.AllowUserToDeleteRows = false;
+            dataGridPostedJobs.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridPostedJobs.Columns.AddRange(new DataGridViewColumn[] { colCompanyName, colJobTitle, colStatus, colWorkMode, colJobType, colPostDate, colDeadline });
+            dataGridPostedJobs.Location = new Point(15, 93);
+            dataGridPostedJobs.Name = "dataGridPostedJobs";
+            dataGridPostedJobs.Size = new Size(1043, 353);
+            dataGridPostedJobs.TabIndex = 3;
             // 
             // colCompanyName
             // 
-            this.colCompanyName.HeaderText = "Company Name";
-            this.colCompanyName.MaxInputLength = 100;
-            this.colCompanyName.Name = "colCompanyName";
-            this.colCompanyName.ReadOnly = true;
-            this.colCompanyName.Width = 150;
+            colCompanyName.HeaderText = "Company Name";
+            colCompanyName.MaxInputLength = 100;
+            colCompanyName.Name = "colCompanyName";
+            colCompanyName.ReadOnly = true;
+            colCompanyName.Width = 150;
             // 
             // colJobTitle
             // 
-            this.colJobTitle.HeaderText = "Job Title";
-            this.colJobTitle.MaxInputLength = 100;
-            this.colJobTitle.Name = "colJobTitle";
-            this.colJobTitle.ReadOnly = true;
-            this.colJobTitle.Width = 150;
+            colJobTitle.HeaderText = "Job Title";
+            colJobTitle.MaxInputLength = 100;
+            colJobTitle.Name = "colJobTitle";
+            colJobTitle.ReadOnly = true;
+            colJobTitle.Width = 150;
             // 
             // colStatus
             // 
-            this.colStatus.HeaderText = "Status";
-            this.colStatus.Items.AddRange(new object[] { "Open", "Closed", "Hidden" });
-            this.colStatus.MaxDropDownItems = 3;
-            this.colStatus.Name = "colStatus";
+            colStatus.HeaderText = "Status";
+            colStatus.Items.AddRange(new object[] { "Open", "Closed", "Hidden" });
+            colStatus.MaxDropDownItems = 3;
+            colStatus.Name = "colStatus";
             // 
             // colWorkMode
             // 
-            this.colWorkMode.HeaderText = "Work Mode";
-            this.colWorkMode.Items.AddRange(new object[] { "On-Site", "Remote", "Hybrid" });
-            this.colWorkMode.MaxDropDownItems = 3;
-            this.colWorkMode.Name = "colWorkMode";
+            colWorkMode.HeaderText = "Work Mode";
+            colWorkMode.Items.AddRange(new object[] { "On-Site", "Remote", "Hybrid" });
+            colWorkMode.MaxDropDownItems = 3;
+            colWorkMode.Name = "colWorkMode";
             // 
             // colJobType
             // 
-            this.colJobType.HeaderText = "Job Type";
-            this.colJobType.Items.AddRange(new object[] { "Full-Time", "Part-Time", "Internship" });
-            this.colJobType.MaxDropDownItems = 3;
-            this.colJobType.Name = "colJobType";
+            colJobType.HeaderText = "Job Type";
+            colJobType.Items.AddRange(new object[] { "Full-Time", "Part-Time", "Internship" });
+            colJobType.MaxDropDownItems = 3;
+            colJobType.Name = "colJobType";
             // 
             // colPostDate
             // 
-            this.colPostDate.HeaderText = "Post Date";
-            this.colPostDate.Name = "colPostDate";
-            this.colPostDate.ReadOnly = true;
+            colPostDate.HeaderText = "Post Date";
+            colPostDate.Name = "colPostDate";
+            colPostDate.ReadOnly = true;
             // 
             // colDeadline
             // 
-            this.colDeadline.HeaderText = "Deadline";
-            this.colDeadline.Name = "colDeadline";
+            colDeadline.HeaderText = "Deadline";
+            colDeadline.Name = "colDeadline";
             // 
-            // colApplicants
+            // PostedJobsControl
             // 
-            this.colApplicants.HeaderText = "Applicants";
-            this.colApplicants.Name = "colApplicants";
-            // 
-            // colControl
-            // 
-            this.colControl.HeaderText = "Control";
-            this.colControl.Name = "colControl";
-            // 
-            // PostedJobControl
-            // 
-            this.AutoScaleDimensions = new SizeF(7F, 15F);
-            this.AutoScaleMode = AutoScaleMode.Font;
-            this.Controls.Add(this.panelHeader);
-            this.Controls.Add(this.dataGridPostedJobs);
-            this.Name = "PostedJobControl";
-            this.Size = new Size(1071, 456);
-            this.panelHeader.ResumeLayout(false);
-            this.panelHeader.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize) this.dataGridPostedJobs).EndInit();
-            this.ResumeLayout(false);
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(panelHeader);
+            Controls.Add(dataGridPostedJobs);
+            Name = "PostedJobsControl";
+            Size = new Size(1071, 456);
+            panelHeader.ResumeLayout(false);
+            panelHeader.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridPostedJobs).EndInit();
+            ResumeLayout(false);
         }
 
         #endregion
@@ -172,7 +160,5 @@
         private DataGridViewComboBoxColumn colJobType;
         private DataGridViewTextBoxColumn colPostDate;
         private DataGridViewTextBoxColumn colDeadline;
-        private DataGridViewButtonColumn colApplicants;
-        private DataGridViewButtonColumn colControl;
     }
 }

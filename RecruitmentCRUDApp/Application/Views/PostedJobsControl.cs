@@ -18,6 +18,7 @@ namespace RecruitmentApplication.Views
         {
             InitializeComponent();
             InitializeControlButtons();
+            dataGridPostedJobs.CellClick += DataGridPostedJobs_CellClick;
             btnRefresh_Click(this, EventArgs.Empty);
         }
 
@@ -27,6 +28,13 @@ namespace RecruitmentApplication.Views
             {
                 dataGridPostedJobs.Columns.Remove("colControl");
             }
+
+            var viewButtonColumn = new DataGridViewButtonColumn();
+            viewButtonColumn.Name = "colApplicants";
+            viewButtonColumn.HeaderText = "Applicants";
+            viewButtonColumn.Text = "View";
+            viewButtonColumn.UseColumnTextForButtonValue = true;
+            dataGridPostedJobs.Columns.Add(viewButtonColumn);
 
             var editButtonColumn = new DataGridViewButtonColumn();
             editButtonColumn.Name = "colEdit";
@@ -111,7 +119,6 @@ namespace RecruitmentApplication.Views
                                 }
                             }
                         }
-                        dataGridPostedJobs.AutoResizeColumns();
                     }
                 }
             }
@@ -119,6 +126,18 @@ namespace RecruitmentApplication.Views
             {
                 MessageBox.Show($"Error loading vacancy data: {ex.Message}", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void DataGridPostedJobs_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
+
+            if (dataGridPostedJobs.Columns[e.ColumnIndex].Name == "colApplicants")
+            {
+                int vacancyId = Convert.ToInt32(dataGridPostedJobs.Rows[e.RowIndex].Tag);
+                var applicantsForm = new ListOfApplicantsForm(vacancyId);
+                applicantsForm.ShowDialog();
             }
         }
     }

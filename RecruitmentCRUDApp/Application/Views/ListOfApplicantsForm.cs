@@ -14,9 +14,51 @@ namespace RecruitmentApplication.Views
 {
     public partial class ListOfApplicantsForm : Form
     {
-        public ListOfApplicantsForm()
+        private readonly int _vacancyId;
+
+        public ListOfApplicantsForm(int vacancyId)
         {
             InitializeComponent();
+            _vacancyId = vacancyId;
+            this.Text = "Job Applicants";
+            LoadJobDetails();
+            btnRefresh_Click(this, EventArgs.Empty);
+        }
+
+        private void LoadJobDetails()
+        {
+            string connectionString = "Data Source=.;Initial Catalog=Recruitment;Integrated Security=True;";
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string query = @"SELECT v.title, c.name as CompanyName 
+                                   FROM Vacancy v 
+                                   INNER JOIN Company c ON v.company_id = c.company_id 
+                                   WHERE v.vacancy_id = @vacancyId";
+
+                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    {
+                        cmd.Parameters.AddWithValue("@vacancyId", _vacancyId);
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                string jobTitle = reader.GetString(reader.GetOrdinal("title"));
+                                string companyName = reader.GetString(reader.GetOrdinal("CompanyName"));
+                                this.Text = $"Applicants for {jobTitle} - {companyName}";
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading job details: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)
@@ -29,7 +71,6 @@ namespace RecruitmentApplication.Views
                 {
                     connection.Open();
 
-                    // query to get application data with applicant name and job post date
                     string query = @"SELECT 
                                 ja.app_id,
                                 u.name AS ApplicantName, 
@@ -42,14 +83,13 @@ namespace RecruitmentApplication.Views
                                 INNER JOIN [User] u ON js.user_id = u.user_id
                                 INNER JOIN Vacancy v ON ja.vacancy_id = v.vacancy_id
                             WHERE 
-                                ja.employer_id = @employerId
+                                ja.vacancy_id = @vacancyId
                             ORDER BY 
                                 ja.app_date DESC";
 
                     using (SqlCommand cmd = new SqlCommand(query, connection))
                     {
-                        // add the current employer's ID as a parameter
-                        cmd.Parameters.AddWithValue("@employerId", Session.CurrentUserId);
+                        cmd.Parameters.AddWithValue("@vacancyId", _vacancyId);
 
                         // clear data grid rows
                         dataGridJobApplicants.Rows.Clear();
