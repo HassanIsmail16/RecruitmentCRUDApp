@@ -61,83 +61,6 @@ namespace RecruitmentApplication.Views
             }
         }
 
-        private void btnRefresh_Click(object sender, EventArgs e)
-        {
-            string connectionString = "Data Source=.;Initial Catalog=Recruitment;Integrated Security=True;";
-
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    connection.Open();
-
-                    string query = @"SELECT 
-                                ja.app_id,
-                                u.name AS ApplicantName, 
-                                ja.app_date AS ApplicationDate, 
-                                ja.status AS Status,
-                                v.post_date AS PostDate
-                            FROM 
-                                JobApplication ja
-                                INNER JOIN JobSeeker js ON ja.jobseeker_id = js.user_id
-                                INNER JOIN [User] u ON js.user_id = u.user_id
-                                INNER JOIN Vacancy v ON ja.vacancy_id = v.vacancy_id
-                            WHERE 
-                                ja.vacancy_id = @vacancyId
-                            ORDER BY 
-                                ja.app_date DESC";
-
-                    using (SqlCommand cmd = new SqlCommand(query, connection))
-                    {
-                        cmd.Parameters.AddWithValue("@vacancyId", _vacancyId);
-
-                        // clear data grid rows
-                        dataGridJobApplicants.Rows.Clear();
-
-                        // execute the reader
-                        using (SqlDataReader reader = cmd.ExecuteReader())
-                        {
-                            // check if we have any rows
-                            if (reader.HasRows)
-                            {
-                                while (reader.Read())
-                                {
-                                    // get data from the reader
-                                    int appId = reader.GetInt32(reader.GetOrdinal("app_id"));
-                                    string applicantName = reader.GetString(reader.GetOrdinal("ApplicantName"));
-                                    DateTime appDate = reader.GetDateTime(reader.GetOrdinal("ApplicationDate"));
-                                    string status = reader.GetString(reader.GetOrdinal("Status"));
-                                    DateTime postDate = reader.GetDateTime(reader.GetOrdinal("PostDate"));
-
-                                    // add a new row
-                                    int rowIndex = dataGridJobApplicants.Rows.Add();
-                                    DataGridViewRow row = dataGridJobApplicants.Rows[rowIndex];
-
-                                    // set values to each cell
-                                    row.Cells[colApplicantName.Index].Value = applicantName;
-                                    row.Cells[colAppDate.Index].Value = appDate;
-                                    row.Cells[colStatus.Index].Value = status;
-                                    row.Cells[colPostDate.Index].Value = postDate;
-
-                                    row.Tag = appId;
-                                }
-                            }
-                        }
-
-                        dataGridJobApplicants.AutoResizeColumns();
-                    }
-
-                    btnSaveChanges.Enabled = dataGridJobApplicants.Rows.Count > 0;
-                    btnCancel.Enabled = dataGridJobApplicants.Rows.Count > 0;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error loading application data: {ex.Message}", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
         private void btnSaveChanges_Click(object sender, EventArgs e)
         {
             string connectionString = "Data Source=.;Initial Catalog=Recruitment;Integrated Security=True;";
@@ -213,6 +136,88 @@ namespace RecruitmentApplication.Views
             catch (Exception ex)
             {
                 MessageBox.Show($"Error updating application statuses: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            string connectionString = "Data Source=.;Initial Catalog=Recruitment;Integrated Security=True;";
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    string query = @"SELECT 
+                                ja.app_id,
+                                u.name AS ApplicantName, 
+                                ja.app_date AS ApplicationDate, 
+                                ja.status AS Status,
+                                v.post_date AS PostDate
+                            FROM 
+                                JobApplication ja
+                                INNER JOIN JobSeeker js ON ja.jobseeker_id = js.user_id
+                                INNER JOIN [User] u ON js.user_id = u.user_id
+                                INNER JOIN Vacancy v ON ja.vacancy_id = v.vacancy_id
+                            WHERE 
+                                ja.vacancy_id = @vacancyId
+                            ORDER BY 
+                                ja.app_date DESC";
+
+                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    {
+                        cmd.Parameters.AddWithValue("@vacancyId", _vacancyId);
+
+                        // clear data grid rows
+                        dataGridJobApplicants.Rows.Clear();
+
+                        // execute the reader
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            // check if we have any rows
+                            if (reader.HasRows)
+                            {
+                                while (reader.Read())
+                                {
+                                    // get data from the reader
+                                    int appId = reader.GetInt32(reader.GetOrdinal("app_id"));
+                                    string applicantName = reader.GetString(reader.GetOrdinal("ApplicantName"));
+                                    DateTime appDate = reader.GetDateTime(reader.GetOrdinal("ApplicationDate"));
+                                    string status = reader.GetString(reader.GetOrdinal("Status"));
+                                    DateTime postDate = reader.GetDateTime(reader.GetOrdinal("PostDate"));
+
+                                    // add a new row
+                                    int rowIndex = dataGridJobApplicants.Rows.Add();
+                                    DataGridViewRow row = dataGridJobApplicants.Rows[rowIndex];
+
+                                    // set values to each cell
+                                    row.Cells[colApplicantName.Index].Value = applicantName;
+                                    row.Cells[colAppDate.Index].Value = appDate;
+                                    row.Cells[colStatus.Index].Value = status;
+                                    row.Cells[colPostDate.Index].Value = postDate;
+
+                                    row.Tag = appId;
+                                }
+                            }
+                        }
+
+                        dataGridJobApplicants.AutoResizeColumns();
+                    }
+
+                    btnSaveChanges.Enabled = dataGridJobApplicants.Rows.Count > 0;
+                    btnCancel.Enabled = dataGridJobApplicants.Rows.Count > 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading application data: {ex.Message}", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using Models;
+using RecruitmentApplication.Utilities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -138,6 +139,80 @@ namespace RecruitmentApplication.Views
                 int vacancyId = Convert.ToInt32(dataGridPostedJobs.Rows[e.RowIndex].Tag);
                 var applicantsForm = new ListOfApplicantsForm(vacancyId);
                 applicantsForm.ShowDialog();
+            }
+            else if (dataGridPostedJobs.Columns[e.ColumnIndex].Name == "colEdit")
+            {
+                int vacancyId = Convert.ToInt32(dataGridPostedJobs.Rows[e.RowIndex].Tag);
+                var editForm = new EditJobForm(vacancyId);
+                if (editForm.ShowDialog() == DialogResult.OK)
+                {
+                    // refresh the grid to show the new data
+                    btnRefresh_Click(this, EventArgs.Empty);
+                }
+            }
+            else if (dataGridPostedJobs.Columns[e.ColumnIndex].Name == "colDelete")
+            {
+                int vacancyId = Convert.ToInt32(dataGridPostedJobs.Rows[e.RowIndex].Tag);
+                string jobTitle = dataGridPostedJobs.Rows[e.RowIndex].Cells[colJobTitle.Index].Value.ToString();
+
+                var result = MessageBox.Show(
+                    $"Are you sure you want to delete the job '{jobTitle}'?\nThis action cannot be undone.",
+                    "Confirm Delete",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Warning);
+
+                if (result == DialogResult.Yes)
+                {
+                    try
+                    {
+                        using (SqlConnection connection = new SqlConnection(AppUtilities.DatabaseConstants.ConnectionString))
+                        {
+                            connection.Open();
+                            using (SqlTransaction transaction = connection.BeginTransaction())
+                            {
+                                try
+                                {
+                                    // delete any apps for this job
+                                    string deleteApplicationsQuery = "DELETE FROM JobApplication WHERE vacancy_id = @VacancyId";
+                                    using (SqlCommand cmd = new SqlCommand(deleteApplicationsQuery, connection, transaction))
+                                    {
+                                        cmd.Parameters.AddWithValue("@VacancyId", vacancyId);
+                                        cmd.ExecuteNonQuery();
+                                    }
+
+                                    // delete job
+                                    string deleteVacancyQuery = "DELETE FROM Vacancy WHERE vacancy_id = @VacancyId";
+                                    using (SqlCommand cmd = new SqlCommand(deleteVacancyQuery, connection, transaction))
+                                    {
+                                        cmd.Parameters.AddWithValue("@VacancyId", vacancyId);
+                                        int rowsAffected = cmd.ExecuteNonQuery();
+
+                                        if (rowsAffected > 0)
+                                        {
+                                            transaction.Commit();
+                                            MessageBox.Show("Job deleted successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                            btnRefresh_Click(this, EventArgs.Empty);
+                                        }
+                                        else
+                                        {
+                                            transaction.Rollback();
+                                            MessageBox.Show("Failed to delete job. The job may no longer exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                        }
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+                                    transaction.Rollback();
+                                    throw;
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error deleting job: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
             }
         }
     }
