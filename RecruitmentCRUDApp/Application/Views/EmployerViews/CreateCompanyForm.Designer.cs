@@ -147,9 +147,9 @@
             // 
             this.AutoScaleDimensions = new SizeF(7F, 15F);
             this.AutoScaleMode = AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.CancelButton = this.btnCancel;
             this.ClientSize = new Size(386, 488);
-            this.ControlBox = false;
             this.Controls.Add(this.textDescription);
             this.Controls.Add(this.textEmail);
             this.Controls.Add(this.textPhone);

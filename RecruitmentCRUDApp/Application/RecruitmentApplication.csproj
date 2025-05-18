@@ -32,7 +32,6 @@
 
   <ItemGroup>
     <Folder Include="Resources\" />
-    <Folder Include="Views\JobPostings\" />
   </ItemGroup>
 
 </Project>

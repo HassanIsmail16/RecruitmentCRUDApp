@@ -247,8 +247,8 @@ namespace RecruitmentApplication.Views
             // 
             this.AutoScaleDimensions = new SizeF(7F, 15F);
             this.AutoScaleMode = AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.ClientSize = new Size(352, 507);
-            this.ControlBox = false;
             this.Controls.Add(this.tboxCompanyName);
             this.Controls.Add(this.tboxTitle);
             this.Controls.Add(this.tboxJobType);

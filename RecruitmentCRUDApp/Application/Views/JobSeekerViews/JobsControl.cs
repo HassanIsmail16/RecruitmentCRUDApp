@@ -187,10 +187,11 @@ namespace RecruitmentApplication.Views
             FROM [Vacancy] v
             INNER JOIN Company c ON v.company_id = c.company_id
             INNER JOIN Employer e ON v.employer_id = e.user_id
-            INNER JOIN [User] u ON e.user_id = u.user_id";
+            INNER JOIN [User] u ON e.user_id = u.user_id
+            WHERE v.status = 'Open'";
 
                     if (!string.IsNullOrWhiteSpace(whereClause))
-                        getJobDataQuery += " WHERE " + whereClause;
+                        getJobDataQuery += " AND (" + whereClause + ")";
 
                     SqlCommand getJobDataCmd = new SqlCommand(getJobDataQuery, connection);
 
@@ -481,12 +482,11 @@ namespace RecruitmentApplication.Views
         private void Search()
         {
             string searchTerm = tboxSearchInput.Text.Trim();
-
-            List<string> allConditions = new List<string> { "v.status = 'Open'" };
+            string searchCondition = "";
 
             if (!string.IsNullOrEmpty(searchTerm))
             {
-                string searchCondition = $@"
+                searchCondition = $@"
             (v.title LIKE @searchTerm OR 
              v.description LIKE @searchTerm OR 
              v.skills LIKE @searchTerm OR
@@ -495,19 +495,24 @@ namespace RecruitmentApplication.Views
              v.experience_level LIKE @searchTerm OR
              c.name LIKE @searchTerm OR
              u.name LIKE @searchTerm)";
-
-                allConditions.Add(searchCondition);
             }
 
             string filterCondition = GetFilterCondition();
-            if (!string.IsNullOrWhiteSpace(filterCondition))
-            {
-                allConditions.Add(filterCondition);
-            }
 
-            string finalWhereClause = allConditions.Count > 0
-                ? string.Join(" AND ", allConditions)
-                : "";
+            string finalWhereClause = "";
+
+            if (!string.IsNullOrWhiteSpace(searchCondition) && !string.IsNullOrWhiteSpace(filterCondition))
+            {
+                finalWhereClause = searchCondition + " AND " + filterCondition;
+            }
+            else if (!string.IsNullOrWhiteSpace(searchCondition))
+            {
+                finalWhereClause = searchCondition;
+            }
+            else if (!string.IsNullOrWhiteSpace(filterCondition))
+            {
+                finalWhereClause = filterCondition;
+            }
 
             RefreshDataGridView(finalWhereClause, searchTerm);
         }

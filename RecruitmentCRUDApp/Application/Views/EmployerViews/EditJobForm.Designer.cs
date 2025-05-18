@@ -224,9 +224,9 @@
             // 
             this.AutoScaleDimensions = new SizeF(7F, 15F);
             this.AutoScaleMode = AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.CancelButton = this.btnCancel;
             this.ClientSize = new Size(388, 528);
-            this.ControlBox = false;
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.lblHeader);

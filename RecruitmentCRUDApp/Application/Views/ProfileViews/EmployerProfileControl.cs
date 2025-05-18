@@ -32,13 +32,13 @@ namespace RecruitmentApplication.Views.Profiles
                     int userChanges = SaveUserChanges(connection);
                     int companyChanges = SaveCompanySelection(connection);
 
-                    if (userChanges > 0 && companyChanges > 0)
+                    if (userChanges > 0 && companyChanges >= 0)
                     {
                         MessageBox.Show("Saved changes successfully", "Saved Successfully", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         return;
                     }
 
-                    if (companyChanges <= 0)
+                    if (companyChanges < 0)
                     {
                         MessageBox.Show("Couldn't save company selection changes.", "Save Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
@@ -84,7 +84,6 @@ namespace RecruitmentApplication.Views.Profiles
             // Get the selected company from combo box
             if (comboBoxCompany.SelectedItem == null)
             {
-                MessageBox.Show("Please select a company.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return 0;
             }
 
@@ -103,7 +102,7 @@ namespace RecruitmentApplication.Views.Profiles
                 else
                 {
                     MessageBox.Show("Selected company not found in database.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return 0;
+                    return -1;
                 }
             }
 
