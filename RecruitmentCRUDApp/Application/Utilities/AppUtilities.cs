@@ -144,8 +144,8 @@ namespace RecruitmentApplication.Utilities
                 return false;
 
             // Check for at least one uppercase letter
-            if (!Regex.IsMatch(password, @"[A-Z]"))
-                return false;
+            //if (!Regex.IsMatch(password, @"[A-Z]"))
+            //    return false;
 
             // Check for at least one lowercase letter
             if (!Regex.IsMatch(password, @"[a-z]"))
@@ -156,8 +156,8 @@ namespace RecruitmentApplication.Utilities
                 return false;
 
             // Check for at least one special character
-            if (!Regex.IsMatch(password, @"[!@#$%^&*(),.?""':{}|<>]"))
-                return false;
+            //if (!Regex.IsMatch(password, @"[!@#$%^&*(),.?""':{}|<>]"))
+            //    return false;
 
             return true;
         }
@@ -357,7 +357,7 @@ namespace RecruitmentApplication.Utilities
             var age = DateTime.Now.Year - birthDate.Year;
             if (birthDate > DateTime.Now.AddYears(-age)) age--;
 
-            return age >= 16 && age <= 100; // Assuming minimum age is 16 and maximum is 100
+            return age >= 0 && age <= 1000; // Assuming minimum age is 0 and maximum is 200
         }
 
         public static bool IsValidPreferredLocation(string location)

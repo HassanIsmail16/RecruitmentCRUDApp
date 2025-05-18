@@ -34,20 +34,6 @@ namespace RecruitmentApplication.Views
             string email = txtEmail.Text.Trim();
             string password = txtPassword.Text;
 
-            // Validate email
-            if (!AppUtilities.IsValidEmail(email))
-            {
-                AppUtilities.ShowError("Please enter a valid email address.");
-                return;
-            }
-
-            // Validate password is not empty
-            if (string.IsNullOrWhiteSpace(password))
-            {
-                AppUtilities.ShowError("Please enter your password.");
-                return;
-            }
-
             try
             {
                 using (SqlConnection connection = new SqlConnection(AppUtilities.DatabaseConstants.ConnectionString))

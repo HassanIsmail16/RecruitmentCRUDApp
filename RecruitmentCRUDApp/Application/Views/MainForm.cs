@@ -28,22 +28,18 @@ namespace RecruitmentApplication.Views
 
         private void ConfigureNavigation()
         {
-            // First configure the ToolStrip itself
             toolStrip1.LayoutStyle = ToolStripLayoutStyle.VerticalStackWithOverflow;
-            toolStrip1.AutoSize = false; // This is crucial!
-            toolStrip1.Size = new Size(175, 400); // Set fixed size for the entire ToolStrip
+            toolStrip1.AutoSize = false; 
+            toolStrip1.Size = new Size(175, 400); 
 
-            // Set image and text appearance
-            toolStrip1.ImageScalingSize = new Size(32, 32); // Standard icon size
-            toolStrip1.ShowItemToolTips = false; // Optional: disable tooltips
-
-            // Create buttons with consistent sizing
-            //var profileButton = CreateNavButton("Profile", null,
-            //    () => ShowControl(Session.UserType == "JobSeeker" ?
-            //        new JobSeekerProfileControl() :
-            //        new EmployerProfileControl()));
-
-            var profileButton = CreateNavButton("Profile", null, () => ShowControl(new JobSeekerProfileControl()));
+            toolStrip1.ImageScalingSize = new Size(32, 32); 
+            toolStrip1.ShowItemToolTips = false;
+            
+            // TODO: add icons
+            var profileButton = CreateNavButton("Profile", null,
+                () => ShowControl(Session.UserType == "JobSeeker" ?
+                   new JobSeekerProfileControl() :
+                   new EmployerControl()));
 
             toolStrip1.Items.Add(profileButton);
 
