@@ -158,9 +158,9 @@ namespace RecruitmentApplication.Views
                     string query = @"SELECT 
                                 ja.app_id,
                                 u.name AS ApplicantName, 
-                                ja.app_date AS ApplicationDate, 
+                                FORMAT(ja.app_date, 'dd MMM yyyy') AS ApplicationDate, 
                                 ja.status AS Status,
-                                v.post_date AS PostDate
+                                FORMAT(v.post_date, 'dd MMM yyyy') AS PostDate
                             FROM 
                                 JobApplication ja
                                 INNER JOIN JobSeeker js ON ja.jobseeker_id = js.user_id
@@ -189,9 +189,9 @@ namespace RecruitmentApplication.Views
                                     // get data from the reader
                                     int appId = reader.GetInt32(reader.GetOrdinal("app_id"));
                                     string applicantName = reader.GetString(reader.GetOrdinal("ApplicantName"));
-                                    DateTime appDate = reader.GetDateTime(reader.GetOrdinal("ApplicationDate"));
+                                    string appDate = reader.GetString(reader.GetOrdinal("ApplicationDate"));
                                     string status = reader.GetString(reader.GetOrdinal("Status"));
-                                    DateTime postDate = reader.GetDateTime(reader.GetOrdinal("PostDate"));
+                                    string postDate = reader.GetString(reader.GetOrdinal("PostDate"));
 
                                     // add a new row
                                     int rowIndex = dataGridJobApplicants.Rows.Add();
@@ -207,8 +207,6 @@ namespace RecruitmentApplication.Views
                                 }
                             }
                         }
-
-                        dataGridJobApplicants.AutoResizeColumns();
                     }
 
                     btnSaveChanges.Enabled = dataGridJobApplicants.Rows.Count > 0;

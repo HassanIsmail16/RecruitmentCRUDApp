@@ -32,10 +32,12 @@
             this.tboxAnswer = new RichTextBox();
             this.tableLayoutPanel1 = new TableLayoutPanel();
             this.panel1 = new Panel();
-            this.questionLabel = new Label();
+            this.panel2 = new Panel();
             this.header = new Label();
+            this.questionLabel = new Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // comboBoxQuestions
@@ -75,14 +77,35 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.panel2);
             this.panel1.Controls.Add(this.questionLabel);
-            this.panel1.Controls.Add(this.header);
             this.panel1.Controls.Add(this.comboBoxQuestions);
             this.panel1.Dock = DockStyle.Fill;
             this.panel1.Location = new Point(3, 3);
             this.panel1.Name = "panel1";
             this.panel1.Size = new Size(687, 124);
             this.panel1.TabIndex = 0;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.header);
+            this.panel2.Dock = DockStyle.Top;
+            this.panel2.Location = new Point(0, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new Size(687, 56);
+            this.panel2.TabIndex = 7;
+            // 
+            // header
+            // 
+            this.header.Anchor = AnchorStyles.None;
+            this.header.AutoSize = true;
+            this.header.Font = new Font("Segoe UI", 24F, FontStyle.Bold, GraphicsUnit.Point,  0);
+            this.header.Location = new Point(236, 6);
+            this.header.Name = "header";
+            this.header.Size = new Size(184, 45);
+            this.header.TabIndex = 5;
+            this.header.Text = "Dashboard";
+            this.header.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // questionLabel
             // 
@@ -92,16 +115,6 @@
             this.questionLabel.Size = new Size(188, 15);
             this.questionLabel.TabIndex = 6;
             this.questionLabel.Text = "Choose a question to be answered";
-            // 
-            // header
-            // 
-            this.header.AutoSize = true;
-            this.header.Font = new Font("Segoe UI", 24F, FontStyle.Bold, GraphicsUnit.Point,  0);
-            this.header.Location = new Point(239, 7);
-            this.header.Name = "header";
-            this.header.Size = new Size(184, 45);
-            this.header.TabIndex = 5;
-            this.header.Text = "Dashboard";
             // 
             // DashboardControl
             // 
@@ -114,6 +127,8 @@
             this.tableLayoutPanel1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
         }
 
@@ -125,5 +140,6 @@
         private Panel panel1;
         private Label header;
         private Label questionLabel;
+        private Panel panel2;
     }
 }
