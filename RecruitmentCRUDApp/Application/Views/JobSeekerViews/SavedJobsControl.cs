@@ -1,5 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
-using Models;
+using RecruitmentApplication.Utilities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

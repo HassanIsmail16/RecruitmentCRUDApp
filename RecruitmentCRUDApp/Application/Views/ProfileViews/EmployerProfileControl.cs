@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualBasic.ApplicationServices;
-using Models;
+using RecruitmentApplication.Utilities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,9 +14,9 @@ using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 namespace RecruitmentApplication.Views.Profiles
 {
-    public partial class EmployerControl : UserControl
+    public partial class EmployerProfileControl : UserControl
     {
-        public EmployerControl()
+        public EmployerProfileControl()
         {
             InitializeComponent();
             LoadCompanyDataIntoComboBox();
@@ -239,7 +239,7 @@ namespace RecruitmentApplication.Views.Profiles
 
         private void buttonCreateCompany_Click(object sender, EventArgs e)
         {
-            Form createCompanyForm = new frmCreateCompany();
+            Form createCompanyForm = new CreateCompanyForm();
 
 
             createCompanyForm.ShowDialog();

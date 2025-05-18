@@ -1,6 +1,6 @@
 ﻿namespace RecruitmentApplication.Views.Profiles
 {
-    partial class CompanyControl
+    partial class CompanyProfileControl
     {
         /// <summary> 
         /// Required designer variable.

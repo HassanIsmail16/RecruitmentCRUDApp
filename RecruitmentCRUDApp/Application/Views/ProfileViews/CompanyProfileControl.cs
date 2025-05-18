@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualBasic.ApplicationServices;
-using Models;
+using RecruitmentApplication.Utilities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,10 +14,10 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace RecruitmentApplication.Views.Profiles
 {
-    public partial class CompanyControl : UserControl
+    public partial class CompanyProfileControl : UserControl
     {
         private int companyId;
-        public CompanyControl(int companyId)
+        public CompanyProfileControl(int companyId)
         {
             InitializeComponent();
             this.companyId = companyId;

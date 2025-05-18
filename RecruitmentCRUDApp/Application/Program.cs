@@ -12,7 +12,7 @@ namespace RecruitmentApplication
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
 
-            Application.Run(new Views.frmLogin());
+            Application.Run(new Views.LoginForm());
             // Application.Run(new Views.frmPostedJobs());
         }
     }

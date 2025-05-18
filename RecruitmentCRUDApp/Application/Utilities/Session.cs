@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Models
+namespace RecruitmentApplication.Utilities
 {
     public static class Session
     {
@@ -20,7 +20,7 @@ namespace Models
         {
             CurrentUserId = null;
         }
-        
+
         public static bool IsAuthenticated => CurrentUserId != null;
 
     }

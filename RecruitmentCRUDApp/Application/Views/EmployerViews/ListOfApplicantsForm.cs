@@ -1,9 +1,8 @@
-﻿using Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -27,7 +26,7 @@ namespace RecruitmentApplication.Views
 
         private void LoadJobDetails()
         {
-            string connectionString = "Data Source=.;Initial Catalog=Recruitment;Integrated Security=True;";
+            string connectionString = "Data Source=.;Initial Catalog=Recruitment;Integrated Security=True;TrustServerCertificate=True;";
 
             try
             {
@@ -63,7 +62,7 @@ namespace RecruitmentApplication.Views
 
         private void btnSaveChanges_Click(object sender, EventArgs e)
         {
-            string connectionString = "Data Source=.;Initial Catalog=Recruitment;Integrated Security=True;";
+            string connectionString = "Data Source=.;Initial Catalog=Recruitment;Integrated Security=True;TrustServerCertificate=True;";
             int updatedCount = 0;
 
             try
@@ -147,7 +146,7 @@ namespace RecruitmentApplication.Views
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
-            string connectionString = "Data Source=.;Initial Catalog=Recruitment;Integrated Security=True;";
+            string connectionString = "Data Source=.;Initial Catalog=Recruitment;Integrated Security=True;TrustServerCertificate=True;";
 
             try
             {

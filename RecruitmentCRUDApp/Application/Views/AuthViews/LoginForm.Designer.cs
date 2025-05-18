@@ -1,6 +1,6 @@
 ﻿namespace RecruitmentApplication.Views
 {
-    partial class frmLogin
+    partial class LoginForm
     {
         /// <summary>
         /// Required designer variable.

@@ -1,6 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
 using Microsoft.IdentityModel.Tokens;
-using Models;
 using RecruitmentApplication.Utilities;
 using System;
 using System.Collections.Generic;

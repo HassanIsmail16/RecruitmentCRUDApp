@@ -1,5 +1,4 @@
-﻿using Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,9 +12,9 @@ using RecruitmentApplication.Utilities;
 
 namespace RecruitmentApplication.Views
 {
-    public partial class frmCreateCompany : Form
+    public partial class CreateCompanyForm : Form
     {
-        public frmCreateCompany()
+        public CreateCompanyForm()
         {
             InitializeComponent();
         }

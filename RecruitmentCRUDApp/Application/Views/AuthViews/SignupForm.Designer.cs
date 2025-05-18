@@ -1,6 +1,6 @@
 ﻿namespace RecruitmentApplication.Views.Auth
 {
-    partial class frmSignup
+    partial class SignupForm
     {
         /// <summary>
         /// Required designer variable.

@@ -1,5 +1,4 @@
 ﻿using Microsoft.VisualBasic.ApplicationServices;
-using Models;
 using RecruitmentApplication.Utilities;
 using System;
 using System.Collections.Generic;
@@ -184,7 +183,6 @@ namespace RecruitmentApplication.Views.Profiles
                                                                 U.birth_date, 
                                                                 U.signup_date, 
                                                                 J.skills, 
-                                                                J.resume, 
                                                                 J.interests 
                                                             FROM [User] U INNER JOIN [JobSeeker] J ON U.user_id = J.user_id 
                                                             WHERE U.user_id = @Id", conn))

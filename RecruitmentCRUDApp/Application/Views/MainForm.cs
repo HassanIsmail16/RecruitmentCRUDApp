@@ -1,5 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
-using Models;
+using RecruitmentApplication.Utilities;
 using RecruitmentApplication.Views.Auth;
 using RecruitmentApplication.Views.Profiles;
 using System;
@@ -43,7 +43,7 @@ namespace RecruitmentApplication.Views
             var profileButton = CreateNavButton("Profile", null,
                 () => ShowControl(Session.UserType == "JobSeeker" ?
                    new JobSeekerProfileControl() :
-                   new EmployerControl()));
+                   new EmployerProfileControl()));
 
             toolStrip1.Items.Add(profileButton);
 
@@ -80,7 +80,7 @@ namespace RecruitmentApplication.Views
                     {
                         if (IsUserPartOfACompany())
                         {
-                            ShowControl(new CompanyControl(GetUserCompanyId().Value));
+                            ShowControl(new CompanyProfileControl(GetUserCompanyId().Value));
                         }
                         else
                         {
@@ -205,7 +205,7 @@ namespace RecruitmentApplication.Views
         private void navLogoutBtn_Click(object sender, EventArgs e)
         {
             Session.Logout();
-            frmLogin loginForm = new frmLogin();
+            LoginForm loginForm = new LoginForm();
             this.Hide();
             loginForm.Show();
         }
@@ -213,7 +213,7 @@ namespace RecruitmentApplication.Views
         private void Logout()
         {
             Session.Logout();
-            frmLogin loginForm = new frmLogin();
+            LoginForm loginForm = new LoginForm();
             this.Hide();
             loginForm.Show();
         }

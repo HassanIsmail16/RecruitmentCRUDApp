@@ -1,5 +1,4 @@
-﻿using Models;
-using RecruitmentApplication.Views.Auth;
+﻿using RecruitmentApplication.Views.Auth;
 using RecruitmentApplication.Utilities;
 using System;
 using System.Collections.Generic;
@@ -15,16 +14,16 @@ using System.Windows.Forms;
 
 namespace RecruitmentApplication.Views
 {
-    public partial class frmLogin : Form
+    public partial class LoginForm : Form
     {
-        public frmLogin()
+        public LoginForm()
         {
             InitializeComponent();
         }
 
         private void linkSignup_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            frmSignup signupForm = new frmSignup();
+            SignupForm signupForm = new SignupForm();
             signupForm.Show();
             this.Hide();
         }

@@ -15,16 +15,16 @@ using RecruitmentApplication.Utilities;
 
 namespace RecruitmentApplication.Views.Auth
 {
-    public partial class frmSignup : Form
+    public partial class SignupForm : Form
     {
-        public frmSignup()
+        public SignupForm()
         {
             InitializeComponent();
         }
 
         private void linkLogin_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            var loginForm = new frmLogin();
+            var loginForm = new LoginForm();
             loginForm.Show();
             this.Hide();
         }
@@ -126,7 +126,7 @@ namespace RecruitmentApplication.Views.Auth
                     {
                         AppUtilities.ShowInfo("Account created successfully!");
 
-                        var loginForm = new frmLogin();
+                        var loginForm = new LoginForm();
                         loginForm.Show();
                         this.Hide();
                     } 
