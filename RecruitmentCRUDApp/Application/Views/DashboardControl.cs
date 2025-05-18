@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Microsoft.Data.SqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -11,16 +11,16 @@ using System.Windows.Forms;
 
 namespace RecruitmentApplication.Views
 {
-    public partial class QuestionsForm : Form
+    public partial class DashboardControl : UserControl
     {
         private string connectionString = "Data Source=.;Initial Catalog=Recruitment;Integrated Security=True;TrustServerCertificate=True;";
-
-        public QuestionsForm()
+        
+        public DashboardControl()
         {
             InitializeComponent();
         }
 
-        private void QuestionsForm_Load(object sender, EventArgs e)
+        private void DashboardControl_Load(object sender, EventArgs e)
         {
             comboBoxQuestions.Items.Add("What was the most interesting job \"title\" that had maximum number of applicants?");
             comboBoxQuestions.Items.Add("What was the announced job \"title\" that hadn't any applicants last month?");
@@ -56,13 +56,13 @@ namespace RecruitmentApplication.Views
                         string result = FormatQueryResult(command, comboBoxQuestions.SelectedIndex);
 
                         // Display the result in the label
-                        labelAnswer.Text = result;
+                        tboxAnswer.Text = result;
                     }
                 }
             }
             catch (Exception ex)
             {
-                labelAnswer.Text = "Error executing query: " + ex.Message;
+                tboxAnswer.Text = "Error executing query: " + ex.Message;
             }
         }
 

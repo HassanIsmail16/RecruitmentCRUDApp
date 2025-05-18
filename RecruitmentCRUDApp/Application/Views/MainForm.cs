@@ -24,6 +24,7 @@ namespace RecruitmentApplication.Views
             this.FormClosing += MainForm_FormClosing;
 
             ConfigureNavigation();
+            ShowControl(new DashboardControl());
         }
 
         private void ConfigureNavigation()
@@ -34,7 +35,10 @@ namespace RecruitmentApplication.Views
 
             toolStrip1.ImageScalingSize = new Size(32, 32); 
             toolStrip1.ShowItemToolTips = false;
-            
+
+            var dashboardButton = CreateNavButton("Dashboard", null, () => ShowControl(new DashboardControl()));
+            toolStrip1.Items.Add(dashboardButton);
+
             // TODO: add icons
             var profileButton = CreateNavButton("Profile", null,
                 () => ShowControl(Session.UserType == "JobSeeker" ?
