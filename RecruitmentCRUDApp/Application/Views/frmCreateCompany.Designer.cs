@@ -148,7 +148,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             CancelButton = btnCancel;
-            ClientSize = new Size(344, 451);
+            ClientSize = new Size(386, 451);
             ControlBox = false;
             Controls.Add(textDescription);
             Controls.Add(textEmail);
@@ -161,7 +161,6 @@
             Controls.Add(labelEmail);
             Controls.Add(labelCompanyName);
             Controls.Add(labelHeader);
-            MaximumSize = new Size(360, 490);
             MinimumSize = new Size(360, 490);
             Name = "frmCreateCompany";
             StartPosition = FormStartPosition.CenterScreen;
